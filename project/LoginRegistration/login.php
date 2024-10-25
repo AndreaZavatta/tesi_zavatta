@@ -2,15 +2,17 @@
 require "../db_connection.php";
 session_start();
 
-
 $errorMessage = '';
 
-// Select the database if not already done
-$connection->select_db($dbName);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    login($username, $password, $connection);
+}
 
-// Funzione per verificare il login
+// Function to verify login credentials
 function login($username, $password, $connection) {
-    global $errorMessage; // For handling error messages within the function
+    global $errorMessage;
 
     // Prepare and execute the query
     $stmt = $connection->prepare("SELECT * FROM admin WHERE username = ?");
@@ -28,12 +30,6 @@ function login($username, $password, $connection) {
         $errorMessage = "Username o password errati!";
     }
 }
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    login($username, $password, $connection);
-}
 ?>
 
 <!DOCTYPE html>
@@ -42,11 +38,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
-    <link rel="stylesheet" href="style.css"> <!-- Collegamento al file CSS esterno -->
+    <link rel="stylesheet" type="text/css" href="style.css"> <!-- Collegamento al file CSS esterno -->
+    <style>
+        .form-container {
+            width: 350px;
+            margin: 0 auto;
+            background-color: #f9f3e7; /* Light beige for a warm, soft look */
+            padding: 50px; /* Add some padding for aesthetics */
+            border-radius: 8px; /* Rounded corners for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+        }
+        .error-message {
+            color: red;
+        }
+        body {
+            background-color: #faebd7; /* Light brown color */
+        }
+    </style>
 </head>
 <body>
     <div class="form-container">
         <h2>Login Admin</h2>
+        
         <!-- Mostra messaggio di successo se viene dalla registrazione -->
         <?php if (isset($_GET['message']) && $_GET['message'] === 'success') : ?>
             <div class="success-message">Registrazione completata! Ora puoi accedere.</div>
@@ -54,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <!-- Mostra messaggio di errore se presente -->
         <?php if (!empty($errorMessage)) : ?>
-            <div class="message"><?php echo $errorMessage; ?></div>
+            <div class="error-message"><?php echo $errorMessage; ?></div>
         <?php endif; ?>
 
         <form action="login.php" method="POST">

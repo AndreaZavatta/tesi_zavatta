@@ -78,11 +78,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<link rel="stylesheet" type="text/css" href="style.css">
     <style>
         .form-container {
-            width: 300px;
+            width: 350px;
             margin: 0 auto;
+            background-color: #f9f3e7; /* Light beige for a warm, soft look */
+            padding: 50px; /* Add some padding for aesthetics */
+            border-radius: 8px; /* Rounded corners for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
         }
         .error-message {
             color: red;
+        }
+        body {
+            background-color: #faebd7; /* Light brown color */
         }
     </style>
     <script>

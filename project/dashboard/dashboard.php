@@ -6,60 +6,119 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard_style.css"> <!-- Collegamento al file CSS -->
     <script src="dashboard.js" defer></script> <!-- Collegamento al file JS separato -->
-    <style>
-        /* Spinner Styles */
-        .spinner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            z-index: 9999; /* Assicura che sia in cima a tutto */
-            display: none; /* Inizialmente nascosto */
-        }
+<style>
+    /* Set the background color for the dashboard */
+    body {
+        background-color: #faebd7; /* Light brown color */
+    }
 
-        .loader {
-            border: 8px solid #f3f3f3; /* Grigio chiaro */
-            border-top: 8px solid #3498db; /* Blu */
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 2s linear infinite;
-        }
+    .container {
+        background-color: #f9f3e7; /* Light beige for a warm, soft look */
+        padding: 20px; /* Add some padding for aesthetics */
+        border-radius: 8px; /* Rounded corners for the container */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    /* Text Color */
+    h2, h3, p {
+        color: #333333; /* Dark gray for headings and text */
+    }
 
-        /* Stili per il pulsante di eliminazione */
-        #delete-table-btn {
-            background-color: red; /* Rosso */
-            color: white; /* Testo bianco */
-            border: none; /* Nessun bordo */
-            padding: 5px 10px; /* Spaziatura interna */
-            font-size: 12px; /* Dimensione del testo più piccola */
-            cursor: pointer; /* Indicatore di puntatore */
-            border-radius: 5px; /* Angoli arrotondati */
-        }
+    /* Tab styles */
+    .tab {
+        padding: 10px 15px; /* Padding for tabs */
+        cursor: pointer; /* Pointer cursor for better UX */
+        background-color: #f0f0f0; /* Light gray background */
+        color: #333; /* Dark text color */
+        border: 1px solid #ccc; /* Border for the tabs */
+        border-radius: 5px; /* Rounded corners */
+        margin-right: 5px; /* Spacing between tabs */
+        transition: background-color 0.3s, color 0.3s; /* Transition for smooth effect */
+    }
 
-        #delete-table-btn:hover {
-            background-color: darkred; /* Colore più scuro al passaggio del mouse */
-        }
+    .tab.active {
+        background-color: #3498db; /* Active tab color */
+        color: white; /* White text for the active tab */
+    }
 
-        /* Stile per il riepilogo */
-        #summary {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            display: none; /* Inizialmente nascosto */
-        }
-    </style>
+    .tab:hover {
+        background-color: #d1e9ff; /* Light blue on hover */
+        color: #333; /* Keep text dark on hover */
+    }
+
+    /* Spinner Styles */
+    .spinner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 9999; /* Assicura che sia in cima a tutto */
+        display: none; /* Inizialmente nascosto */
+    }
+
+    .loader {
+        border: 8px solid #f3f3f3; /* Grigio chiaro */
+        border-top: 8px solid #3498db; /* Blu */
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Stili per il pulsante di eliminazione */
+    #delete-table-btn {
+        background-color: #e74c3c; /* Rosso */
+        color: white; /* Testo bianco */
+        border: none; /* Nessun bordo */
+        padding: 5px 10px; /* Spaziatura interna */
+        font-size: 12px; /* Dimensione del testo più piccola */
+        cursor: pointer; /* Indicatore di puntatore */
+        border-radius: 5px; /* Angoli arrotondati */
+    }
+
+    #delete-table-btn:hover {
+        background-color: #c0392b; /* Colore più scuro al passaggio del mouse */
+    }
+
+    /* Pulsante Carica File */
+    button {
+        background-color: #3498db; /* Blu */
+        color: white; /* Testo bianco */
+        border: none; /* Nessun bordo */
+        padding: 8px 15px; /* Spaziatura interna */
+        font-size: 14px; /* Dimensione del testo */
+        cursor: pointer; /* Indicatore di puntatore */
+        border-radius: 5px; /* Angoli arrotondati */
+        transition: background-color 0.3s; /* Transizione per effetto hover */
+    }
+
+    button:hover {
+        background-color: #2980b9; /* Colore più scuro al passaggio del mouse */
+    }
+
+    /* Stile per il riepilogo */
+    #summary {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        display: none; /* Inizialmente nascosto */
+        background-color: #ffffff; /* White background for summary */
+        color: #333333; /* Dark gray text color */
+    }
+</style>
+
+
 </head>
 <body>
     <div class="container">
@@ -98,7 +157,6 @@
             <p>Username: 
                 <?php
                 require "../db_connection.php";
-				session_start(); 
                 // Verifica se l'utente è loggato
                 if (isset($_SESSION['admin_id'])) {
                     $adminId = $_SESSION['admin_id'];

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<?php
+
+require "utilities.php";
+
+?>
+<html lang="en">
+	<template>
+
+	<head>
+		<?php echo stylesheets(); ?>
+		<title> Map </title>
+	</head>
+	<body class="container">
+		<fieldset>
+			<legend> Controlli </legend>
+			<div id="alerts">
+				
+			</div>
+			<div>
+				<label for="startDay">Giorno iniziale di cui visualizzare le informazioni:</label>
+				<input type="date" id="startDay" name="startDay" onChange="setDate()">
+			</div>
+			<div>
+				<label for="endDay">Giorno finale di cui visualizzare le informazioni:</label>
+				<input type="date" id="endDay" name="endDay" onChange="setDate()">
+			</div>
+			<div>
+				<label for="startTime">Inserire l'ora di inizio transito:</label>
+				<input type="time" id="startTime" name="startTime" onChange="setDate()">
+			</div>
+			<div>
+				<label for="endTime">Inserire l'ora di fine transito:</label>
+				<input type="time" id="endTime" name="endTime" onChange="setDate()">
+			</div>
+			<div>
+				<input type="checkbox" id="entireDay" onChange="setEntireDay()"/>
+				<label for="entireDay"> Giorno intero </label>
+			</div>
+			<div>
+				<input type="checkbox" id="singleDay" onChange="setSingleDay()"/>
+				<label for="singleDay"> Giorno singolo </label>
+			</div>
+
+		</fieldset>
+		<div id="map" name="map">
+		</div>
+		<?php echo scripts(); ?>
+	</body>
+</template>
+</html>

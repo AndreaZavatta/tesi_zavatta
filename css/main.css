@@ -1,0 +1,43 @@
+html, body{
+	height: 100%;
+	font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	background-color: antiquewhite;
+}
+
+#app{
+	height: 100%;
+}
+
+fieldset {
+	outline-style: solid;
+	outline-width: 1px;
+	outline-color:deepskyblue;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+fieldset > legend, div{
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+#map {
+	height: 80%;
+}
+
+.hide{
+	visibility: hidden;
+}
+
+@keyframes fade{
+	from {opacity: 0.5;}
+}
+
+.markerDirectionAnim{
+	animation: fade 1s infinite alternate;
+}
+
+h2{
+	text-align: center;
+}

@@ -1,17 +1,89 @@
-/* Stile per il contenitore delle tab */
+/* General Styles */
+body {
+	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+	background-color: #f0f4f8; /* Light background for a softer look */
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #ffffff; /* White background for the main container */
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+	text-align: center;
+	color: #333;
+}
+
+/* Spinner Styles */
+.spinner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.8);
+	z-index: 9999; /* Assicura che sia in cima a tutto */
+	display: none; /* Inizialmente nascosto */
+}
+
+.loader {
+	border: 8px solid #f3f3f3; /* Light gray */
+	border-top: 8px solid #007bff; /* Blue */
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* Styles for the delete button */
+#delete-table-btn {
+	background-color: #dc3545; /* Red */
+	color: white; /* White text */
+	border: none; /* No border */
+	padding: 8px 12px; /* Padding */
+	font-size: 14px; /* Font size */
+	cursor: pointer; /* Pointer cursor */
+	border-radius: 5px; /* Rounded corners */
+	transition: background-color 0.3s; /* Transition effect */
+}
+
+#delete-table-btn:hover {
+	background-color: #c82333; /* Darker red on hover */
+}
+
+/* Tab styles */
 .tab-container {
 	display: flex;
 	justify-content: center;
 	margin-bottom: 20px;
-	border-bottom: 2px solid #ccc;
+	border-bottom: 2px solid #007bff; /* Blue for tab border */
 }
 
 /* Stile per i singoli tab */
 .tab {
 	padding: 12px 20px;
 	margin: 0 5px;
-	background-color: #f0f0f0;
-	color: #333;
+	background-color: #f0f0f0; /* Light gray for tabs */
+	color: #007bff; /* Blue text */
 	font-size: 16px;
 	border: 1px solid #ddd;
 	border-radius: 8px 8px 0 0;
@@ -21,17 +93,23 @@
 
 /* Stile per il tab attivo */
 .tab.active {
-	background-color: #007bff;
-	color: white;
+	background-color: #007bff; /* Blue background for active tab */
+	color: white; /* White text for active tab */
 	border-bottom: 2px solid white; /* Nasconde il bordo inferiore del tab attivo */
 }
 
 /* Hover sui tab */
 .tab:hover {
-	background-color: #e0e0e0;
+	background-color: #e0e0e0; /* Light gray on hover */
 }
 
-/* Contenuto delle tab */
+/* Hover sui tab attivi */
+.tab.active:hover {
+	background-color: #0056b3; /* Darker blue when hovering over active tab */
+	color: white; /* Ensures the text stays white */
+}
+
+/* Content styles */
 .tab-content {
 	display: none;
 	padding: 20px;
@@ -42,12 +120,11 @@
 	margin-top: -2px;
 }
 
-/* Mostra il contenuto del tab attivo */
 .tab-content.active {
 	display: block;
 }
 
-/* Messaggi di successo e di errore */
+/* Success and error messages */
 .success-message,
 .error-message {
 	text-align: center;
@@ -58,41 +135,20 @@
 }
 
 .success-message {
-	background-color: #e6ffed;
-	color: #2f8a46;
+	background-color: #d4edda; /* Light green */
+	color: #155724; /* Dark green */
 }
 
 .error-message {
-	background-color: #ffe6e6;
-	color: #b32d2e;
+	background-color: #f8d7da; /* Light red */
+	color: #721c24; /* Dark red */
 }
 
-/* Stile generale per il contenitore */
-.container {
-	max-width: 800px;
-	margin: 0 auto;
-	padding: 20px;
-	background-color: #f9f9f9;
-	border-radius: 10px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-h2,
-h3 {
-	text-align: center;
-	color: #333;
-	font-weight: 600;
-}
-
-label {
-	display: block;
-	margin-bottom: 8px;
-	font-size: 14px;
-	color: #555;
-}
-
+/* Form styles */
 input[type="file"],
-input[type="password"] {
+input[type="password"],
+input[type="text"],
+input[type="email"] {
 	width: 100%;
 	padding: 10px;
 	margin-bottom: 20px;
@@ -104,14 +160,23 @@ input[type="password"] {
 button {
 	width: 100%;
 	padding: 10px;
-	background-color: #007bff;
+	background-color: #007bff; /* Blue */
 	color: white;
 	font-size: 16px;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+	transition: background-color 0.3s; /* Transition for hover effect */
 }
 
 button:hover {
-	background-color: #0056b3;
+	background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Summary styles */
+#summary {
+	margin-top: 20px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	display: none; /* Inizialmente nascosto */
 }

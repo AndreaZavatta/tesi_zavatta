@@ -1,23 +1,25 @@
-html, body{
+html,
+body {
 	height: 100%;
-	font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 	background-color: antiquewhite;
 }
 
-#app{
+#app {
 	height: 100%;
 }
 
 fieldset {
 	outline-style: solid;
 	outline-width: 1px;
-	outline-color:deepskyblue;
+	outline-color: deepskyblue;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	border-radius: 5px;
 }
 
-fieldset > legend, div{
+fieldset > legend,
+div {
 	margin-left: 5px;
 	margin-bottom: 5px;
 }
@@ -26,18 +28,20 @@ fieldset > legend, div{
 	height: 80%;
 }
 
-.hide{
+.hide {
 	visibility: hidden;
 }
 
-@keyframes fade{
-	from {opacity: 0.5;}
+@keyframes fade {
+	from {
+		opacity: 0.5;
+	}
 }
 
-.markerDirectionAnim{
+.markerDirectionAnim {
 	animation: fade 1s infinite alternate;
 }
 
-h2{
+h2 {
 	text-align: center;
 }

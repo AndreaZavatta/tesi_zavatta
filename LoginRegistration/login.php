@@ -1,22 +1,13 @@
 <?php
+require "../db_connection.php";
+session_start();
+
+
 $errorMessage = '';
 
-// Check if form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Set the session variables for the database connection based on user input
-    $_SESSION['host'] = $_POST['host']; // Assuming you also have host in the form
-    $_SESSION['port'] = $_POST['port']; // Assuming you also have port in the form
-    $_SESSION['db_username'] = $_POST['db_username']; // Assuming you also have db username in the form
-    $_SESSION['db_password'] = $_POST['db_password']; // Assuming you also have db password in the form
+// Select the database if not already done
+$connection->select_db($dbName);
 
-    // Include the database connection file
-    require "../db_connection.php"; // Connect to the database using session variables
-
-    // Proceed to login verification
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    login($username, $password, $connection);
-}
 // Funzione per verificare il login
 function login($username, $password, $connection) {
     global $errorMessage; // For handling error messages within the function

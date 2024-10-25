@@ -195,7 +195,19 @@ Una volta completata la configurazione e il caricamento dei dati, [clicca qui](h
 
 -   Seleziona i vari checkbox disponibili per attivare o disattivare le diverse sovrapposizioni sulla mappa.
 -   Una volta selezionate le opzioni desiderate, vedrai la mappa con le sovrapposizioni attive in base alle tue scelte. Questo ti permetterà di analizzare i dati sul traffico in modo più efficace.
+    ![Explorer Button in XAMPP](./project/images/imm5.png)
 
 ## Conclusione
 
-Questo progetto rappresenta un importante passo avanti nella visualizzazione e gestione dei dati sul traffico, combinando tecnologie moderne per fornire un'interfaccia utente intuitiva e funzionalità migliorate. Puoi contribuire ulteriormente al progetto suggerendo nuove funzionalità o miglioramenti!
+La reingegnerizzazione del database rappresenta un passo cruciale per migliorare la gestione e l'efficienza dei dati all'interno del progetto Traffic Heatmap. Attraverso un processo di normalizzazione, abbiamo ridotto la ridondanza dei dati e migliorato l'integrità referenziale, creando una struttura più robusta e facilmente manutenibile.
+
+Le seguenti migliorie sono state implementate:
+
+-   **Struttura Dati Ottimizzata**: Riorganizzazione delle tabelle per riflettere le relazioni reali tra i dati, garantendo una più semplice manipolazione e accesso alle informazioni.
+-   **Interfacce Utente Migliorate**: L'aggiunta di funzionalità di registrazione e login ha reso l'applicazione più sicura, permettendo un controllo migliore sull'accesso ai dati.
+
+-   **Facilità di Inserimento Dati**: Abbiamo implementato un'interfaccia user-friendly per il caricamento dei dati, riducendo il rischio di errori e migliorando l'esperienza dell'utente.
+
+Questi cambiamenti non solo hanno migliorato l'efficienza del sistema, ma hanno anche posizionato il progetto per futuri sviluppi e funzionalità avanzate. La reingegnerizzazione del database ha fornito una base solida per l'espansione delle capacità di analisi e visualizzazione dei dati, rendendo l'applicazione un potente strumento per monitorare e comprendere le dinamiche del traffico.
+
+Continueremo a cercare modi per ottimizzare ulteriormente il sistema e incoraggiamo i contributi della comunità per portare avanti questo progetto.

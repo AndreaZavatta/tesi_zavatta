@@ -39,14 +39,11 @@ createApp({
 		if(!this.wholeDay && parseInt(document.getElementById("endTime").value.split(":")[0]) !== 0 && parseInt(document.getElementById("startTime").value.split(":")[0]) > parseInt(document.getElementById("endTime").value.split(":")[0])){
 			this.alerts += "Attenzione: l'ora di inizio è più avanti dell'ora di fine<br>";
 		}
-		if(parseInt(new Date(document.getElementById("startDay").value).getFullYear()) < 2020 || parseInt(new Date(document.getElementById("startDay").value).getFullYear()) > 2022 || (singleDay && parseInt(new Date(document.getElementById("endDay").value).getFullYear()) > 2022) || (singleDay && parseInt(new Date(document.getElementById("endDay").value).getFullYear()) < 2020)){
-			this.alerts += "Attenzione: nel database sono presenti dati solo per gli anni dal 2020 al 2022<br>"
-		}
 		if(this.cyclingDays && (document.getElementById("rotationType").value === "day" || document.getElementById("rotationType").value === "week") && date_diff(new Date(document.getElementById("startDay").value), new Date(document.getElementById("endDay").value)) > 60){
 			this.alerts += "Per motivi di efficienza, non è possibile mostrare la rotazione giornaliera o settimanale per periodi superiori a 60 giorni."
 		}
 		else{
-			//console.log(date_diff(new Date(document.getElementById("startDay").value), new Date(document.getElementById("endDay"))));
+			
 		}
 	  },
 	  showHeatMap(){

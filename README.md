@@ -193,7 +193,6 @@ Per utilizzare l'applicazione, è necessario scaricare i dati delle rilevazioni 
 
 Una volta completata la configurazione e il caricamento dei dati, [clicca qui](http://localhost/tesi_zavatta/project) per avviare l'applicazione
 
--   Dopo aver effettuato il login, potrai vedere l'interfaccia dell'applicazione.
 -   Seleziona i vari checkbox disponibili per attivare o disattivare le diverse sovrapposizioni sulla mappa.
 -   Una volta selezionate le opzioni desiderate, vedrai la mappa con le sovrapposizioni attive in base alle tue scelte. Questo ti permetterà di analizzare i dati sul traffico in modo più efficace.
 

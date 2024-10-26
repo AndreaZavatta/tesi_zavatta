@@ -15,7 +15,7 @@ $host = $configData['host'];
 $username = $configData['user'];
 $password = $configData['password'];
 $port = isset($configData['port']) ? $configData['port'] : 3306;
-$dbName = $configData['database_mappa'];
+$dbName = $configData['database'];
 
 // Create a connection to the MySQL server
 $connection = new mysqli($host, $username, $password, '', $port);

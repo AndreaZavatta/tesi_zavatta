@@ -30,7 +30,7 @@ function get_traffic_data($startDate, $endDate, $startHour = 0, $endHour = 24, $
   //Dates are YYYY-MM-DD
   $time_start = microtime(true);
   $startDate = date_create($startDate, timezone_open("Europe/Rome"));
-  $connection = connection();
+  require './db_connection.php';
   $endDate = date_create($endDate, timezone_open("Europe/Rome"));
   //echo $endDate->format("Y-m-d");
   if ($startDate > $endDate){

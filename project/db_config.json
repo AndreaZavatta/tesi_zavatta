@@ -2,6 +2,5 @@
 	"host": "localhost",
 	"user": "root",
 	"password": "ErZava01",
-	"database_votazioni": "votazioni",
-	"database_mappa": "prova"
+	"database": "MonitoraggioCittadino"
 }

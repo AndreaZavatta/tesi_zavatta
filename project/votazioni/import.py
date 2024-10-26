@@ -46,9 +46,9 @@ except Exception as e:
 
 
 # Create database if not exists
-print("Creating or using database 'votazioni'...")
-cursor.execute("CREATE DATABASE IF NOT EXISTS "+db_config['database_votazioni'])
-cursor.execute("USE "+db_config['database_votazioni'])
+print("Creating or using database 'prova'...")
+cursor.execute("CREATE DATABASE IF NOT EXISTS "+db_config['database_mappa'])
+cursor.execute("USE "+db_config['database_mappa'])
 
 # Create tables
 print("Creating tables if they do not exist...")

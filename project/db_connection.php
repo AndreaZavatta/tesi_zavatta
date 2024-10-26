@@ -15,7 +15,7 @@ $host = $configData['host'];
 $username = $configData['user'];
 $password = $configData['password'];
 $port = isset($configData['port']) ? $configData['port'] : 3306;
-$dbName = $configData['database_votazioni'];
+$dbName = $configData['database_mappa'];
 
 // Create a connection to the MySQL server
 $connection = new mysqli($host, $username, $password, '', $port);
@@ -36,7 +36,7 @@ if ($dbCheck === FALSE) {
 if ($dbCheck->num_rows == 0) {
     $createDB = "CREATE DATABASE $dbName";
     if ($connection->query($createDB) === TRUE) {
-        echo "Database created successfully<br>";
+        
     } else {
         die("Error creating database: " . $connection->error);
     }

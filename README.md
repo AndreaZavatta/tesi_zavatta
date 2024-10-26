@@ -1,22 +1,27 @@
 # Database Re-engineering
 
-Questo progetto visualizza i dati sul traffico su una mappa interattiva utilizzando sovrapposizioni di heatmap per mostrare la densità dei veicoli in base alla posizione e al tempo. Il progetto originario è stato sviluppato per visualizzare i dati sulla mappa tramite **Leaflet** e **Heatmap.js**, con il supporto di PHP per il recupero e l'elaborazione dei dati.
+Questo progetto fornisce un'applicazione interattiva per visualizzare e analizzare dati complessi, con una divisione principale tra **dati sul traffico** e **dati sulle votazioni**. La visualizzazione del traffico avviene tramite sovrapposizioni di heatmap su mappa, mentre la sezione delle votazioni permette di consultare statistiche relative alla presenza e al voto.
+
+Il progetto originario è stato ripensato con l'integrazione di un database normalizzato e una nuova interfaccia utente, che offre strumenti di gestione e visualizzazione dei dati avanzati.
 
 ## Obiettivo del Progetto
 
-Il progetto iniziale era già sviluppato da un altro tesista e prevedeva la visualizzazione del traffico sulla mappa. In questo lavoro, è stato svolto un processo di reingegnerizzazione del database per:
+Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare le funzionalità originarie, includendo:
 
--   **Normalizzare i dati** e migliorare la struttura del database.
--   **Aggiungere funzionalità di registrazione, login e modifica password** per gestire l'accesso utenti.
--   **Facilitare l'inserimento dei dati** tramite un'interfaccia user-friendly.
--   **Ottimizzare l'applicazione** per utilizzare il nuovo database normalizzato.
+-   **Normalizzazione dei dati** per una struttura di database più efficiente e scalabile.
+-   **Aggiunta di funzionalità utente** come registrazione, login e modifica password.
+-   **Facilità di inserimento dati** tramite un'interfaccia user-friendly, con aggiornamento in tempo reale dell'avanzamento dell'importazione.
+-   **Ottimizzazione delle prestazioni** per supportare le due principali applicazioni:
+    -   **Visualizzazione dei dati sul traffico** tramite mappa interattiva e heatmap.
+    -   **Consultazione e visualizzazione delle votazioni** con statistiche dettagliate.
 
 ## Caratteristiche
 
--   **Mappa Interattiva**: Visualizza i dati sul traffico con sovrapposizioni di heatmap.
--   **Nuovo Database Normalizzato**: Dati ristrutturati per migliorare le performance e la coerenza.
--   **Gestione Utente**: Pagina di registrazione, login e modifica password.
--   **Interfaccia di Inserimento Dati**: Applicazione per facilitare l'inserimento e gestione dei dati di traffico.
+-   **Mappa Interattiva per il Traffico**: Visualizza il flusso veicolare su una mappa tramite **Leaflet** e **Heatmap.js**, con filtri per data e ora per un'analisi granulare del traffico.
+-   **Sezione Votazioni**: Fornisce statistiche su presenze e partecipazione al voto, permettendo l'analisi dei dati attraverso una struttura relazionale ottimizzata.
+-   **Nuovo Database Normalizzato**: Dati ristrutturati per migliorare le performance e la coerenza, con tabelle separate per le rilevazioni del traffico e le votazioni.
+-   **Gestione Utente**: Accesso sicuro tramite registrazione e login, con opzioni di modifica della password.
+-   **Interfaccia di Inserimento Dati**: Applicazione intuitiva per il caricamento dei dati sul traffico e sulle votazioni, con feedback visivo e avanzamento progressivo dell'importazione.
 
 ## Configurazione del Progetto
 

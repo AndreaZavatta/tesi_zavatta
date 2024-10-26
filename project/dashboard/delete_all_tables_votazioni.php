@@ -10,15 +10,15 @@ $deletedTables = [];
 // Drop each table
 foreach ($tables as $table) {
     $query = "DROP TABLE IF EXISTS $table";
-    if ($conn->query($query) === TRUE) {
+    if ($connection->query($query) === TRUE) {
         $deletedTables[] = $table;
     } else {
-        throw new Exception("Errore durante l'eliminazione della tabella $table: " . $conn->error);
+        throw new Exception("Errore durante l'eliminazione della tabella $table: " . $connection->error);
     }
 }
 
 // Close connection
-$conn->close();
+$connection->close();
 
 // Return success response
 echo json_encode([

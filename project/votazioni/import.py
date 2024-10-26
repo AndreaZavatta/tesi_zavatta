@@ -2,6 +2,10 @@ import json
 import pymysql
 import sys
 
+# Load database configuration from file
+with open('../db_config.json', 'r') as config_file:
+    db_config = json.load(config_file)
+
 # Check if file path argument is provided
 if len(sys.argv) < 2:
     print("No file path provided.")
@@ -10,19 +14,41 @@ if len(sys.argv) < 2:
 # Load JSON data from the file
 file_path = sys.argv[1]
 print(f"Loading JSON data from file: {file_path}")
-with open(file_path, 'r', encoding='utf-8') as file:
-    json_data = json.load(file)
+try:
+    with open(file_path, 'r', encoding='utf-8') as file:
+        json_data = json.load(file)
+    print("JSON data loaded successfully.")
+except json.JSONDecodeError as e:
+    print(f"Failed to parse JSON file: {e}")
+    sys.exit(1)
+except Exception as e:
+    print(f"Unexpected error while loading JSON: {e}")
+    sys.exit(1)
 
-# Connect to MySQL server
+
+# Connect to MySQL server using configuration details
 print("Connecting to MySQL server...")
-conn = pymysql.connect(host='localhost', user='root', password='ErZava01')
-cursor = conn.cursor()
-print("Connected successfully.")
+try:
+    print("Connecting to MySQL server...")
+    conn = pymysql.connect(
+        host=db_config['host'],
+        user=db_config['user'],
+        password=db_config['password'],
+    )
+    cursor = conn.cursor()
+    print("Connected successfully.")
+except pymysql.MySQLError as e:
+    print(f"MySQL connection error: {e}")
+    sys.exit(1)
+except Exception as e:
+    print(f"Unexpected error: {e}")
+    sys.exit(1)
+
 
 # Create database if not exists
 print("Creating or using database 'votazioni'...")
-cursor.execute("CREATE DATABASE IF NOT EXISTS votazioni")
-cursor.execute("USE votazioni")
+cursor.execute("CREATE DATABASE IF NOT EXISTS "+db_config['database_votazioni'])
+cursor.execute("USE "+db_config['database_votazioni'])
 
 # Create tables
 print("Creating tables if they do not exist...")

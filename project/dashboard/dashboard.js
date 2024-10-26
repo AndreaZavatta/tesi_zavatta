@@ -62,6 +62,41 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         });
+function uploadFileVotazioni() {
+    // Show spinner
+    document.getElementById('loading-spinner').style.display = 'flex';
+
+    // Prepare form data
+    const formData = new FormData(document.getElementById('upload-form-app2'));
+    progressInterval = setInterval(updateProgress, 1000); // Optional: if you have a progress bar
+
+    fetch('upload_json.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text()) // Change to text to log it first
+    .then(data => {
+        console.log(data); // Log the raw response
+        const jsonData = JSON.parse(data); // Then parse the JSON
+        if (jsonData.error) {
+            alert(jsonData.error); // Display error message if any
+        } else {
+            document.getElementById('successful-inserts').innerText = `Righe inserite: ${jsonData.successful_inserts}`;
+            document.getElementById('skipped-rows').innerText = `Righe saltate: ${jsonData.skipped_rows}`;
+            document.getElementById('total-rows').innerText = `Righe totali: ${jsonData.total_rows}`;
+            document.getElementById('summary').style.display = 'block'; // Show the summary
+            alert(jsonData.message); // Display success message
+        }
+        document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner after completion
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner on error
+        alert('Errore durante il caricamento o la lavorazione del file.');
+    });
+}
+
+
 
         function uploadFile() {
             // Show spinner
@@ -182,6 +217,12 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             uploadFile();
         };
+        document.getElementById('upload-form-app2').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            uploadFileVotazioni();
+
+        });
+
     });
 
 

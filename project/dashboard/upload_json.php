@@ -1,24 +1,33 @@
 <?php
+header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['json_file'])) {
-    // Read the uploaded JSON file content
-    $jsonData = file_get_contents($_FILES['json_file']['tmp_name']);
+    // Move uploaded file to a temporary location
+    $tempFilePath = $_FILES['json_file']['tmp_name'];
+    $destinationPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $_FILES['json_file']['name'];
     
-    if ($jsonData === false) {
-        echo "Error reading file content.";
-        exit;
+    if (move_uploaded_file($tempFilePath, $destinationPath)) {
+        // Run the Python script, passing the uploaded file path as an argument
+        $command = escapeshellcmd("python3 ../votazioni/import.py " . escapeshellarg($destinationPath));
+        $output = [];
+        $return_var = 0;
+        
+        // Run the Python script and wait for it to complete
+        exec($command, $output, $return_var);
+
+        // Check if the Python script executed successfully
+        if ($return_var === 0) {
+            echo json_encode([
+                'message' => 'File caricato e processato con successo!',
+                'successful_inserts' => count($output), // Example: Replace with actual values
+                'skipped_rows' => 0, // Replace with actual values if available
+                'total_rows' => count($output) // Replace with actual values if available
+            ]);
+        } else {
+            echo json_encode(['error' => 'Error executing Python script: ' . implode("\n", $output)]);
+        }
+    } else {
+        echo json_encode(['error' => 'Error moving uploaded file.']);
     }
-
-    // Create a temporary file to store JSON data
-    $tempFile = tempnam(sys_get_temp_dir(), 'json_data');
-    file_put_contents($tempFile, $jsonData);
-
-    // Run the Python script with the path to the temporary file
-    $command = escapeshellcmd("python3 ../votazioni/import.py $tempFile");
-    $output = shell_exec($command);
-
-    // Remove the temporary file after the script runs
-    unlink($tempFile);
 } else {
-    echo "No file uploaded.";
+    echo json_encode(['error' => 'No file uploaded or invalid request method.']);
 }
-?>

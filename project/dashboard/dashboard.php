@@ -47,7 +47,7 @@
             <!-- Section for Application 2 -->
             <fieldset>
                 <legend>Applicazione 2</legend>
-                <form id="upload-form-app2" action="upload_json.php" method="POST" enctype="multipart/form-data">
+                <form id="upload-form-app2" method="POST" enctype="multipart/form-data">
                     <label for="json_file">Seleziona il file JSON per Applicazione 2:</label>
                     <input type="file" id="json_file" name="json_file" accept=".json" required>
                     <button type="submit">Carica File per Applicazione 2</button>

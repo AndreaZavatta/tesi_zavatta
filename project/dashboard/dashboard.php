@@ -124,7 +124,7 @@
     <!-- Right-side menu for accessing applications -->
     <div class="sidebar">
         <button onclick="window.location.href='../';">Visualizza Mappa</button>
-        <button onclick="window.location.href='another_application.html';">Altra Applicazione</button>
+        <button onclick="window.location.href='../votazioni/';">Visualizza Votazioni</button>
     </div>
 
     <script>

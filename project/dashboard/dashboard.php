@@ -6,7 +6,6 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard_style.css"> <!-- Collegamento al file CSS -->
     <script src="dashboard.js" defer></script> <!-- Collegamento al file JS separato -->
-
 </head>
 <body>
     <div class="container">
@@ -45,11 +44,9 @@
             <p>Username: 
                 <?php
                 require "../db_connection.php";
-				session_start(); 
-                // Verifica se l'utente è loggato
+                session_start(); 
                 if (isset($_SESSION['admin_id'])) {
                     $adminId = $_SESSION['admin_id'];
-                    // Query per ottenere l'username
                     $query = "SELECT username FROM admin WHERE id = ?";
                     $stmt = $connection->prepare($query);
                     $stmt->bind_param('i', $adminId);
@@ -58,13 +55,13 @@
 
                     if ($result->num_rows > 0) {
                         $row = $result->fetch_assoc();
-                        echo htmlspecialchars($row['username']); // Visualizza l'username
+                        echo htmlspecialchars($row['username']);
                     } else {
                         echo "Errore nel recupero del profilo.";
                     }
 
-                    $stmt->close(); // Chiudi lo statement
-                    $connection->close(); // Chiudi la connessione
+                    $stmt->close();
+                    $connection->close();
                 } else {
                     echo "Non sei loggato.";
                 }
@@ -92,7 +89,7 @@
         <!-- Elemento per visualizzare il riepilogo -->
         <div id="summary" style="display: none;">
             <h3>Riepilogo Importazione</h3>
-            <button onclick="closeSummary()">Chiudi</button> <!-- Pulsante per chiudere il riepilogo -->
+            <button onclick="closeSummary()">Chiudi</button>
             <p id="successful-inserts"></p>
             <p id="skipped-rows"></p>
             <p id="total-rows"></p>
@@ -103,8 +100,13 @@
         <p><a href="logout.php">Logout</a></p>
     </div>
 
-    <script>
+    <!-- Right-side menu for accessing applications -->
+    <div class="sidebar">
+        <button onclick="window.location.href='../';">Visualizza Mappa</button>
+        <button onclick="window.location.href='another_application.html';">Altra Applicazione</button>
+    </div>
 
+    <script>
         function closeSummary() {
             document.getElementById('summary').style.display = 'none'; // Nascondi il riepilogo
         }

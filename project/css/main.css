@@ -2,39 +2,51 @@ html,
 body {
 	height: 100%;
 	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-	background-color: antiquewhite;
+	background-color: #f3e8eb; /* Light pink background to match red theme */
+	color: #3d4f5c; /* Dark gray for text readability */
 }
 
 #app {
 	height: 100%;
 }
 
+/* Fieldset styling */
 fieldset {
 	outline-style: solid;
 	outline-width: 1px;
-	outline-color: deepskyblue;
+	outline-color: #95132f; /* Rich red for fieldset outline */
 	margin-top: 10px;
 	margin-bottom: 10px;
 	border-radius: 5px;
+	background-color: #ffffff; /* White background inside fieldset */
 }
 
 fieldset > legend,
 div {
 	margin-left: 5px;
 	margin-bottom: 5px;
+	color: #95132f; /* Rich red for legends and div text */
 }
 
+/* Map styling */
 #map {
 	height: 80%;
+	background-color: #ffe4e6; /* Very light pink for a subtle background */
+	border-radius: 5px;
 }
 
+/* Hidden elements */
 .hide {
 	visibility: hidden;
 }
 
+/* Fade animation */
 @keyframes fade {
 	from {
 		opacity: 0.5;
+	}
+	to {
+		opacity: 1;
 	}
 }
 
@@ -42,6 +54,25 @@ div {
 	animation: fade 1s infinite alternate;
 }
 
+/* Heading styling */
 h2 {
 	text-align: center;
+	color: #95132f; /* Rich red for heading */
+}
+
+/* Button styles */
+button {
+	background-color: #95132f; /* Rich red button background */
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s;
+	margin: 5px 0;
+}
+
+button:hover {
+	background-color: #740019; /* Darker red on hover */
 }

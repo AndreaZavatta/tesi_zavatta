@@ -26,16 +26,37 @@
         </div>
 
         <!-- Tab contenuto: Caricamento CSV -->
-        <div class="tab-content active">
+<div class="tab-content active">
             <h3>Carica file CSV</h3>
-            <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
-                <label for="csv_file">Seleziona il file CSV:</label>
-                <input type="file" name="csv_file" accept=".csv" required>
-                <button type="submit">Carica File</button>
-            </form>
+            
+            <!-- Section for Application 1 -->
+            <fieldset>
+                <legend>Mappa</legend>
+                <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
+                    <label for="csv_file_app1">Seleziona il file CSV per visualizzare i dati sulla mappa</label>
+                    <input type="file" id="csv_file_app1" name="csv_file" accept=".csv" required>
+                    <button type="submit">Carica File per mappa</button>
+                
+                </form>
+                <div id="delete_container">
+                    <button id="delete-table-btn" onclick="deleteAllTables();">Elimina Tabelle per mappa</button>
+                </div>
+                <!-- Button to delete the table for Application 1 -->
+            </fieldset>
 
-            <!-- Button to delete the table -->
-            <button id="delete-table-btn" onclick="deleteAllTables();">Elimina Tabelle</button>
+            <!-- Section for Application 2 -->
+            <fieldset>
+                <legend>Applicazione 2</legend>
+                <form id="upload-form-app2" onsubmit="event.preventDefault(); uploadFile('app2');">
+                    <label for="csv_file_app2">Seleziona il file CSV per Applicazione 2:</label>
+                    <input type="file" id="csv_file_app2" name="csv_file" accept=".csv" required>
+                    <button type="submit">Carica File per Applicazione 2</button>
+                </form>
+                <div id="delete_container">
+                    <button id="delete-table-btn-app2" onclick="deleteTables('app2');">Elimina Tabelle Applicazione 2</button>
+                </div>
+                <!-- Button to delete the table for Application 2 -->
+            </fieldset>
         </div>
 
         <!-- Tab contenuto: Profilo -->

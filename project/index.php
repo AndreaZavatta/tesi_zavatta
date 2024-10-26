@@ -77,6 +77,9 @@ $years = [2019, 2020, 2021];
 					<input type="checkbox" id="animatedMarkers" @click="toggleAnimatedMarkers"/>
 					<label id="animatedMarkersLabel" for="animatedMarkers"> Animazioni segnalini </label>
 				</div>
+				<button onclick="window.location.href='./dashboard/dashboard.php'" style="margin: 10px; padding: 8px 16px; background-color: #95132f; color: white; border: none; border-radius: 5px; cursor: pointer;">
+					← Torna alla Dashboard
+				</button>
 				<!--div>
 					<label id="heatMapZonesRangeLabel" for="heatMapZonesRange"> Dimensione dell'area da considerare: </label>
 					<input type="range" id="heatMapZonesRange" name="heatMapZonesRange" value="3" min="1" max="10">

@@ -126,6 +126,7 @@ h2 {
 form {
 	display: flex;
 	flex-direction: column;
+	gap: 10px;
 }
 
 /* Styles for the delete button */
@@ -234,6 +235,12 @@ input[type="email"] {
 	font-size: 16px;
 }
 
+#delete_container {
+	margin-top: 10px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
 button {
 	margin: auto;
 	padding: 10px;

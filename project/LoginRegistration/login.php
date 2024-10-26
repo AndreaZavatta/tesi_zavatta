@@ -51,9 +51,6 @@ function login($username, $password, $connection) {
         .error-message {
             color: red;
         }
-        body {
-            background-color: #faebd7; /* Light brown color */
-        }
     </style>
 </head>
 <body>

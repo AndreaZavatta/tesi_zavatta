@@ -88,9 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .error-message {
             color: red;
         }
-        body {
-            background-color: #faebd7; /* Light brown color */
-        }
     </style>
     <script>
         function validatePassword() {

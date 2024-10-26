@@ -164,7 +164,7 @@ Per modificare le impostazioni di PHP, è necessario aggiornare il file `php.ini
     - Dopo aver completato la registrazione, verrai reindirizzato alla schermata di accesso.
 
 2. **Accesso**:
-    - Dopo essersi registrati si verrà rediretti direttamente alla pagina di registrazione che si può trovare anche a [questo link](http://localhost/tesi_zavatta/project/LoginRegistration/register.php)
+    - Dopo essersi registrati si verrà rediretti direttamente alla pagina di registrazione che si può trovare anche a [questo link](http://localhost/tesi_zavatta/project/LoginRegistration/login.php)
     - Inserisci le tue credenziali (username e password) nella schermata di accesso.
     - Se il login ha successo, sarai reindirizzato alla pagina principale dell'applicazione.
 

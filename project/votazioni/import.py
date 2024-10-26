@@ -1,5 +1,17 @@
 import json
 import pymysql
+import sys
+
+# Check if file path argument is provided
+if len(sys.argv) < 2:
+    print("No file path provided.")
+    sys.exit(1)
+
+# Load JSON data from the file
+file_path = sys.argv[1]
+print(f"Loading JSON data from file: {file_path}")
+with open(file_path, 'r', encoding='utf-8') as file:
+    json_data = json.load(file)
 
 # Connect to MySQL server
 print("Connecting to MySQL server...")
@@ -51,13 +63,9 @@ CREATE TABLE IF NOT EXISTS votazioni (
 """)
 print("Tables are set up.")
 
-# Load the JSON file
-print("Loading data from 'presenze-e-votazioni.json'...")
-with open('presenze-e-votazioni.json', 'r', encoding='utf-8') as f:
-    json_data = json.load(f)
-print(f"Loaded {len(json_data)} records from JSON file.")
+# Process JSON data
+print(f"Loaded {len(json_data)} records from JSON data.")
 
-# Processing records
 for i, record in enumerate(json_data, start=1):
     print(f"Processing record {i}/{len(json_data)}...")
 

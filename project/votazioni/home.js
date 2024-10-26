@@ -243,16 +243,16 @@ app.component('mobile-nav', {
     template: `
         <nav id="nav-mobile" class="m-0 p-0 row">
             <ul class="m-0 p-0 row col-12">
-                <li class="m-0 p-0 row col-4">
+                <li class="m-0 p-0 row col-3">
                     <button class="col-12 m-0" :class="{'selected-button': tts == 'sedute'}" id="sedute-button" @click="changeTable('sedute')">Sedute</button>
                 </li>
-                <li class="m-0 p-0 row col-4">
+                <li class="m-0 p-0 row col-3">
                     <button class="col-12 m-0" :class="{'selected-button': tts == 'consiglieri'}" id="consiglieri-button" @click="changeTable('consiglieri')">Consiglieri</button>
                 </li>
-                <li class="m-0 p-0 row col-4">
+                <li class="m-0 p-0 row col-3">
                     <button class="col-12 m-0" :class="{'selected-button': tts == 'gruppi'}" id="gruppi-button" @click="changeTable('gruppi')">Gruppi</button>
                 </li>
-                <li class="m-0 p-0 row col-4">
+                <li class="m-0 p-0 row col-3">
                     <button class="col-12 m-0" :class="{'selected-button': tts == 'dashboard'}" id="dashboard-button" @click="goToDashboard()">Dashboard</button>
                 </li>
             </ul>

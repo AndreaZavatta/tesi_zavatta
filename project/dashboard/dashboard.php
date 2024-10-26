@@ -39,7 +39,7 @@
                 
                 </form>
                 <div id="delete_container">
-                    <button id="delete-table-btn" onclick="deleteAllTables();">Elimina Tabelle per mappa</button>
+                    <button id="delete-table-btn" onclick="deleteAllTablesMap();">Elimina Tabelle per mappa</button>
                 </div>
                 <!-- Button to delete the table for Application 1 -->
             </fieldset>
@@ -47,15 +47,14 @@
             <!-- Section for Application 2 -->
             <fieldset>
                 <legend>Applicazione 2</legend>
-                <form id="upload-form-app2" onsubmit="event.preventDefault(); uploadFile('app2');">
-                    <label for="csv_file_app2">Seleziona il file CSV per Applicazione 2:</label>
-                    <input type="file" id="csv_file_app2" name="csv_file" accept=".csv" required>
+                <form id="upload-form-app2" action="upload_json.php" method="POST" enctype="multipart/form-data">
+                    <label for="json_file">Seleziona il file JSON per Applicazione 2:</label>
+                    <input type="file" id="json_file" name="json_file" accept=".json" required>
                     <button type="submit">Carica File per Applicazione 2</button>
                 </form>
                 <div id="delete_container">
-                    <button id="delete-table-btn-app2" onclick="deleteTables('app2');">Elimina Tabelle Applicazione 2</button>
+                    <button id="delete-table-btn-app2" onclick="deleteAllTablesVotazioni();">Elimina Tabelle Applicazione 2</button>
                 </div>
-                <!-- Button to delete the table for Application 2 -->
             </fieldset>
         </div>
 

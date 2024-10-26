@@ -115,9 +115,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-        window.deleteAllTables = function() {
+        window.deleteAllTablesMap = function() {
             if (confirm("Sei sicuro di voler eliminare tutte le tabelle? Questa azione è irreversibile.")) {
-                fetch('delete_all_tables.php', {
+                fetch('delete_all_tables_map.php', {
                 method: 'POST'
             })
             .then(response => response.text()) // Use text() to log the raw response
@@ -146,6 +146,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
             }
         };
+
+        window.deleteAllTablesVotazioni = function() {
+            if (confirm("Sei sicuro di voler eliminare tutte le tabelle di votazioni? Questa azione è irreversibile.")) {
+                fetch('delete_all_tables_votazioni.php', {
+                    method: 'POST'
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data); // Log the raw HTML response to see what the error is
+                    try {
+                        const jsonData = JSON.parse(data);
+                        if (jsonData.error) {
+                            alert("Errore: " + jsonData.error);
+                        } else {
+                            alert(jsonData.message);
+                            document.getElementById('deleted-rows').innerText = `Tabelle votazioni eliminate: ${jsonData.deleted_tables}`;
+                            document.getElementById('summary').style.display = 'block';
+                        }
+                    } catch (err) {
+                        console.error('Error parsing JSON:', err);
+                        alert('Errore: la risposta del server non è in formato JSON.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Errore durante la richiesta di eliminazione di tutte le tabelle di votazioni.");
+                });
+            }
+        };
+
 
         // Attach to form submission
         document.getElementById("upload-form").onsubmit = function(event) {

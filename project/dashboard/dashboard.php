@@ -46,14 +46,14 @@
 
             <!-- Section for Application 2 -->
             <fieldset>
-                <legend>Applicazione 2</legend>
+                <legend>Votazioni</legend>
                 <form id="upload-form-app2" method="POST" enctype="multipart/form-data">
-                    <label for="json_file">Seleziona il file JSON per Applicazione 2:</label>
+                    <label for="json_file">Seleziona il file JSON per visualizzare le votazioni:</label>
                     <input type="file" id="json_file" name="json_file" accept=".json" required>
-                    <button type="submit">Carica File per Applicazione 2</button>
+                    <button type="submit">Carica File per votazioni</button>
                 </form>
                 <div id="delete_container">
-                    <button id="delete-table-btn-app2" onclick="deleteAllTablesVotazioni();">Elimina Tabelle Applicazione 2</button>
+                    <button id="delete-table-btn-app2" onclick="deleteAllTablesVotazioni();">Elimina Tabelle votazioni</button>
                 </div>
             </fieldset>
         </div>

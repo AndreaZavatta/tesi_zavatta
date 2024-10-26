@@ -1,4 +1,4 @@
-# Traffic Heatmap Project - Database Re-engineering
+# Database Re-engineering
 
 Questo progetto visualizza i dati sul traffico su una mappa interattiva utilizzando sovrapposizioni di heatmap per mostrare la densità dei veicoli in base alla posizione e al tempo. Il progetto originario è stato sviluppato per visualizzare i dati sulla mappa tramite **Leaflet** e **Heatmap.js**, con il supporto di PHP per il recupero e l'elaborazione dei dati.
 
@@ -58,13 +58,24 @@ Il progetto iniziale era già sviluppato da un altro tesista e prevedeva la visu
         npm install
         ```
 
-### Avviare Apache e MySQL con XAMPP
+### Avviare Apache, MySQL con XAMPP e il server Node.js
 
-1. **Avvia XAMPP Control Panel**:
+1. **Avviare il server Node.js**:
+
+    - Naviga nella cartella `votazioni` del progetto.
+    - Apri un terminale nella cartella e digita:
+
+        ```bash
+        node server.js
+        ```
+
+    - Assicurati che il terminale rimanga aperto per mantenere attivo il server.
+
+2. **Avvia XAMPP Control Panel**:
 
     - Dopo aver installato XAMPP, apri il **XAMPP Control Panel**.
 
-2. **Avvia Apache e MySQL**:
+3. **Avvia Apache e MySQL**:
 
     - Nella sezione **Modules**, troverai **Apache** e **MySQL**.
     - Fai clic su **Start** accanto a entrambi i moduli.
@@ -72,7 +83,7 @@ Il progetto iniziale era già sviluppato da un altro tesista e prevedeva la visu
 
         ![Start Apache e MySQL via XAMPP](./project/images/imm1.png)
 
-3. **Problemi con MySQL sulla porta 3306**:
+4. **Problemi con MySQL sulla porta 3306**:
 
     - Se MySQL non si avvia, potrebbe esserci un altro processo che sta già utilizzando la porta 3306.
     - Per verificare quale processo sta usando quella porta, apri il **Prompt dei comandi** come amministratore e digita il seguente comando:
@@ -86,7 +97,7 @@ Il progetto iniziale era già sviluppato da un altro tesista e prevedeva la visu
         ```
     - Sostituisci `<PID>` con il numero del processo che hai trovato (ad esempio, `taskkill /PID 6604 /F`).
 
-4. **Verifica MySQL tramite Admin**:
+5. **Verifica MySQL tramite Admin**:
 
     - Dopo aver avviato MySQL, fai clic sul pulsante **Admin** accanto a MySQL nel pannello di controllo di XAMPP, come mostrato nell'immagine seguente:
 
@@ -94,7 +105,7 @@ Il progetto iniziale era già sviluppato da un altro tesista e prevedeva la visu
 
     - Questo ti aprirà **phpMyAdmin** in un browser, dove puoi verificare che tutto funzioni correttamente e accedere al tuo database.
 
-5. **Aggiunta Utente in phpMyAdmin**:
+6. **Aggiunta Utente in phpMyAdmin**:
 
     - Una volta aperto phpMyAdmin, è consigliabile creare un nuovo utente per gestire le connessioni al database in modo più sicuro.
     - Per aggiungere un nuovo utente:
@@ -111,18 +122,20 @@ Il progetto iniziale era già sviluppato da un altro tesista e prevedeva la visu
 
     ![Vista d'insieme degli account utenti in phpMyAdmin](./project/images/imm3.png)
 
-    ### Configurazione del File db_connection.php
+    ### Configurazione del File db_config.json
 
-Una volta creato l'utente, è necessario inserire i dati di connessione nel file `db_connection.php`. Dopo aver registrato un nuovo utente nel tuo sistema:
+Una volta creato l'utente, è necessario inserire i dati di connessione nel file `db_config.json`. Dopo aver registrato un nuovo utente nel tuo sistema:
 
--   **Aggiungi i seguenti dettagli nelle prime righe del file** `db_connection.php`:
+-   **Aggiungi i seguenti dettagli nelle prime righe del file** `db_config.json`:
 
 ```php
-$host = 'localhost';
-$username = 'tuo_username';
-$password = 'tua_password';
-$port = '3306';
-$dbName = 'nome_del_tuo_database';
+{
+	"host": "localhost",
+	"user": "root",
+	"password": "ErZava01",
+	"database_votazioni": "votazioni",
+	"database_mappa": "mappa"
+}
 ```
 
 ### Aggiornare il file php.ini
@@ -168,46 +181,68 @@ Per modificare le impostazioni di PHP, è necessario aggiornare il file `php.ini
     - Inserisci le tue credenziali (username e password) nella schermata di accesso.
     - Se il login ha successo, sarai reindirizzato alla pagina principale dell'applicazione.
 
-## Caricamento delle Tabelle
+# Caricamento delle Tabelle
 
-Per utilizzare l'applicazione, è necessario scaricare i dati delle rilevazioni del flusso veicolari tramite spire. Puoi ottenere questi dati seguendo questi passaggi:
+L'applicazione è suddivisa in due sezioni principali:
 
-1. **Visita il Link per gli Open Data**:
-   Vai al seguente link: [Rilevazione flusso veicoli tramite spire](https://opendata.comune.bologna.it/explore/?q=Rilevazione+flusso+veicoli+tramite+spire&sort=modified)
+1. **Gestione delle Votazioni**  
+   Questa parte dell'applicazione permette di caricare e visualizzare i dati relativi alle votazioni politiche. Potrai caricare i dati in formato JSON tramite l’interfaccia, che provvederà poi a visualizzarli e renderli disponibili per l’analisi.
 
-2. **Filtra i Risultati**:
-   Cerca i dataset chiamati **"Rilevazione flusso veicoli tramite spire"**. Puoi trovare dati di diversi anni.
+2. **Rilevazione del Flusso Veicolare tramite Spire**  
+   Questa sezione è dedicata alla gestione dei dati delle rilevazioni del flusso veicolare tramite spire, che puoi ottenere seguendo questi passaggi:
 
-3. **Scarica i Dati**:
-   Clicca sul dataset di tuo interesse e poi cerca l'opzione per scaricarlo. Assicurati di selezionare il formato CSV per il download.
+    ### Scarica i Dati degli Open Data
 
-4. **Carica i Dati nell'Applicazione**:
-   Una volta scaricato il file CSV, utilizza l'interfaccia dell'applicazione per caricare i dati nel sistema. Tieni presente che il caricamento dei dati nel database può richiedere del tempo e può essere interrotto in qualsiasi momento. I dati già inseriti rimarranno nel database.
+    Vai al seguente link: [Rilevazione flusso veicoli tramite spire](https://opendata.comune.bologna.it/explore/?q=Rilevazione+flusso+veicoli+tramite+spire&sort=modified)
 
-5. **Funzionalità Aggiuntive**:
-    - **Eliminazione delle Tabelle**: C'è un pulsante nell'interfaccia per eliminare tutte le tabelle relative al flusso veicoli nel database.
-    - **Visualizzazione Informazioni Utente**: Puoi vedere le informazioni relative all'utente attualmente autenticato.
-    - **Modifica Password**: C'è la possibilità di modificare la password tramite l'interfaccia utente.
+    ### Filtra i Risultati
+
+    Cerca i dataset chiamati **"Rilevazione flusso veicoli tramite spire"**. Potrai scegliere i dati di diversi anni.
+
+    ### Scarica i Dati
+
+    Clicca sul dataset di tuo interesse e seleziona l'opzione per scaricare il file in formato CSV.
+
+    ### Carica i Dati nell'Applicazione
+
+    Una volta scaricato il file CSV, utilizza l'interfaccia per caricare i dati. Tieni presente che il caricamento nel database può richiedere del tempo e può essere interrotto in qualsiasi momento, lasciando comunque i dati già inseriti nel sistema.
+
+## Funzionalità Aggiuntive
+
+-   **Eliminazione delle Tabelle**  
+     Nell’interfaccia sono presenti pulsanti per eliminare le tabelle relative sia al flusso veicolare che alle votazioni.
+
+-   **Visualizzazione Informazioni Utente**  
+     Puoi vedere le informazioni dell’utente autenticato.
+
+-   **Modifica Password**  
+     È possibile modificare la password dell’utente tramite l’interfaccia.
 
 ### Avvio dell'Applicazione
 
-Una volta completata la configurazione e il caricamento dei dati, [clicca qui](http://localhost/tesi_zavatta/project) per avviare l'applicazione
+Una volta completata correttamente la configurazione e il caricamento dei dati, puoi accedere facilmente alle due applicazioni direttamente dalla **Dashboard**:
 
--   Seleziona i vari checkbox disponibili per attivare o disattivare le diverse sovrapposizioni sulla mappa.
--   Una volta selezionate le opzioni desiderate, vedrai la mappa con le sovrapposizioni attive in base alle tue scelte. Questo ti permetterà di analizzare i dati sul traffico in modo più efficace.
-    ![Explorer Button in XAMPP](./project/images/imm5.png)
+-   **Mappa del Traffico**: Seleziona i vari checkbox disponibili per attivare o disattivare le sovrapposizioni sulla mappa e analizzare i dati sul traffico in base alle tue preferenze.
+-   **Votazioni**: Accedi all'applicazione per visualizzare e analizzare i dati relativi alle votazioni politiche.
+
+Ogni sezione è facilmente accessibile e ti permette di navigare tra i dati caricati in modo efficace.
+
+![Explorer Button in XAMPP](./project/images/imm5.png)
+
+![Explorer Button in XAMPP](./project/images/imm6.png)
 
 ## Conclusione
 
-La reingegnerizzazione del database rappresenta un passo cruciale per migliorare la gestione e l'efficienza dei dati all'interno del progetto Traffic Heatmap. Attraverso un processo di normalizzazione, abbiamo ridotto la ridondanza dei dati e migliorato l'integrità referenziale, creando una struttura più robusta e facilmente manutenibile.
+La reingegnerizzazione del database ha rappresentato un passaggio fondamentale per migliorare la gestione e l'efficienza dei dati all'interno del progetto, adesso il progetto è uno strumento versatile e robusto per l'analisi dei dati sul traffico e delle votazioni.
 
-Le seguenti migliorie sono state implementate:
+Le seguenti migliorie principali sono state implementate:
 
--   **Struttura Dati Ottimizzata**: Riorganizzazione delle tabelle per riflettere le relazioni reali tra i dati, garantendo una più semplice manipolazione e accesso alle informazioni.
--   **Interfacce Utente Migliorate**: L'aggiunta di funzionalità di registrazione e login ha reso l'applicazione più sicura, permettendo un controllo migliore sull'accesso ai dati.
+-   **Ottimizzazione della Struttura Dati**: Grazie a un processo di normalizzazione e suddivisione logica delle tabelle, è stata migliorata la referenzialità e ridotta la ridondanza dei dati. La nuova struttura consente una gestione più efficiente e semplificata, adatta a future espansioni.
 
--   **Facilità di Inserimento Dati**: Abbiamo implementato un'interfaccia user-friendly per il caricamento dei dati, riducendo il rischio di errori e migliorando l'esperienza dell'utente.
+-   **Sicurezza e Accesso Controllato**: L'aggiunta delle funzionalità di registrazione e login migliora la sicurezza dell'applicazione, permettendo un controllo accurato dell'accesso ai dati e preservando l'integrità delle informazioni sensibili.
 
-Questi cambiamenti non solo hanno migliorato l'efficienza del sistema, ma hanno anche posizionato il progetto per futuri sviluppi e funzionalità avanzate. La reingegnerizzazione del database ha fornito una base solida per l'espansione delle capacità di analisi e visualizzazione dei dati, rendendo l'applicazione un potente strumento per monitorare e comprendere le dinamiche del traffico.
+-   **Esperienza Utente Intuitiva per il Caricamento e la Visualizzazione**: L'interfaccia user-friendly per il caricamento dei dati permette di inserire dataset ampi in modo semplice e controllato, con feedback di avanzamento che migliorano l’esperienza utente. La **Dashboard** centralizzata consente un facile accesso alle applicazioni per la visualizzazione sia dei dati sul traffico sia delle votazioni, offrendo strumenti di filtro e visualizzazione personalizzati.
 
-Continueremo a cercare modi per ottimizzare ulteriormente il sistema e incoraggiamo i contributi della comunità per portare avanti questo progetto.
+Questi cambiamenti hanno reso il sistema non solo più performante, ma hanno anche gettato solide basi per futuri sviluppi e funzionalità avanzate. La reingegnerizzazione e le ottimizzazioni introdotte permettono al progetto di espandersi verso nuove capacità di analisi e visualizzazione, trasformandolo in una piattaforma efficiente per monitorare e comprendere sia le dinamiche del traffico sia le statistiche relative alle votazioni.
+
+Continueremo a esplorare ulteriori ottimizzazioni e a promuovere la partecipazione della comunità per il miglioramento continuo del progetto.

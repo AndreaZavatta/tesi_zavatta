@@ -25,7 +25,7 @@ const connection = mysql.createConnection({
   host: dbConfig.host,
   user: dbConfig.user,
   password: dbConfig.password,
-  database: dbConfig.database_mappa, // assuming 'votazioni' is specified as 'database_votazioni' in db_config.json
+  database: dbConfig.database, // assuming 'votazioni' is specified as 'database_votazioni' in db_config.json
   port: dbConfig.port || 3306  // Default to 3306 if port is not specified
 });
 

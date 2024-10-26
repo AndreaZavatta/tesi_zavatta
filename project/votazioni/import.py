@@ -32,7 +32,7 @@ try:
         host=db_config['host'],
         user=db_config['user'],
         password=db_config['password'],
-        database=db_config['database_mappa']
+        database=db_config['database']
     )
     cursor = conn.cursor()
     print("Connected successfully.")

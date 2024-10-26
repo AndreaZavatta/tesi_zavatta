@@ -228,6 +228,7 @@ function uploadFileVotazioni() {
 
 // Funzione di validazione della password lato client
 function validatePasswordForm() {
+    console.log("dentro validate password form");
     const newPassword = document.getElementById("new_password").value;
     const confirmNewPassword = document.getElementById("confirm_new_password").value;
     const errorDiv = document.getElementById("password-error");
@@ -251,5 +252,39 @@ function validatePasswordForm() {
     }
 
     errorDiv.style.display = "none";
-    return true;
+        // Invia i dati al server per l'aggiornamento
+
+    return true; // Previene l'invio del form classico
+}
+
+function updatePassword() {
+    const oldPassword = document.getElementById("old_password").value;
+    const newPassword = document.getElementById("new_password").value;
+    const confirmNewPassword = document.getElementById("confirm_new_password").value;
+    
+    // Verifica lato client della corrispondenza della nuova password
+    if (!validatePasswordForm()) return;
+
+    fetch('update_password.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ old_password: oldPassword, new_password: newPassword })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Password aggiornata con successo!");
+
+            // Svuota i campi di input
+            document.getElementById("old_password").value = '';
+            document.getElementById("new_password").value = '';
+            document.getElementById("confirm_new_password").value = '';
+        } else {
+            alert("Errore: " + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Errore nella richiesta:', error);
+        alert("Errore durante il caricamento o la lavorazione del file.");
+    });
 }

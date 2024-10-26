@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 try {
     // Connect to MySQL
-    $conn = new mysqli('localhost', 'root', 'ErZava01', 'votazioni');
+    $conn = new mysqli('localhost', 'root', 'ErZava01', 'prova');
 
     // Check connection
     if ($conn->connect_error) {
@@ -11,7 +11,8 @@ try {
     }
 
     // List of tables to delete
-    $tables = ['votazioni', 'presenze', 'politici', 'sedute'];
+    $tables = ['votazioni', 'presenze', 'sedute', 'politici'];
+
     $deletedTables = [];
 
     // Drop each table

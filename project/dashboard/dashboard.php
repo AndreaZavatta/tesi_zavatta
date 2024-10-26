@@ -20,13 +20,13 @@
 
         <!-- Menu Tabs -->
         <div class="tab-container">
-            <span class="tab active" onclick="showTab(0)">Carica CSV</span>
+            <span class="tab" onclick="showTab(0)">Carica CSV</span>
             <span class="tab" onclick="showTab(1)">Profilo</span>
             <span class="tab" onclick="showTab(2)">Cambia Password</span>
         </div>
 
         <!-- Tab contenuto: Caricamento CSV -->
-<div class="tab-content active">
+<div class="tab-content">
             <h3>Carica file CSV</h3>
             
             <!-- Section for Application 1 -->
@@ -92,19 +92,22 @@
         <!-- Tab contenuto: Modifica password -->
         <div class="tab-content">
             <h3>Cambia la tua password</h3>
-            <form action="dashboard.php" method="POST" onsubmit="return validatePasswordForm()">
+            <form onsubmit="event.preventDefault(); updatePassword();">
                 <label for="old_password">Vecchia Password:</label>
-                <input type="password" id="old_password" name="old_password" required>
+                <input type="password" id="old_password" required>
 
                 <label for="new_password">Nuova Password:</label>
-                <input type="password" id="new_password" name="new_password" required>
+                <input type="password" id="new_password" required>
 
                 <label for="confirm_new_password">Conferma Nuova Password:</label>
-                <input type="password" id="confirm_new_password" name="confirm_new_password" required>
+                <input type="password" id="confirm_new_password" required>
+
+                <div id="password-error" style="color: red; display: none; margin-top: 10px;"></div>
 
                 <button type="submit">Aggiorna Password</button>
             </form>
         </div>
+
 
         <!-- Elemento per visualizzare il riepilogo -->
         <div id="summary" style="display: none;">
@@ -130,6 +133,10 @@
         function closeSummary() {
             document.getElementById('summary').style.display = 'none'; // Nascondi il riepilogo
         }
+
+
+
+
     </script>
 </body>
 </html>

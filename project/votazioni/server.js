@@ -1,17 +1,32 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
+
+// Load database configuration from db_config.json
+const configPath = path.join(__dirname, '/../db_config.json'); // Adjust the path as needed
+let dbConfig;
+
+try {
+  const configData = fs.readFileSync(configPath, 'utf8');
+  dbConfig = JSON.parse(configData);
+} catch (error) {
+  console.error('Error reading db_config.json:', error);
+  process.exit(1); // Exit if config can't be read
+}
 
 // Initialize the app
 const app = express();
 app.use(cors());  // Enable CORS for all requests
 
-// Create a MySQL connection
+// Create a MySQL connection using data from db_config.json
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',  // Your MySQL username
-  password: 'ErZava01',  // Your MySQL password
-  database: 'votazioni'  // Your MySQL database name
+  host: dbConfig.host,
+  user: dbConfig.user,
+  password: dbConfig.password,
+  database: dbConfig.database_mappa, // assuming 'votazioni' is specified as 'database_votazioni' in db_config.json
+  port: dbConfig.port || 3306  // Default to 3306 if port is not specified
 });
 
 // Connect to the database

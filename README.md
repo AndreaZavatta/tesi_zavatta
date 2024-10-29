@@ -138,8 +138,7 @@ Una volta creato l'utente, è necessario inserire i dati di connessione nel file
 	"host": "localhost",
 	"user": "root",
 	"password": "ErZava01",
-	"database_votazioni": "votazioni",
-	"database_mappa": "mappa"
+	"database":"monitoraggiocittadino"
 }
 ```
 

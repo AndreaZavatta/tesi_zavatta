@@ -17,7 +17,7 @@ const app = Vue.createApp({
 	},
 	methods: {
 		loadData(){
-			fetch('http://localhost:3000/api/seduta?s=' + this.sedDay)
+			fetch('http://localhost/tesi_zavatta/project/votazioni/server.php/api/seduta?s=' + this.sedDay)
             .then(response => response.json())
             .then(jsonData => {
 			jsonData.forEach((c) => {

@@ -19,7 +19,7 @@ const app = Vue.createApp({
     },
     methods: {
         loadData() {
-            fetch('http://localhost:3000/api/data')
+            fetch('http://localhost/tesi_zavatta/project/votazioni/server.php/api/data')
                 .then(response => response.json())
                 .then(jsonData => {
                     const elections = ["2016-06-05", "2021-10-04"];

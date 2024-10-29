@@ -1,21 +1,13 @@
 <?php
 
-$configPath = __DIR__ . '/db_config.json';
-if (!file_exists($configPath)) {
-    die("Configuration file not found.");
-}
-
-$configData = json_decode(file_get_contents($configPath), true);
-if ($configData === null) {
-    die("Error decoding configuration file.");
-}
+$configPath = include __DIR__ . '/db_config.php';
 
 // Extract database credentials from the config file
-$host = $configData['host'];
-$username = $configData['user'];
-$password = $configData['password'];
-$port = isset($configData['port']) ? $configData['port'] : 3306;
-$dbName = $configData['database'];
+$host = $configPath['host'];
+$username = $configPath['user'];
+$password = $configPath['password'];
+$port = isset($configPath['port']) ? $configPath['port'] : 3306;
+$dbName = $configPath['database'];
 
 // Create a connection to the MySQL server
 $connection = new mysqli($host, $username, $password, '', $port);

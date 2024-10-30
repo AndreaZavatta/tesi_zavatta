@@ -1,17 +1,18 @@
 <?php
 function processJsonFile($filePath) {
-    // Load database configuration from JSON file
-    $configFilePath = '../db_config.json';
+    // Load database configuration from PHP file
+    $configFilePath = __DIR__ . '/../db_config.php';
 
     if (!file_exists($configFilePath)) {
         return ['error' => 'Configuration file not found.'];
     }
 
-    $configData = file_get_contents($configFilePath);
-    $dbConfig = json_decode($configData, true);
+    // Include the configuration file, which returns an associative array
+    $dbConfig = include($configFilePath);
 
-    if ($dbConfig === null) {
-        return ['error' => 'Failed to parse database configuration JSON.'];
+    // Validate the database configuration
+    if (!is_array($dbConfig)) {
+        return ['error' => 'Failed to load database configuration.'];
     }
 
     // Load JSON data from the provided file path
@@ -22,8 +23,8 @@ function processJsonFile($filePath) {
         return ['error' => 'Failed to parse JSON data.'];
     }
 
-    // Connect to MySQL database
-    $conn = new mysqli($dbConfig['host'], $dbConfig['user'], $dbConfig['password'], $dbConfig['database']);
+    // Connect to MySQL database using the configuration from the PHP file
+    $conn = new mysqli($dbConfig['host'], $dbConfig['user'], $dbConfig['password'], $dbConfig['database'], $dbConfig['port']);
 
     if ($conn->connect_error) {
         return ['error' => "Connection failed: " . $conn->connect_error];

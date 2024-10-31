@@ -3,25 +3,29 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-// Load database configuration from db_config.json
-$configPath = __DIR__ . '/../db_config.json';
+// Load database configuration from db_config.php
+$configPath = __DIR__ . '/../db_config.php';
 if (!file_exists($configPath)) {
     echo json_encode(["error" => "Configuration file not found"]);
     exit;
 }
 
-$configData = file_get_contents($configPath);
-$dbConfig = json_decode($configData, true);
+$dbConfig = include $configPath;
 if (!$dbConfig) {
-    echo json_encode(["error" => "Error parsing the configuration file"]);
+    echo json_encode(["error" => "Error loading the configuration file"]);
     exit;
 }
 
 // Database connection
 try {
-    $pdo = new PDO("mysql:host={$dbConfig['host']};dbname={$dbConfig['database']};port={$dbConfig['port']}", $dbConfig['user'], $dbConfig['password'], [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ]);
+    $pdo = new PDO(
+        "mysql:host={$dbConfig['host']};dbname={$dbConfig['database']};port={$dbConfig['port']}", 
+        $dbConfig['user'], 
+        $dbConfig['password'], 
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]
+    );
 } catch (PDOException $e) {
     echo json_encode(["error" => "Database connection error: " . $e->getMessage()]);
     exit;

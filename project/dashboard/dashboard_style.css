@@ -257,6 +257,10 @@ button:hover {
 	background-color: #740019; /* Even darker red on hover */
 }
 
+#loading-spinner > button {
+	margin: 0;
+}
+
 /* Summary styles */
 #summary {
 	margin-top: 20px;

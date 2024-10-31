@@ -267,3 +267,16 @@ button:hover {
 	background-color: #f3e8eb; /* Light pink background for the summary */
 	color: #3d4f5c;
 }
+
+.dashboard-without-login {
+	display: flex;
+	justify-content: space-between;
+}
+
+.dashboard-without-login > button {
+	width: 160px;
+}
+
+.logout_button {
+	margin-top: 15px;
+}

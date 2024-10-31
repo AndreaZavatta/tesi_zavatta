@@ -27,7 +27,7 @@
         <?php if (isset($_SESSION['admin_id'])): ?>
             <!-- Menu Tabs -->
             <div class="tab-container">
-                <span class="tab" onclick="showTab(0)">Carica CSV</span>
+                <span class="tab" onclick="showTab(0)">Carica File</span>
                 <span class="tab" onclick="showTab(1)">Profilo</span>
                 <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
                 <span class="tab" onclick="showTab(2)">Register a User</span>
@@ -35,7 +35,7 @@
             </div>
 
             <div class="tab-content">
-                <h3>Carica file CSV</h3>
+                <h3>Carica file</h3>
                 <!-- Section for Application 1 -->
                 <fieldset>
                     <legend>Mappa</legend>
@@ -173,7 +173,7 @@
             <span class="close" onclick="closeEditModal()">&times;</span>
             <h3 id="modal-title">Edit</h3>
             <form onsubmit="event.preventDefault(); saveUsernameChanges();">
-                <label id="edit-field-label" for="edit-field-input">Edit Field:</label>
+                <label id="edit-field-label" for="edit-field-input">Username:</label>
                 <input type="text" id="edit-field-input" required>
                 <button type="submit">Save Changes</button>
             </form>

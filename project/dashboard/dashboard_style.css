@@ -64,7 +64,7 @@ body {
 /* Responsive layout for smaller screens */
 @media (max-width: 1024px) {
 	body {
-		flex-direction: column;
+		flex-direction: column-reverse;
 		align-items: center;
 	}
 

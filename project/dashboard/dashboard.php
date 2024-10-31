@@ -29,6 +29,7 @@
                 <span class="tab" onclick="showTab(0)">Carica CSV</span>
                 <span class="tab" onclick="showTab(1)">Profilo</span>
                 <span class="tab" onclick="showTab(2)">Cambia Password</span>
+                <span class="tab" onclick="showTab(3)">Register a User</span>
             </div>
 
             <div class="tab-content">
@@ -87,7 +88,7 @@
 
             <div class="tab-content">
                 <h3>Cambia la tua password</h3>
-                <form onsubmit="event.preventDefault(); updatePassword();">
+                <form onsubmit="event.preventDefault(); updateUserPassword();">
                     <label for="old_password">Vecchia Password:</label>
                     <input type="password" id="old_password" required>
 
@@ -100,6 +101,24 @@
                     <div id="password-error" style="color: red; display: none; margin-top: 10px;"></div>
 
                     <button type="submit">Aggiorna Password</button>
+                </form>
+            </div>
+
+            <div class="tab-content">
+                <h3>Register a User</h3>
+                <form onsubmit="event.preventDefault(); registerUser();">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+
+                    <label for="confirm_password">Conferma Password:</label>
+                    <input type="password" id="confirm_password" required>
+
+                    <div id="password-error-registration" style="color: red; display: none; margin-top: 10px;"></div>
+
+                    <button type="submit">Register User</button>
                 </form>
             </div>
         <?php endif; ?>

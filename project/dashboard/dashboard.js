@@ -43,7 +43,7 @@ function showActiveTab(){
 document.addEventListener("DOMContentLoaded", function() {
         progressInterval = '';
         showActiveTab();
-
+        loadUsers();
         document.getElementById('stop-import-btn').addEventListener('click', function() {
             if (confirm('Sei sicuro di voler interrompere il processo di importazione?')) {
                 fetch('stop_import.php', {
@@ -312,3 +312,126 @@ function updateUserPassword() {
     });
 }
 
+function loadUsers() {
+    fetch('get_users.php')
+        .then(response => response.json())
+        .then(data => {
+            const usersTable = document.getElementById("users-table").getElementsByTagName('tbody')[0];
+            usersTable.innerHTML = ""; // Clear current rows
+
+            data.users.forEach(user => {
+                const row = usersTable.insertRow();
+                row.innerHTML = `
+                    <td>
+                        ${user.username}
+                        <i class="fas fa-edit" onclick="openEditUsernameModal(${user.id})" title="Edit Username" style="cursor: pointer; color: #007bff; margin-left: 10px;"></i>
+                    </td>
+                    <td>
+                        <i class="fas fa-edit" onclick="openEditPasswordModal(${user.id})" title="Edit Password" style="cursor: pointer; color: #007bff;"></i>
+                    </td>
+                    <td>
+                        <i class="fas fa-trash" onclick="deleteUser(${user.id})" title="Delete User" style="cursor: pointer; color: #dc3545;"></i>
+                    </td>
+                `;
+            });
+        })
+        .catch(error => console.error('Error loading users:', error));
+}
+// Funzione per aprire il modale per la modifica dell'username
+function openEditUsernameModal(userId, currentValue = '') {
+    document.getElementById("editUsernameModal").style.display = "block";
+    document.getElementById("modalOverlay").style.display = "block"; // Mostra l'overlay per disabilitare il resto della pagina
+    document.getElementById("edit-field-input").value = currentValue;
+    document.getElementById("edit-field-input").dataset.userId = userId; // Memorizza l'ID dell'utente
+}
+
+// Funzione per aprire il modale per la modifica della password
+function openEditPasswordModal(userId) {
+    document.getElementById("editPasswordModal").style.display = "block";
+    document.getElementById("modalOverlay").style.display = "block"; // Mostra l'overlay per disabilitare il resto della pagina
+    document.getElementById("new-password").value = '';
+    document.getElementById("confirm-password").value = '';
+    document.getElementById("password-error-message").style.display = "none"; // Nascondi eventuali messaggi di errore
+    document.getElementById("new-password").dataset.userId = userId; // Memorizza l'ID dell'utente
+}
+
+// Funzione per chiudere entrambi i modali
+function closeEditModal() {
+    document.getElementById("editUsernameModal").style.display = "none";
+    document.getElementById("editPasswordModal").style.display = "none";
+    document.getElementById("modalOverlay").style.display = "none"; // Nascondi l'overlay
+}
+
+// Funzione per salvare le modifiche all'username
+function saveUsernameChanges() {
+    const userId = document.getElementById("edit-field-input").dataset.userId;
+    const newUsername = document.getElementById("edit-field-input").value;
+
+    fetch(`update_user.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: userId, username: newUsername })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Username aggiornato con successo.");
+            closeEditModal();
+            loadUsers(); // Ricarica l'elenco degli utenti
+        } else {
+            alert("Errore durante l'aggiornamento dell'username: " + data.error);
+        }
+    })
+    .catch(error => console.error('Errore durante l\'aggiornamento dell\'username:', error));
+}
+
+// Funzione per salvare le modifiche alla password
+function savePasswordChanges() {
+    const userId = document.getElementById("new-password").dataset.userId;
+    const newPassword = document.getElementById("new-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    // Valida la password prima di inviarla
+    if (!validatePassword(newPassword, confirmPassword, "password-error-message")) {
+        return;
+    }
+
+    fetch(`update_user.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: userId, password: newPassword })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Password aggiornata con successo.");
+            closeEditModal();
+            loadUsers(); // Ricarica l'elenco degli utenti
+        } else {
+            alert("Errore durante l'aggiornamento della password: " + data.error);
+        }
+    })
+    .catch(error => console.error('Errore durante l\'aggiornamento della password:', error));
+}
+
+
+// Delete a user
+function deleteUser(userId) {
+    if (confirm("Are you sure you want to delete this user?")) {
+        fetch('delete_user.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: userId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("User deleted successfully.");
+                loadUsers(); // Reload users
+            } else {
+                alert("Error deleting user: " + data.error);
+            }
+        })
+        .catch(error => console.error('Error deleting user:', error));
+    }
+}

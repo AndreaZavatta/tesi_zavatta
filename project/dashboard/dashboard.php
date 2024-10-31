@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="dashboard_style.css"> <!-- Collegamento al file CSS -->
     <script src="dashboard.js" defer></script> <!-- Collegamento al file JS separato -->
 </head>
@@ -28,8 +29,9 @@
             <div class="tab-container">
                 <span class="tab" onclick="showTab(0)">Carica CSV</span>
                 <span class="tab" onclick="showTab(1)">Profilo</span>
-                <span class="tab" onclick="showTab(2)">Cambia Password</span>
-                <span class="tab" onclick="showTab(3)">Register a User</span>
+                <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
+                <span class="tab" onclick="showTab(2)">Register a User</span>
+                <span class="tab" onclick="showTab(3)">Handle Users</span>
             </div>
 
             <div class="tab-content">
@@ -85,7 +87,7 @@
                     ?>
                 </p>
             </div>
-
+            <!--
             <div class="tab-content">
                 <h3>Cambia la tua password</h3>
                 <form onsubmit="event.preventDefault(); updateUserPassword();">
@@ -103,7 +105,7 @@
                     <button type="submit">Aggiorna Password</button>
                 </form>
             </div>
-
+                    -->
             <div class="tab-content">
                 <h3>Register a User</h3>
                 <form onsubmit="event.preventDefault(); registerUser();">
@@ -121,9 +123,28 @@
                     <button type="submit">Register User</button>
                 </form>
             </div>
+
+            
+            <!-- Modal for Editing User -->
+            <div class="tab-content">
+                <h3>Handle Users</h3>
+                <table id="users-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Le righe degli utenti verranno popolate dinamicamente -->
+                    </tbody>
+                </table>
+
+            </div>
         <?php endif; ?>
 
-        <!-- Elemento per visualizzare il riepilogo -->
+        <!-- Elementmodal per visualizzare il riepilogo -->
         <div id="summary" style="display: none;">
             <h3>Riepilogo Importazione</h3>
             <button onclick="closeSummary()">Chiudi</button>
@@ -145,6 +166,37 @@
                 <button onclick="window.location.href='../votazioni/';">Visualizza Votazioni</button>
             </div>
         <?php endif; ?>
+    </div>
+    <div id="modalOverlay" class="modal-overlay" onclick="closeEditModal()"></div>
+    <div id="editUsernameModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h3 id="modal-title">Edit</h3>
+            <form onsubmit="event.preventDefault(); saveUsernameChanges();">
+                <label id="edit-field-label" for="edit-field-input">Edit Field:</label>
+                <input type="text" id="edit-field-input" required>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="editPasswordModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h3 id="modal-title">Edit</h3>
+            <form onsubmit="event.preventDefault(); savePasswordChanges();">
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" required>
+
+                <label for="confirm-password">Confirm New Password:</label>
+                <input type="password" id="confirm-password" required>
+
+                <!-- Error message for password validation -->
+                <p id="password-error-message" style="color: red; display: none;">Passwords must match and meet criteria.</p>
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
     </div>
 
     <!-- Right-side menu for accessing applications -->

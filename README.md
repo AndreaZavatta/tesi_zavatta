@@ -29,7 +29,6 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
 
 -   **XAMPP** (consigliato per un ambiente locale, include sia PHP che MySQL). Può essere installato da [questo link](https://www.apachefriends.org/download.html).
 
--   **Node.js** (necessario per eseguire il comando `npm install`). Può essere scaricato da [questo link](https://nodejs.org/).
 
 ### Passaggi Preliminari
 
@@ -56,31 +55,16 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
         cd tesi_zavatta/project
         ```
 
-3. **Installa le Dipendenze**:
 
-    - Esegui il seguente comando per installare le dipendenze necessarie:
-        ```bash
-        npm install
-        ```
 
-### Avviare Apache, MySQL con XAMPP e il server Node.js
+### Avviare Apache, MySQL con XAMPP
 
-1. **Avviare il server Node.js**:
 
-    - Naviga nella cartella `votazioni` del progetto.
-    - Apri un terminale nella cartella e digita:
-
-        ```bash
-        node server.js
-        ```
-
-    - Assicurati che il terminale rimanga aperto per mantenere attivo il server.
-
-2. **Avvia XAMPP Control Panel**:
+1. **Avvia XAMPP Control Panel**:
 
     - Dopo aver installato XAMPP, apri il **XAMPP Control Panel**.
 
-3. **Avvia Apache e MySQL**:
+2. **Avvia Apache e MySQL**:
 
     - Nella sezione **Modules**, troverai **Apache** e **MySQL**.
     - Fai clic su **Start** accanto a entrambi i moduli.
@@ -88,7 +72,7 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
 
         ![Start Apache e MySQL via XAMPP](./project/images/imm1.png)
 
-4. **Problemi con MySQL sulla porta 3306**:
+3. **Problemi con MySQL sulla porta 3306**:
 
     - Se MySQL non si avvia, potrebbe esserci un altro processo che sta già utilizzando la porta 3306.
     - Per verificare quale processo sta usando quella porta, apri il **Prompt dei comandi** come amministratore e digita il seguente comando:
@@ -102,7 +86,7 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
         ```
     - Sostituisci `<PID>` con il numero del processo che hai trovato (ad esempio, `taskkill /PID 6604 /F`).
 
-5. **Verifica MySQL tramite Admin**:
+4. **Verifica MySQL tramite Admin**:
 
     - Dopo aver avviato MySQL, fai clic sul pulsante **Admin** accanto a MySQL nel pannello di controllo di XAMPP, come mostrato nell'immagine seguente:
 
@@ -110,7 +94,7 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
 
     - Questo ti aprirà **phpMyAdmin** in un browser, dove puoi verificare che tutto funzioni correttamente e accedere al tuo database.
 
-6. **Aggiunta Utente in phpMyAdmin**:
+5. **Aggiunta Utente in phpMyAdmin**:
 
     - Una volta aperto phpMyAdmin, è consigliabile creare un nuovo utente per gestire le connessioni al database in modo più sicuro.
     - Per aggiungere un nuovo utente:
@@ -129,17 +113,20 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
 
     ### Configurazione del File db_config.json
 
-Una volta creato l'utente, è necessario inserire i dati di connessione nel file `db_config.json`. Dopo aver registrato un nuovo utente nel tuo sistema:
+Una volta creato l'utente, è necessario inserire i dati di connessione nel file `db_config.php`. Dopo aver registrato un nuovo utente nel tuo sistema:
 
--   **Aggiungi i seguenti dettagli nelle prime righe del file** `db_config.json`:
+-   **Aggiungi i seguenti dettagli nelle prime righe del file** `db_config.php`:
 
 ```php
-{
-	"host": "localhost",
-	"user": "root",
-	"password": "ErZava01",
-	"database":"monitoraggiocittadino"
-}
+<?php
+return [
+    'host' => '...',
+    'user' => '...',
+    'password' => '...',
+    'database' => '...',
+    'port' => ...
+];
+
 ```
 
 ### Aggiornare il file php.ini

@@ -2,7 +2,7 @@
 return [
     'host' => 'localhost',
     'user' => 'root',
-    'password' => 'ErZava01',
+    'password' => '',
     'database' => 'MonitoraggioCittadino',
     'port' => 3306
 ];

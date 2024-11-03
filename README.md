@@ -29,7 +29,6 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
 
 -   **XAMPP** (consigliato per un ambiente locale, include sia PHP che MySQL). Può essere installato da [questo link](https://www.apachefriends.org/download.html).
 
--   **Node.js** (necessario per eseguire il comando `npm install`). Può essere scaricato da [questo link](https://nodejs.org/).
 
 ### Passaggi Preliminari
 
@@ -56,31 +55,14 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
         cd tesi_zavatta/project
         ```
 
-3. **Installa le Dipendenze**:
+### Avviare Apache, MySQL con XAMPP
 
-    - Esegui il seguente comando per installare le dipendenze necessarie:
-        ```bash
-        npm install
-        ```
 
-### Avviare Apache, MySQL con XAMPP e il server Node.js
-
-1. **Avviare il server Node.js**:
-
-    - Naviga nella cartella `votazioni` del progetto.
-    - Apri un terminale nella cartella e digita:
-
-        ```bash
-        node server.js
-        ```
-
-    - Assicurati che il terminale rimanga aperto per mantenere attivo il server.
-
-2. **Avvia XAMPP Control Panel**:
+1. **Avvia XAMPP Control Panel**:
 
     - Dopo aver installato XAMPP, apri il **XAMPP Control Panel**.
 
-3. **Avvia Apache e MySQL**:
+2. **Avvia Apache e MySQL**:
 
     - Nella sezione **Modules**, troverai **Apache** e **MySQL**.
     - Fai clic su **Start** accanto a entrambi i moduli.
@@ -88,21 +70,8 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
 
         ![Start Apache e MySQL via XAMPP](./project/images/imm1.png)
 
-4. **Problemi con MySQL sulla porta 3306**:
 
-    - Se MySQL non si avvia, potrebbe esserci un altro processo che sta già utilizzando la porta 3306.
-    - Per verificare quale processo sta usando quella porta, apri il **Prompt dei comandi** come amministratore e digita il seguente comando:
-        ```bash
-        netstat -ano | findstr :3306
-        ```
-    - Questo comando ti mostrerà l'ID del processo (PID) che sta utilizzando la porta. Prendi nota del PID.
-    - Una volta identificato il processo, puoi terminarlo con il seguente comando:
-        ```bash
-        taskkill /PID <PID> /F
-        ```
-    - Sostituisci `<PID>` con il numero del processo che hai trovato (ad esempio, `taskkill /PID 6604 /F`).
-
-5. **Verifica MySQL tramite Admin**:
+4. **Verifica MySQL tramite Admin**:
 
     - Dopo aver avviato MySQL, fai clic sul pulsante **Admin** accanto a MySQL nel pannello di controllo di XAMPP, come mostrato nell'immagine seguente:
 
@@ -110,14 +79,14 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
 
     - Questo ti aprirà **phpMyAdmin** in un browser, dove puoi verificare che tutto funzioni correttamente e accedere al tuo database.
 
-6. **Aggiunta Utente in phpMyAdmin**:
+5. **Utilizzare Utente in phpMyAdmin**:
 
     - Una volta aperto phpMyAdmin, è consigliabile creare un nuovo utente per gestire le connessioni al database in modo più sicuro.
     - Per aggiungere un nuovo utente:
 
         1. Clicca sulla scheda **User accounts** (Account utente) nella parte superiore della pagina.
         2. Clicca su **Add user account** (Aggiungi account utente).
-        3. Inserisci il **Username** e seleziona il **Host name** (ad esempio `localhost`).
+        3. Inserisci lo **Username** e seleziona il **Host name** (ad esempio `localhost`).
         4. Imposta una **Password** sicura e confermala.
         5. Nella sezione **Database for user**, puoi scegliere di creare un database per l'utente o concedere i privilegi su un database esistente.
         6. Sotto la sezione **Global privileges**, seleziona i privilegi appropriati per l'utente.
@@ -129,18 +98,7 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
 
     ### Configurazione del File db_config.json
 
-Una volta creato l'utente, è necessario inserire i dati di connessione nel file `db_config.json`. Dopo aver registrato un nuovo utente nel tuo sistema:
-
--   **Aggiungi i seguenti dettagli nelle prime righe del file** `db_config.json`:
-
-```php
-{
-	"host": "localhost",
-	"user": "root",
-	"password": "ErZava01",
-	"database":"monitoraggiocittadino"
-}
-```
+Una volta creato l'utente, è necessario inserire i dati di connessione nel file `db_config_template.php`, dopo aver inserito i dati, rinomina il file in: `db_config.php`.
 
 ### Aggiornare il file php.ini
 
@@ -164,10 +122,14 @@ Per modificare le impostazioni di PHP, è necessario aggiornare il file `php.ini
 
     - Trova il file `php.ini` all'interno della cartella `php`.
 
-5. **Sostituisci il Contenuto del File**:
+5. **Modifica il Contenuto del File**:
 
-    - Apri il file `php.ini` con un editor di testo (ad esempio, Notepad++).
-    - Sostituisci tutto il contenuto del file con quello fornito nella directory di progetto, se presente. Assicurati di mantenere una copia di backup del file originale prima di effettuare modifiche.
+Inserisci/Modifca il contenuto del file php.ini in questo modo:
+```bash
+upload_max_filesize = 100M
+post_max_size = 100M
+```
+Questo perchè nell'applicativo dovremmo fare upload di file di grandi dimensioni.
 
 6. **Riavvia Apache**:
 
@@ -177,7 +139,7 @@ Per modificare le impostazioni di PHP, è necessario aggiornare il file `php.ini
 
 1. **Registrazione**:
 
-    - Compila il modulo di registrazione a [questo link](http://localhost/tesi_zavatta/project/LoginRegistration/register.php) fornendo un **username**, una **password** sicura e i dettagli di connessione al database (host, porta, username e password del database).
+    - Compila il modulo di registrazione a [questo link](http://localhost/tesi_zavatta/project/LoginRegistration/register.php) fornendo un **username** e una **password**.
     - Dopo aver completato la registrazione, verrai reindirizzato alla schermata di accesso.
 
 2. **Accesso**:
@@ -219,8 +181,11 @@ L'applicazione è suddivisa in due sezioni principali:
 -   **Visualizzazione Informazioni Utente**  
      Puoi vedere le informazioni dell’utente autenticato.
 
--   **Modifica Password**  
-     È possibile modificare la password dell’utente tramite l’interfaccia.
+-   **Registrazione Utente**  
+     È possibile registrare un utente dalla dashboard se si è loggati.
+
+-   **Gestione Utenti**
+    E' possibile modificare il nome utente, la password ed eliminare un utente presente nel db se si è loggati nella piattaforma 
 
 ### Avvio dell'Applicazione
 

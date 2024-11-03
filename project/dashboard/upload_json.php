@@ -1,4 +1,9 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+error_log("Prova zava!");
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['json_file'])) {
@@ -12,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['json_file'])) {
 
         // Call the function to process the JSON file
         $result = processJsonFile($destinationPath);
+
 
         // Check if there was an error in processing
         if (isset($result['error'])) {

@@ -81,11 +81,16 @@ function uploadFileVotazioni() {
         if (jsonData.error) {
             alert(jsonData.error); // Display error message if any
         } else {
-            document.getElementById('successful-inserts').innerText = `Righe inserite: ${jsonData.successful_inserts}`;
-            document.getElementById('skipped-rows').innerText = `Righe saltate: ${jsonData.skipped_rows}`;
-            document.getElementById('total-rows').innerText = `Righe totali: ${jsonData.total_rows}`;
-            document.getElementById('summary').style.display = 'block'; // Show the summary
-            alert(jsonData.message); // Display success message
+            console.log(`Caricamento dati... ${data.percentage}-${data.processed}-${data.total}`)
+            const progressText = document.getElementById('progress-text');
+            const percentage = data.percentage;
+            progressText.innerText = `Caricamento dati... ${percentage}%`;
+
+            // Optionally hide the spinner when done
+            if (percentage >= 100) {
+                document.getElementById('loading-spinner').style.display = 'none';
+                clearInterval(progressInterval); // Stop polling once complete
+            }
         }
         document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner after completion
     })

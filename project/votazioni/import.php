@@ -2,7 +2,7 @@
 function processJsonFile($filePath) {
     // Load database configuration from PHP file
     $configFilePath = __DIR__ . '/../db_config.php';
-
+	error_log("in processjsonfile!");
     if (!file_exists($configFilePath)) {
         return ['error' => 'Configuration file not found.'];
     }
@@ -71,9 +71,19 @@ function processJsonFile($filePath) {
     $successfulInserts = 0;
     $skippedRows = 0;
     $totalRows = count($data);
+	session_start();
+	error_log("totalRows: ".$totalRows);
+	$_SESSION['total_rows'] = $totalRows;
+	$_SESSION['processed_rows'] = 0;
+	$_SESSION['stop_import'] = false;
+	session_write_close();
 
     // Process each record in the JSON data
     foreach ($data as $record) {
+		session_start();
+		$_SESSION['processed_rows']++;
+		error_log("processed_rows: ".$_SESSION['processed_rows']);
+		session_write_close();
         $nominativo = trim($record['nominativo']);
         $gruppo_politico = trim($record['gruppo_politico']);
         $data_seduta = $record['data_seduta'];

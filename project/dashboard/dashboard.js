@@ -95,7 +95,7 @@ function uploadFileVotazioni() {
         document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner after completion
     })
     .catch(error => {
-        console.error('Error:', error);
+        error_log('zava Error:', error);
         document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner on error
         alert('Errore durante il caricamento o la lavorazione del file.');
     });

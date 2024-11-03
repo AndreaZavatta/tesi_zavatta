@@ -55,8 +55,6 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
         cd tesi_zavatta/project
         ```
 
-
-
 ### Avviare Apache, MySQL con XAMPP
 
 
@@ -72,19 +70,6 @@ Il lavoro di reingegnerizzazione del database ha puntato a migliorare e ampliare
 
         ![Start Apache e MySQL via XAMPP](./project/images/imm1.png)
 
-3. **Problemi con MySQL sulla porta 3306**:
-
-    - Se MySQL non si avvia, potrebbe esserci un altro processo che sta già utilizzando la porta 3306.
-    - Per verificare quale processo sta usando quella porta, apri il **Prompt dei comandi** come amministratore e digita il seguente comando:
-        ```bash
-        netstat -ano | findstr :3306
-        ```
-    - Questo comando ti mostrerà l'ID del processo (PID) che sta utilizzando la porta. Prendi nota del PID.
-    - Una volta identificato il processo, puoi terminarlo con il seguente comando:
-        ```bash
-        taskkill /PID <PID> /F
-        ```
-    - Sostituisci `<PID>` con il numero del processo che hai trovato (ad esempio, `taskkill /PID 6604 /F`).
 
 4. **Verifica MySQL tramite Admin**:
 

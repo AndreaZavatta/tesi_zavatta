@@ -102,35 +102,6 @@ label {
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 1200px) {
-	.container {
-		margin-left: 8%;
-	}
-}
-
-/* Responsive layout for smaller screens */
-@media (max-width: 1024px) {
-	body {
-		flex-direction: column-reverse;
-		align-items: center;
-	}
-
-	.sidebar {
-		position: relative;
-		width: 70%;
-		height: auto;
-		margin-bottom: 20px;
-		box-shadow: none;
-		border-radius: 10px;
-	}
-
-	.container {
-		width: 70%;
-		padding: 15px;
-		margin: 0px;
-	}
-}
-
 h2 {
 	text-align: center;
 	color: #3d4f5c; /* Dark gray for main headings */

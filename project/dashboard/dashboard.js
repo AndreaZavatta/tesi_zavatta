@@ -349,9 +349,10 @@ function loadUsers() {
                 const row = usersTable.insertRow();
                 row.innerHTML = `
                     <td>
-                        ${user.username}
-                        <i class="fas fa-edit" onclick="openEditUsernameModal(${user.id})" title="Edit Username" style="cursor: pointer; color: #007bff; margin-left: 10px;"></i>
-                    </td>
+                        <div>
+                            <p>${user.username}</p>
+                            <i class="fas fa-edit" onclick="openEditUsernameModal(${user.id})" title="Edit Username" style="cursor: pointer; color: #007bff; margin-left: 10px;"></i>
+                        </div>
                     <td>
                         <i class="fas fa-edit" onclick="openEditPasswordModal(${user.id})" title="Edit Password" style="cursor: pointer; color: #007bff;"></i>
                     </td>

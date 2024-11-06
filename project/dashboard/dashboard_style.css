@@ -309,6 +309,17 @@ button:hover {
 	text-align: center;
 }
 
+#users-table td:first-child {
+	display: flex;
+	justify-content: center;
+}
+#users-table td:first-child div {
+	width: 130px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 #users-table td input {
 	width: 80%;
 }

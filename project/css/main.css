@@ -40,6 +40,10 @@ div {
 	visibility: hidden;
 }
 
+#date-range {
+	font-weight: bold;
+}
+
 /* Fade animation */
 @keyframes fade {
 	from {

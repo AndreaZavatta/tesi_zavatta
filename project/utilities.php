@@ -1,5 +1,4 @@
 <?php
-
 function stylesheets(){
     return '
     <link rel="stylesheet" href="./js/leaflet.css">
@@ -22,7 +21,106 @@ function scripts(){
   <script src="https://unpkg.com/leaflet.markerplayer"></script>
   ';
 }
+function handleErrorMessages(){
+      try {
+      // Attempt to get the minimum date
+      $minDate = getMinDate();
+    } catch (Exception $e) {
+      $minDateError = $e->getMessage(); // Store the error message for min date
+    }
 
+    try {
+      // Attempt to get the maximum date
+      $maxDate = getMaxDate();
+    } catch (Exception $e) {
+      $maxDateError = $e->getMessage(); // Store the error message for max date
+    }
+
+    // Display the results based on success or failure of each call
+    if (isset($minDate) && isset($maxDate)) {
+      echo "Select a date between $minDate and $maxDate.";
+    } elseif (isset($minDateError) || isset($maxDateError)) {
+      if (isset($minDateError)) echo htmlspecialchars($minDateError);
+      if (isset($minDateError) && isset($maxDateError)) echo " and ";
+      if (isset($maxDateError)) echo htmlspecialchars($maxDateError);
+    } else {
+      echo "No data found, insert data!";
+    }
+}
+function getMinDate() {
+    require './db_connection.php';
+
+    // Check if the table exists
+    $checkTableQuery = "SHOW TABLES LIKE 'rilevazioni_traffico'";
+    $tableExists = $connection->query($checkTableQuery);
+
+    if ($tableExists && $tableExists->num_rows > 0) {
+        // Table exists, proceed with getting the minimum date
+        $query = "SELECT MIN(data) AS min_date FROM `rilevazioni_traffico`";
+        $result = $connection->query($query);
+
+        // Check if query was successful
+        if ($result && $result->num_rows > 0) {
+            // Fetch the result
+            $row = $result->fetch_assoc();
+            $minDate = $row['min_date'];
+        } else {
+            // Handle case where no data is returned or an error occurred
+            $minDate = null;
+        }
+
+        // Close the database connection
+        $connection->close();
+
+        // Convert the date format if a date was retrieved
+        return $minDate ? convertDateFormat($minDate) : throw new Exception("No data found in the table.");
+    } else {
+        // Table does not exist
+        $connection->close();
+        throw new Exception("The tables are not loaded, please go to the dashboard and insert the tables before use this interface.");
+    }
+}
+
+// Helper function to convert date format
+function convertDateFormat($dateString) {
+    $date = DateTime::createFromFormat('Y-m-d', $dateString);
+    return $date ? $date->format('d-m-Y') : "Invalid date format";
+}
+
+
+function getMaxDate() {
+    require './db_connection.php';
+
+    // Check if the table exists
+    $checkTableQuery = "SHOW TABLES LIKE 'rilevazioni_traffico'";
+    $tableExists = $connection->query($checkTableQuery);
+
+    if ($tableExists && $tableExists->num_rows > 0) {
+        // Table exists, proceed with getting the maximum date
+        $query = "SELECT MAX(data) AS max_date FROM `rilevazioni_traffico`";
+        $result = $connection->query($query);
+
+        // Check if query was successful
+        if ($result && $result->num_rows > 0) {
+            // Fetch the result
+            $row = $result->fetch_assoc();
+            $maxDate = $row['max_date'];
+        } else {
+            // Handle case where no data is returned or an error occurred
+            $maxDate = null;
+        }
+
+        // Close the database connection
+        $connection->close();
+
+        // Convert the date format if a date was retrieved
+        return $maxDate ? convertDateFormat($maxDate) : "No data found in the table.";
+    } else {
+        // Table does not exist
+        $connection->close();
+        return "The table 'rilevazioni_traffico' does not exist.";
+    }
+}
 
 /**/
 function get_traffic_data($startDate, $endDate, $startHour = 0, $endHour = 24, $rotation = false, $rotationType = ""){
@@ -170,15 +268,6 @@ function get_traffic_data($startDate, $endDate, $startHour = 0, $endHour = 24, $
   return $json_result;
 }
 
-
-
-function connection(){
-  $connection = new mysqli("127.0.0.1:3306", "root", "ErZava01", "prova");
-  if($connection->connect_error){
-    die('Error connecting to the database');
-  }
-  return $connection;
-}
 
 function show_traffic_data($startDate, $endDate, $startHour = 0, $endHour = 24){
   $traffic_info_json = get_traffic_data($startDate, $endDate, $startHour, $endHour);

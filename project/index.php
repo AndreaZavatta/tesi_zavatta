@@ -25,6 +25,11 @@ $years = [2019, 2020, 2021];
 				</h3>
 				<div id="timer">
 				</div>
+				<div id="date-range">
+                <?php
+					handleErrorMessages();
+                ?>
+            </div>
 				<div>
 					<label for="startDay">Giorno iniziale di cui visualizzare le informazioni:</label>
 					<input type="date" id="startDay" name="startDay" :onchange="startDayChange" value="2022-10-30">

@@ -62,44 +62,44 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         });
-function uploadFileVotazioni() {
-    // Show spinner
-    document.getElementById('loading-spinner').style.display = 'flex';
+        function uploadFileVotazioni() {
+            // Show spinner
+            document.getElementById('loading-spinner').style.display = 'flex';
 
-    // Prepare form data
-    const formData = new FormData(document.getElementById('upload-form-app2'));
-    progressInterval = setInterval(updateProgress, 1000); // Optional: if you have a progress bar
+            // Prepare form data
+            const formData = new FormData(document.getElementById('upload-form-app2'));
+            progressInterval = setInterval(updateProgress, 1000); // Optional: if you have a progress bar
 
-    fetch('upload_json.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text()) // Change to text to log it first
-    .then(data => {
-        console.log(data); // Log the raw response
-        const jsonData = JSON.parse(data); // Then parse the JSON
-        if (jsonData.error) {
-            alert(jsonData.error); // Display error message if any
-        } else {
-            console.log(`Caricamento dati... ${data.percentage}-${data.processed}-${data.total}`)
-            const progressText = document.getElementById('progress-text');
-            const percentage = data.percentage;
-            progressText.innerText = `Caricamento dati... ${percentage}%`;
+            fetch('upload_json.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text()) // Change to text to log it first
+            .then(data => {
+                console.log(data); // Log the raw response
+                const jsonData = JSON.parse(data); // Then parse the JSON
+                if (jsonData.error) {
+                    alert(jsonData.error); // Display error message if any
+                } else {
+                    console.log(`Caricamento dati... ${data.percentage}-${data.processed}-${data.total}`)
+                    const progressText = document.getElementById('progress-text');
+                    const percentage = data.percentage;
+                    progressText.innerText = `Caricamento dati... ${percentage}%`;
 
-            // Optionally hide the spinner when done
-            if (percentage >= 100) {
-                document.getElementById('loading-spinner').style.display = 'none';
-                clearInterval(progressInterval); // Stop polling once complete
-            }
+                    // Optionally hide the spinner when done
+                    if (percentage >= 100) {
+                        document.getElementById('loading-spinner').style.display = 'none';
+                        clearInterval(progressInterval); // Stop polling once complete
+                    }
+                }
+                document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner after completion
+            })
+            .catch(error => {
+                error_log('zava Error:', error);
+                document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner on error
+                alert('Errore durante il caricamento o la lavorazione del file.');
+            });
         }
-        document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner after completion
-    })
-    .catch(error => {
-        error_log('zava Error:', error);
-        document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner on error
-        alert('Errore durante il caricamento o la lavorazione del file.');
-    });
-}
 
 
 

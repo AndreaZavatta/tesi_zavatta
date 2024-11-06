@@ -14,14 +14,39 @@
     <script src="dashboard.js" defer></script> <!-- Collegamento al file JS separato -->
 </head>
 <body>
+    <?php if (isset($_SESSION['admin_id'])): ?>
+        <div class="profile_section">
+                <p>
+                    <?php
+                        $adminId = $_SESSION['admin_id'];
+                        $query = "SELECT username FROM admin WHERE id = ?";
+                        $stmt = $connection->prepare($query);
+                        $stmt->bind_param('i', $adminId);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            echo htmlspecialchars($row['username']);
+                        } else {
+                            echo "Errore nel recupero del profilo.";
+                        }
+
+                        $stmt->close();
+                        $connection->close();
+                    ?>
+                </p>
+            <i class="fas fa-user"></i>
+        </div>
+    <?php endif; ?>
     <div class="tab-container">
         <span class="tab" onclick="showTab(0)">Load File</span>
-        <span class="tab" onclick="showTab(1)">Profilo</span>
         <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
-        <span class="tab" onclick="showTab(2)">Register a User</span>
-        <span class="tab" onclick="showTab(3)">Handle Users</span>
+        <span class="tab" onclick="showTab(1)">Register a User</span>
+        <span class="tab" onclick="showTab(2)">Handle Users</span>
     </div>
     <div class="center_column cover_full">
+
         <div class="container">
             <h2>Dashboard</h2>
 
@@ -74,31 +99,6 @@
                     </fieldset>
                     <button onclick="window.location.href='../votazioni/';" class="data_visualization_button" id="visualization_button_votazioni">Data Visualization</button>
                     <button onclick="window.location.href='../';" class="data_visualization_button" id="visualization_button_traffic">Data Visualization</button>
-                </div>
-
-                <!-- Tab contenuto: Profilo -->
-                <div class="tab-content">
-                    <h3>Il tuo profilo</h3>
-                    <p>Username:
-                        <?php
-                            $adminId = $_SESSION['admin_id'];
-                            $query = "SELECT username FROM admin WHERE id = ?";
-                            $stmt = $connection->prepare($query);
-                            $stmt->bind_param('i', $adminId);
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-
-                            if ($result->num_rows > 0) {
-                                $row = $result->fetch_assoc();
-                                echo htmlspecialchars($row['username']);
-                            } else {
-                                echo "Errore nel recupero del profilo.";
-                            }
-
-                            $stmt->close();
-                            $connection->close();
-                        ?>
-                    </p>
                 </div>
                 <!--
                 <div class="tab-content">
@@ -181,7 +181,9 @@
                 </div>
             <?php endif; ?>
         </div>
+
     </div>
+
     <div id="modalOverlay" class="modal-overlay" onclick="closeEditModal()"></div>
     <div id="editUsernameModal" class="modal" style="display: none;">
         <div class="modal-content">

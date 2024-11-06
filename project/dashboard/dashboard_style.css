@@ -147,17 +147,18 @@ form {
 
 /* Tab styles */
 .tab-container {
+	flex-direction: column;
 	display: flex;
 	justify-content: center;
-	margin-bottom: 20px;
-	border-bottom: 2px solid #95132f; /* Rich red border for tabs */
+	position: fixed;
+	height: 100%;
 }
 
 /* Styles for individual tabs */
 .tab {
 	padding: 12px 20px;
 	margin: 0 5px;
-	background-color: #f8e9eb; /* Light pink for inactive tabs */
+	background-color: #f3f3f3; /* Light pink for inactive tabs */
 	color: #95132f; /* Rich red text */
 	font-size: 16px;
 	border: 1px solid #ddd;

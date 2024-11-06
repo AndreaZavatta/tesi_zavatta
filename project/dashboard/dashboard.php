@@ -14,6 +14,14 @@
     <script src="dashboard.js" defer></script> <!-- Collegamento al file JS separato -->
 </head>
 <body>
+        <div class="tab-container">
+            <span class="tab" onclick="showTab(0)">Carica File</span>
+            <span class="tab" onclick="showTab(1)">Profilo</span>
+            <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
+            <span class="tab" onclick="showTab(2)">Register a User</span>
+            <span class="tab" onclick="showTab(3)">Handle Users</span>
+        </div>
+
     <div class="container">
         <h2>Dashboard</h2>
 
@@ -26,13 +34,6 @@
 
         <?php if (isset($_SESSION['admin_id'])): ?>
             <!-- Menu Tabs -->
-            <div class="tab-container">
-                <span class="tab" onclick="showTab(0)">Carica File</span>
-                <span class="tab" onclick="showTab(1)">Profilo</span>
-                <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
-                <span class="tab" onclick="showTab(2)">Register a User</span>
-                <span class="tab" onclick="showTab(3)">Handle Users</span>
-            </div>
 
             <div class="tab-content">
                 <h3>Carica file</h3>

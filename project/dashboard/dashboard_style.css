@@ -1,13 +1,56 @@
 /* General Styles */
-body {
-	display: flex;
-	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-	background-color: #f3e8eb; /* Light soft pinkish background to complement the red tones */
+
+* {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
+}
+
+/* Ensure the body occupies the entire viewport */
+html,
+body {
+	width: 100%;
+	height: 100%;
+	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+	background-color: #f3e8eb; /* Light soft pinkish background to complement the red tones */
 	color: #3d4f5c; /* Dark gray text color for readability */
 }
 
+#upload-form {
+	padding: 40px;
+}
+
+.cover_full {
+	width: 100%;
+	height: 100%;
+}
+
+.center_column {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.center_row {
+	display: flex;
+	justify-content: center;
+}
+
+fieldset,
+.data_visualization_button {
+	display: none;
+}
+
+.tab-content .data_visualization_button,
+label {
+	margin: auto;
+}
+
+.load_buttons {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+}
 /* Sidebar styles */
 .sidebar {
 	position: fixed;
@@ -47,7 +90,11 @@ body {
 
 /* Main container styles */
 .container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	width: 600px;
+	height: 600px;
 	margin: 20px auto;
 	padding: 20px;
 	background-color: #ffffff; /* White background */
@@ -131,14 +178,7 @@ form {
 
 /* Styles for the delete button */
 #delete-table-btn {
-	background-color: #95132f; /* Rich red */
-	color: white;
-	border: none;
-	padding: 8px 12px;
-	font-size: 14px;
 	cursor: pointer;
-	border-radius: 5px;
-	transition: background-color 0.3s;
 }
 
 #delete-table-btn:hover {
@@ -190,7 +230,7 @@ form {
 	padding: 20px;
 	background-color: white;
 	border: 1px solid #ddd;
-	border-radius: 0 8px 8px 8px;
+	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	margin-top: -2px;
 }
@@ -235,14 +275,7 @@ input[type="email"] {
 	font-size: 16px;
 }
 
-#delete_container {
-	margin-top: 10px;
-	width: 100%;
-	display: flex;
-	align-items: center;
-}
 button {
-	margin: auto;
 	padding: 10px;
 	background-color: #95132f; /* Rich red */
 	color: white;
@@ -282,6 +315,8 @@ button:hover {
 }
 
 .logout_button {
+	display: flex;
+	justify-content: center;
 	margin-top: 15px;
 }
 

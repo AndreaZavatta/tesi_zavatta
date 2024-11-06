@@ -40,10 +40,14 @@ function showActiveTab(){
     }
 }
 
+
+
 document.addEventListener("DOMContentLoaded", function() {
         progressInterval = '';
         showActiveTab();
         loadUsers();
+        toggleFieldsets();
+        document.getElementById("datasets").addEventListener("change", toggleFieldsets);
         document.getElementById('stop-import-btn').addEventListener('click', function() {
             if (confirm('Sei sicuro di voler interrompere il processo di importazione?')) {
                 fetch('stop_import.php', {
@@ -101,8 +105,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
 
-
-
         function uploadFile() {
             // Show spinner
             document.getElementById('loading-spinner').style.display = 'flex';
@@ -153,6 +155,25 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error('Error fetching progress:', error));
         }
 
+        function toggleFieldsets() {
+            const datasetSelect = document.getElementById("datasets").value;
+            const trafficFieldset = document.getElementById("traffic-fieldset");
+            const ballotingFieldset = document.getElementById("balloting-fieldset");
+            const visualizationButtonVotazioni = document.getElementById("visualization_button_votazioni");
+            const visualizationButtonTraffic = document.getElementById("visualization_button_traffic");
+            // Toggle visibility based on selection
+            if (datasetSelect === "Traffic") {
+                visualizationButtonTraffic.style.display = "block";
+                trafficFieldset.style.display = "block";
+                visualizationButtonVotazioni.style.display = "none";
+                ballotingFieldset.style.display = "none";
+            } else if (datasetSelect === "Balloting") {
+                trafficFieldset.style.display = "none";
+                visualizationButtonTraffic.style.display = "none";
+                ballotingFieldset.style.display = "block";
+                visualizationButtonVotazioni.style.display = "block";
+            }
+        }
 
 
         window.deleteAllTablesMap = function() {

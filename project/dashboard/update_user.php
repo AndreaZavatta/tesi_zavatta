@@ -8,7 +8,7 @@ if (isset($data['id']) && isset($data['username'])) {
     // Modifica dell'username
     $userId = $data['id'];
     $newUsername = $data['username'];
-    $stmt = $connection->prepare("UPDATE admin SET username = ? WHERE id = ?");
+    $stmt = $connection->prepare("UPDATE users SET username = ? WHERE id = ?");
     $stmt->bind_param("si", $newUsername, $userId);
 
     if ($stmt->execute()) {
@@ -22,7 +22,7 @@ if (isset($data['id']) && isset($data['username'])) {
     // Modifica della password
     $userId = $data['id'];
     $newPasswordHash = password_hash($data['password'], PASSWORD_DEFAULT);
-    $stmt = $connection->prepare("UPDATE admin SET password_hash = ? WHERE id = ?");
+    $stmt = $connection->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
     $stmt->bind_param("si", $newPasswordHash, $userId);
 
     if ($stmt->execute()) {

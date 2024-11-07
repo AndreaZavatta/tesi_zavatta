@@ -1,6 +1,7 @@
 <?php
     require_once "../db_connection.php";
     require_once "./checkPermissions.php";
+    require_once "./getProfiles.php"
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +21,7 @@
                     <p>
                         <?php
                             $adminId = $_SESSION['admin_id'];
-                            $query = "SELECT username FROM admin WHERE id = ?";
+                            $query = "SELECT username FROM users WHERE id = ?";
                             $stmt = $connection->prepare($query);
                             $stmt->bind_param('i', $adminId);
                             $stmt->execute();
@@ -120,26 +121,36 @@
                     <button onclick="window.location.href='../votazioni/';" class="data_visualization_button" id="visualization_button_votazioni">Data Visualization</button>
                     <button onclick="window.location.href='../';" class="data_visualization_button" id="visualization_button_traffic">Data Visualization</button>
                 </div>
-            <?php if (isset($_SESSION['admin_id']) && haspermission('Register User')): ?>
-                <div class="tab-content">
-                    <h3>Register a User</h3>
-                    <form onsubmit="event.preventDefault(); registerUser();">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" required>
+                <?php if (isset($_SESSION['admin_id']) && hasPermission('Register User')): ?>
+                    <div class="tab-content">
+                        <h3>Register a User</h3>
+                        <form onsubmit="event.preventDefault(); registerUser();">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" required>
 
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" required>
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" required>
 
-                        <label for="confirm_password">Conferma Password:</label>
-                        <input type="password" id="confirm_password" required>
+                            <label for="confirm_password">Confirm Password:</label>
+                            <input type="password" id="confirm_password" required>
 
-                        <div id="password-error-registration" style="color: red; display: none; margin-top: 10px;"></div>
-                        <div class="center_row">
-                            <button type="submit">Register User</button>
-                        </div>
-                    </form>
-                </div>
-            <?php endif; ?>
+                            <!-- Profile Picklist -->
+                            <label for="profile">Profile:</label>
+                            <select id="profile" required>
+                                <option value="" disabled selected>Select a Profile</option>
+                                <?php foreach ($profiles as $profile): ?>
+                                    <option value="<?= $profile['id']; ?>"><?= htmlspecialchars($profile['role_name']); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+
+                            <div id="password-error-registration" style="color: red; display: none; margin-top: 10px;"></div>
+                            <div class="center_row">
+                                <button type="submit">Register User</button>
+                            </div>
+                        </form>
+                    </div>
+                <?php endif; ?>
+
             <?php if (isset($_SESSION['admin_id']) && hasSomeUserPermission()): ?>
                 <div class="tab-content">
                     <h3>Handle Users</h3>

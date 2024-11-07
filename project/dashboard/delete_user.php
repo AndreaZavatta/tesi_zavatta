@@ -24,7 +24,7 @@ if (!isset($data['id']) || !is_numeric($data['id'])) {
 $userId = $data['id'];
 
 // Prepare and execute the delete statement
-$stmt = $connection->prepare("DELETE FROM admin WHERE id = ?");
+$stmt = $connection->prepare("DELETE FROM users WHERE id = ?");
 $stmt->bind_param("i", $userId);
 
 if ($stmt->execute()) {

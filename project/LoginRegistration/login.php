@@ -15,7 +15,7 @@ function login($username, $password, $connection) {
     global $errorMessage;
 
     // Prepare and execute the query
-    $stmt = $connection->prepare("SELECT * FROM admin WHERE username = ?");
+    $stmt = $connection->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param('s', $username);
     $stmt->execute();
     $result = $stmt->get_result();

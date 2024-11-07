@@ -18,7 +18,7 @@ $oldPassword = $data['old_password'];
 $newPassword = $data['new_password'];
 $userId = $_SESSION['admin_id'];
 
-$query = "SELECT password_hash FROM admin WHERE id = ?";
+$query = "SELECT password_hash FROM users WHERE id = ?";
 $stmt = $connection->prepare($query);
 $stmt->bind_param('i', $userId);
 $stmt->execute();

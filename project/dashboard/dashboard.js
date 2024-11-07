@@ -290,21 +290,35 @@ function registerUser() {
     const username = document.getElementById("username").value;
     const newPassword = document.getElementById("password").value;
     const confirmNewPassword = document.getElementById("confirm_password").value;
+    const profileId = document.getElementById("profile").value;
 
-    if (!validatePassword(newPassword, confirmNewPassword, 'password-error-registration')) return;
+    // Debugging: Log the input values
+    console.log("Username:", username);
+    console.log("New Password:", newPassword);
+    console.log("Confirm Password:", confirmNewPassword);
+    console.log("Profile ID:", profileId);
 
+    if (!validatePassword(newPassword, confirmNewPassword, 'password-error-registration')) {
+        console.log("Password validation failed.");
+        return;
+    }
+
+    // Send registration request with username, password, and profile ID
     fetch('../LoginRegistration/registernew.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, new_password: newPassword })
+        body: JSON.stringify({ username, new_password: newPassword, profile_id: profileId })
     })
     .then(response => response.json())
     .then(data => {
+        console.log("Response from server:", data); // Debugging: Log the server response
         if (data.success) {
             alert("Registrazione completata con successo!");
+            // Clear the form fields
             document.getElementById("username").value = '';
             document.getElementById("password").value = '';
             document.getElementById("confirm_password").value = '';
+            document.getElementById("profile").value = ''; // Clear the profile selection
         } else {
             alert("Errore: " + data.error);
         }
@@ -314,6 +328,8 @@ function registerUser() {
         alert("Errore durante la registrazione.");
     });
 }
+
+
 
 // Password update function
 function updateUserPassword() {

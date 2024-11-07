@@ -15,7 +15,7 @@ function register($username, $password, $connection) {
     }
 
     // Check if the username already exists
-    $checkUserExists = $connection->prepare("SELECT * FROM admin WHERE username = ?");
+    $checkUserExists = $connection->prepare("SELECT * FROM users WHERE username = ?");
     $checkUserExists->bind_param('s', $username);
     $checkUserExists->execute();
     $checkUserExists->store_result();
@@ -32,7 +32,7 @@ function register($username, $password, $connection) {
 
 
     $profileId = 5; // Setting profile_id to 5
-    $stmt = $connection->prepare("INSERT INTO admin (username, password_hash, profile_id) VALUES (?, ?, ?)");
+    $stmt = $connection->prepare("INSERT INTO users (username, password_hash, profile_id) VALUES (?, ?, ?)");
     $stmt->bind_param('ssi', $username, $passwordHash, $profileId);
 
     if ($stmt->execute()) {

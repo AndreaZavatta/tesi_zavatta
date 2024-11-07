@@ -3,7 +3,7 @@ require "../db_connection.php";
 
 header('Content-Type: application/json');
 
-$result = $connection->query("SELECT id, username FROM admin");
+$result = $connection->query("SELECT id, username FROM users");
 
 $users = [];
 while ($row = $result->fetch_assoc()) {

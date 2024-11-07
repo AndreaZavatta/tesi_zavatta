@@ -15,7 +15,7 @@ if (!isset($connection) || !$connection instanceof mysqli) {
 $userId = $_SESSION['admin_id'];
 $query = "
     SELECT profile_id 
-    FROM admin 
+    FROM users 
     WHERE id = ?
 ";
 $stmt = $connection->prepare($query);

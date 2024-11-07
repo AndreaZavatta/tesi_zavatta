@@ -14,43 +14,49 @@
     <script src="dashboard.js" defer></script> <!-- Collegamento al file JS separato -->
 </head>
 <body>
-    <?php if (isset($_SESSION['admin_id'])): ?>
         <div class="profile_section">
-                
-            <div class="profile_data" onclick="toggleLogout()">
-                <p>
-                    <?php
-                        $adminId = $_SESSION['admin_id'];
-                        $query = "SELECT username FROM admin WHERE id = ?";
-                        $stmt = $connection->prepare($query);
-                        $stmt->bind_param('i', $adminId);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
+            <?php if (isset($_SESSION['admin_id'])): ?>
+                <div class="profile_data" onclick="toggleLogout()">
+                    <p>
+                        <?php
+                            $adminId = $_SESSION['admin_id'];
+                            $query = "SELECT username FROM admin WHERE id = ?";
+                            $stmt = $connection->prepare($query);
+                            $stmt->bind_param('i', $adminId);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
 
-                        if ($result->num_rows > 0) {
-                            $row = $result->fetch_assoc();
-                            echo htmlspecialchars($row['username']);
-                        } else {
-                            echo "Errore nel recupero del profilo.";
-                        }
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+                                echo htmlspecialchars($row['username']);
+                            } else {
+                                echo "Errore nel recupero del profilo.";
+                            }
 
-                        $stmt->close();
-                        $connection->close();
-                    ?>
-                </p>
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="logout_button" style="display: none;">
-                <button onclick="window.location.href='logout.php';">Logout</button>
-            </div>
+                            $stmt->close();
+                            $connection->close();
+                        ?>
+                    </p>
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="log_button" style="display: none;">
+                    <button onclick="window.location.href='logout.php';">Logout</button>
+                </div>
+                <?php else: ?>
+                <div class="log_button">
+                    <button onclick="window.location.href='../LoginRegistration/login.php';">Login</button>
+                </div>
+            <?php endif; ?>
+
+        </div>
+    <?php if (isset($_SESSION['admin_id'])): ?>
+        <div class="tab-container">
+            <span class="tab" onclick="showTab(0)">Load File</span>
+            <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
+            <span class="tab" onclick="showTab(1)">Register a User</span>
+            <span class="tab" onclick="showTab(2)">Handle Users</span>
         </div>
     <?php endif; ?>
-    <div class="tab-container">
-        <span class="tab" onclick="showTab(0)">Load File</span>
-        <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
-        <span class="tab" onclick="showTab(1)">Register a User</span>
-        <span class="tab" onclick="showTab(2)">Handle Users</span>
-    </div>
     <div class="center_column cover_full">
         <h2>Dashboard</h2>
         <div class="container">
@@ -61,7 +67,7 @@
                 <button id="stop-import-btn" style="margin-top: 10px;">Interrompi Importazione</button>
             </div>
 
-            <?php if (isset($_SESSION['admin_id'])): ?>
+            
                 <!-- Menu Tabs -->
                 <div class="tab-content">
                     <h3>Load file</h3>
@@ -71,6 +77,7 @@
                         <option value="Balloting">Balloting</option>
                     </select>
                     <!-- Section for Application 1 -->
+                     <?php if (isset($_SESSION['admin_id'])): ?>
                     <fieldset id="traffic-fieldset">
                         <legend>Mappa</legend>
                         <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
@@ -101,28 +108,12 @@
                         </form>
 
                     </fieldset>
+                    <?php endif; ?>
+
                     <button onclick="window.location.href='../votazioni/';" class="data_visualization_button" id="visualization_button_votazioni">Data Visualization</button>
                     <button onclick="window.location.href='../';" class="data_visualization_button" id="visualization_button_traffic">Data Visualization</button>
                 </div>
-                <!--
-                <div class="tab-content">
-                    <h3>Cambia la tua password</h3>
-                    <form onsubmit="event.preventDefault(); updateUserPassword();">
-                        <label for="old_password">Vecchia Password:</label>
-                        <input type="password" id="old_password" required>
-
-                        <label for="new_password">Nuova Password:</label>
-                        <input type="password" id="new_password" required>
-
-                        <label for="confirm_new_password">Conferma Nuova Password:</label>
-                        <input type="password" id="confirm_new_password" required>
-
-                        <div id="password-error" style="color: red; display: none; margin-top: 10px;"></div>
-
-                        <button type="submit">Aggiorna Password</button>
-                    </form>
-                </div>
-                        -->
+            <?php if (isset($_SESSION['admin_id'])): ?>
                 <div class="tab-content">
                     <h3>Register a User</h3>
                     <form onsubmit="event.preventDefault(); registerUser();">
@@ -141,9 +132,6 @@
                         </div>
                     </form>
                 </div>
-
-                
-                <!-- Modal for Editing User -->
                 <div class="tab-content">
                     <h3>Handle Users</h3>
                     <table id="users-table">

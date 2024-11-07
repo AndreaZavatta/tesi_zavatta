@@ -23,7 +23,7 @@
             localStorage.setItem('activeTab', tabIndex);
     }
     function toggleLogout() {
-        const logoutButton = document.getElementsByClassName("logout_button")[0];
+        const logoutButton = document.getElementsByClassName("log_button")[0];
         // Toggle visibility of the logout button
         if (logoutButton.style.display === "none") {
             logoutButton.style.display = "block";
@@ -171,15 +171,15 @@ document.addEventListener("DOMContentLoaded", function() {
             const visualizationButtonTraffic = document.getElementById("visualization_button_traffic");
             // Toggle visibility based on selection
             if (datasetSelect === "Traffic") {
-                visualizationButtonTraffic.style.display = "block";
-                trafficFieldset.style.display = "block";
-                visualizationButtonVotazioni.style.display = "none";
-                ballotingFieldset.style.display = "none";
+                if(visualizationButtonTraffic) visualizationButtonTraffic.style.display = "block";
+                if(trafficFieldset) trafficFieldset.style.display = "block";
+                if(visualizationButtonVotazioni) visualizationButtonVotazioni.style.display = "none";
+                if(ballotingFieldset) ballotingFieldset.style.display = "none";
             } else if (datasetSelect === "Balloting") {
-                trafficFieldset.style.display = "none";
-                visualizationButtonTraffic.style.display = "none";
-                ballotingFieldset.style.display = "block";
-                visualizationButtonVotazioni.style.display = "block";
+                if(trafficFieldset) trafficFieldset.style.display = "none";
+                if(visualizationButtonTraffic) visualizationButtonTraffic.style.display = "none";
+                if(ballotingFieldset) ballotingFieldset.style.display = "block";
+                if(visualizationButtonVotazioni) visualizationButtonVotazioni.style.display = "block";
             }
         }
 

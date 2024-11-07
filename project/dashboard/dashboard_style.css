@@ -108,6 +108,7 @@ label {
 	flex-direction: column;
 	justify-content: space-around;
 	width: 600px;
+	height: 500px;
 	margin: 20px auto;
 	padding: 20px;
 	background-color: #ffffff; /* White background */
@@ -218,6 +219,7 @@ form {
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	margin-top: -2px;
+	height: 100%;
 }
 
 .tab-content.active {
@@ -299,7 +301,7 @@ button:hover {
 	width: 160px;
 }
 
-.logout_button {
+.log_button {
 	margin-top: 15px;
 	margin-left: 15px;
 	cursor: pointer;

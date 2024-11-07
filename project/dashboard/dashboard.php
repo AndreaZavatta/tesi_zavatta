@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    require "../db_connection.php";
+    require_once "../db_connection.php";
+    require_once "./checkPermissions.php";
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +34,6 @@
                             }
 
                             $stmt->close();
-                            $connection->close();
                         ?>
                     </p>
                     <i class="fas fa-user"></i>
@@ -51,10 +50,16 @@
         </div>
     <?php if (isset($_SESSION['admin_id'])): ?>
         <div class="tab-container">
-            <span class="tab" onclick="showTab(0)">Load File</span>
+            <?php if (haspermission('Import Voting Data') || haspermission('Import Map Data')): ?>
+                <span class="tab" onclick="showTab(0)">Load File</span>
+            <?php endif; ?>
             <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
-            <span class="tab" onclick="showTab(1)">Register a User</span>
-            <span class="tab" onclick="showTab(2)">Handle Users</span>
+            <?php if (haspermission('Register User')): ?>
+                <span class="tab" onclick="showTab(1)">Register a User</span>
+            <?php endif; ?>
+            <?php if (hasSomeUserPermission()): ?>
+                <span class="tab" onclick="showTab(2)">Handle Users</span>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
     <div class="center_column cover_full">
@@ -77,43 +82,45 @@
                         <option value="Balloting">Balloting</option>
                     </select>
                     <!-- Section for Application 1 -->
-                     <?php if (isset($_SESSION['admin_id'])): ?>
-                    <fieldset id="traffic-fieldset">
-                        <legend>Mappa</legend>
-                        <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
-                            <label for="csv_file_app1">Seleziona il file CSV per visualizzare i dati sulla mappa</label>
-                            <input type="file" id="csv_file_app1" name="csv_file" accept=".csv" required>
-                            <div class="load_buttons">
-                                <button type="submit">Load File</button>
-                                <div id="delete_container">
-                                    <button id="delete-table-btn" onclick="deleteAllTablesMap();">Delete tables</button>
+                    <?php if (isset($_SESSION['admin_id'])): ?>
+                        <?php if (haspermission('Import Map Data')): ?>
+                        <fieldset id="traffic-fieldset">
+                            <legend>Mappa</legend>
+                            <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
+                                <label for="csv_file_app1">Seleziona il file CSV per visualizzare i dati sulla mappa</label>
+                                <input type="file" id="csv_file_app1" name="csv_file" accept=".csv" required>
+                                <div class="load_buttons">
+                                    <button type="submit">Load File</button>
+                                    <div id="delete_container">
+                                        <button id="delete-table-btn" onclick="deleteAllTablesMap();">Delete tables</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-
-                    </fieldset>
-
+                            </form>
+                        </fieldset>
+                        <?php endif; ?>
                     <!-- Section for Application 2 -->
-                    <fieldset id="balloting-fieldset">
-                        <legend>Votazioni</legend>
-                        <form id="upload-form-app2" method="POST" enctype="multipart/form-data">
-                            <label for="json_file">Seleziona il file JSON per visualizzare le votazioni:</label>
-                            <input type="file" id="json_file" name="json_file" accept=".json" required>
-                            <div class="load_buttons">
-                                <button type="submit">Load File</button>
-                                <div id="delete_container">
-                                    <button id="delete-table-btn-app2" onclick="deleteAllTablesVotazioni();">Delete tables</button>
+                     <?php if (haspermission('Import Voting Data')): ?>
+                        <fieldset id="balloting-fieldset">
+                            <legend>Votazioni</legend>
+                            <form id="upload-form-app2" method="POST" enctype="multipart/form-data">
+                                <label for="json_file">Seleziona il file JSON per visualizzare le votazioni:</label>
+                                <input type="file" id="json_file" name="json_file" accept=".json" required>
+                                <div class="load_buttons">
+                                    <button type="submit">Load File</button>
+                                    <div id="delete_container">
+                                        <button id="delete-table-btn-app2" onclick="deleteAllTablesVotazioni();">Delete tables</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
 
-                    </fieldset>
+                        </fieldset>
+                        <?php endif; ?>
                     <?php endif; ?>
 
                     <button onclick="window.location.href='../votazioni/';" class="data_visualization_button" id="visualization_button_votazioni">Data Visualization</button>
                     <button onclick="window.location.href='../';" class="data_visualization_button" id="visualization_button_traffic">Data Visualization</button>
                 </div>
-            <?php if (isset($_SESSION['admin_id'])): ?>
+            <?php if (isset($_SESSION['admin_id']) && haspermission('Register User')): ?>
                 <div class="tab-content">
                     <h3>Register a User</h3>
                     <form onsubmit="event.preventDefault(); registerUser();">
@@ -132,6 +139,8 @@
                         </div>
                     </form>
                 </div>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['admin_id']) && hasSomeUserPermission()): ?>
                 <div class="tab-content">
                     <h3>Handle Users</h3>
                     <table id="users-table">
@@ -149,7 +158,6 @@
 
                 </div>
             <?php endif; ?>
-
             <!-- Elementmodal per visualizzare il riepilogo -->
             <div id="summary" style="display: none;">
                 <h3>Riepilogo Importazione</h3>

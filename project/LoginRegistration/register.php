@@ -1,24 +1,5 @@
 <?php
-require "../db_connection.php";
-session_start();
-
-
-
-// Now select the database
-$connection->select_db($dbName);
-
-// Check and create the 'admin' table if it doesn't exist
-$createTableQuery = "
-    CREATE TABLE IF NOT EXISTS admin (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(50) NOT NULL UNIQUE,
-        password_hash VARCHAR(255) NOT NULL
-    );
-";
-if ($connection->query($createTableQuery) !== TRUE) {
-    die("Error creating table: " . $connection->error);
-}
-
+require "./insertAdminData.php";
 
 // Now you can proceed with the rest of your code
 $errorMessage = '';
@@ -47,9 +28,12 @@ function register($username, $password, $connection) {
     // Hash the password
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert the new user
-    $stmt = $connection->prepare("INSERT INTO admin (username, password_hash) VALUES (?, ?)");
-    $stmt->bind_param('ss', $username, $passwordHash);
+
+
+
+    $profileId = 5; // Setting profile_id to 5
+    $stmt = $connection->prepare("INSERT INTO admin (username, password_hash, profile_id) VALUES (?, ?, ?)");
+    $stmt->bind_param('ssi', $username, $passwordHash, $profileId);
 
     if ($stmt->execute()) {
         // Redirect to login after successful registration

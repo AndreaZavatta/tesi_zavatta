@@ -16,6 +16,8 @@
 <body>
     <?php if (isset($_SESSION['admin_id'])): ?>
         <div class="profile_section">
+                
+            <div class="profile_data" onclick="toggleLogout()">
                 <p>
                     <?php
                         $adminId = $_SESSION['admin_id'];
@@ -36,7 +38,11 @@
                         $connection->close();
                     ?>
                 </p>
-            <i class="fas fa-user"></i>
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="logout_button" style="display: none;">
+                <button onclick="window.location.href='logout.php';">Logout</button>
+            </div>
         </div>
     <?php endif; ?>
     <div class="tab-container">
@@ -46,10 +52,8 @@
         <span class="tab" onclick="showTab(2)">Handle Users</span>
     </div>
     <div class="center_column cover_full">
-
+        <h2>Dashboard</h2>
         <div class="container">
-            <h2>Dashboard</h2>
-
             <!-- Spinner Container -->
             <div id="loading-spinner" class="spinner" style="display: none;">
                 <div class="loader"></div>
@@ -168,18 +172,7 @@
                 <p id="deleted-rows"></p> <!-- Aggiunto per mostrare le righe eliminate -->
             </div>
 
-            <!-- Logout -->
-            <?php if (isset($_SESSION['admin_id'])): ?>
-                <div class="logout_button">
-                    <button onclick="window.location.href='logout.php';">Logout</button>
-                </div>
-            <?php else: ?>
-                <div class="dashboard-without-login">
-                    <button onclick="window.location.href='logout.php';">Login</button>
-                    <button onclick="window.location.href='../';">Visualizza Mappa</button>
-                    <button onclick="window.location.href='../votazioni/';">Visualizza Votazioni</button>
-                </div>
-            <?php endif; ?>
+
         </div>
 
     </div>

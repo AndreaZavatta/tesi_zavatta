@@ -1,45 +1,53 @@
 
 // Funzione per mostrare la tab selezionata
-function showTab(tabIndex) {
-    const tabs = document.querySelectorAll('.tab-content');
-    tabs.forEach((tab, index) => {
-        if (index === tabIndex) {
-            tab.classList.add('active');
+    function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach((tab, index) => {
+                if (index === tabIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            const tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach((tab, index) => {
+                if (index === tabIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            // Salva l'indice della tab attiva nel localStorage
+            localStorage.setItem('activeTab', tabIndex);
+    }
+    function toggleLogout() {
+        const logoutButton = document.getElementsByClassName("logout_button")[0];
+        // Toggle visibility of the logout button
+        if (logoutButton.style.display === "none") {
+            logoutButton.style.display = "block";
         } else {
-            tab.classList.remove('active');
+            logoutButton.style.display = "none";
         }
-    });
-
-    const tabButtons = document.querySelectorAll('.tab');
-    tabButtons.forEach((tab, index) => {
-        if (index === tabIndex) {
-            tab.classList.add('active');
-        } else {
-            tab.classList.remove('active');
-        }
-    });
-
-    // Salva l'indice della tab attiva nel localStorage
-    localStorage.setItem('activeTab', tabIndex);
-}
-
-function showActiveTab(){
-    const activeTab = localStorage.getItem('activeTab');
-    if (activeTab !== null) {
-        showTab(parseInt(activeTab));
-    } else {
-        showTab(0); // Se nessuna tab è salvata, mostra la prima per default
     }
 
-    // Rendi i messaggi di errore o successo invisibili dopo 5 secondi
-    const message = document.querySelector('.success-message, .error-message');
-    if (message) {
-        setTimeout(() => {
-            message.style.display = 'none';
-        }, 5000); // 5000 millisecondi = 5 secondi
-    }
-}
+    function showActiveTab(){
+        const activeTab = localStorage.getItem('activeTab');
+        if (activeTab !== null) {
+            showTab(parseInt(activeTab));
+        } else {
+            showTab(0); // Se nessuna tab è salvata, mostra la prima per default
+        }
 
+        // Rendi i messaggi di errore o successo invisibili dopo 5 secondi
+        const message = document.querySelector('.success-message, .error-message');
+        if (message) {
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 5000); // 5000 millisecondi = 5 secondi
+        }
+    }
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -248,7 +256,6 @@ document.addEventListener("DOMContentLoaded", function() {
             uploadFileVotazioni();
 
         });
-
     });
 
 

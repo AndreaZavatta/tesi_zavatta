@@ -1,7 +1,7 @@
 <?php
     require_once "../db_connection.php";
     require_once "./checkPermissions.php";
-    require_once "./getProfiles.php"
+    require_once "./getProfiles.php";
 ?>
 
 <!DOCTYPE html>
@@ -47,8 +47,8 @@
                     <button onclick="window.location.href='../LoginRegistration/login.php';">Login</button>
                 </div>
             <?php endif; ?>
-
         </div>
+
     <?php if (isset($_SESSION['admin_id'])): ?>
         <div class="tab-container-column">
             <?php if (haspermission('Import Voting Data') || haspermission('Import Map Data')): ?>
@@ -60,6 +60,9 @@
             <?php endif; ?>
             <?php if (hasSomeUserPermission()): ?>
                 <span class="tab" onclick="showTab(2)">Handle Users</span>
+            <?php endif; ?>
+            <?php if (hasSomeUserPermission()): ?>
+                <span class="tab" onclick="showTab(3)">Data Visualization</span>
             <?php endif; ?>
         </div>
     <?php endif; ?>
@@ -77,6 +80,9 @@
                     <?php endif; ?>
                     <?php if (hasSomeUserPermission()): ?>
                         <span class="tab" onclick="showTab(2)">Handle Users</span>
+                    <?php endif; ?>
+                    <?php if (hasSomeUserPermission()): ?>
+                        <span class="tab" onclick="showTab(3)">Data Visualization</span>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
@@ -183,6 +189,11 @@
 
                 </div>
             <?php endif; ?>
+            <?php if (isset($_SESSION['admin_id']) && hasSomeUserPermission()): ?>
+                <div class="tab-content">
+                </div>
+            <?php endif; ?>
+
             <!-- Elementmodal per visualizzare il riepilogo -->
             <div id="summary" style="display: none;">
                 <h3>Riepilogo Importazione</h3>

@@ -28,12 +28,13 @@
         function showActiveBasedOnContainer(tabIndex) {
             // Define pairs of indices to activate together
             const pairs = {
-                0: [0, 3],
-                1: [1, 4],
-                2: [2, 5],
-                3: [0, 3],
-                4: [1, 4],
-                5: [2, 5]
+                0: [0, 4],
+                1: [1, 5],
+                2: [2, 6],
+                3: [3, 7],
+                4: [1, 5],
+                5: [2, 6],
+                6: [3, 7]
             };
 
 

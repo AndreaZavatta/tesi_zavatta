@@ -10,8 +10,7 @@
                 }
             });
 
-            showActiveBasedOnContainer('.tab-container-column', tabIndex);
-            showActiveBasedOnContainer('.tab-container-row',tabIndex);
+            showActiveBasedOnContainer(tabIndex);
 
             // Salva l'indice della tab attiva nel localStorage
             localStorage.setItem('activeTab', tabIndex);
@@ -26,27 +25,33 @@
         }
     }
 
-    function showActiveBasedOnContainer(str, tabIndex){
-                // Select the tab container
-        const tabContainer = document.querySelector(str);
+        function showActiveBasedOnContainer(tabIndex) {
+            // Define pairs of indices to activate together
+            const pairs = {
+                0: [0, 3],
+                1: [1, 4],
+                2: [2, 5],
+                3: [0, 3],
+                4: [1, 4],
+                5: [2, 5]
+            };
 
-        // Check if the tab container is visible (not `display: none`)
-        if (window.getComputedStyle(tabContainer).display !== 'none') {
-            // Select only the visible `.tab` elements inside `.tab-container-column`
-            const tabButtons = Array.from(tabContainer.querySelectorAll('.tab')).filter(tab => {
-                return window.getComputedStyle(tab).display !== 'none';
-            });
 
-            // Apply the active class based on the tabIndex
-            tabButtons.forEach((tab, index) => {
-                if (index === tabIndex) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-        }
-    }
+                const tabButtons = Array.from(document.querySelectorAll('.tab'));
+
+                // Get the pair of indices to activate
+                const indicesToActivate = pairs[tabIndex] || [tabIndex];
+
+                // Apply the active class based on the paired indices
+                tabButtons.forEach((tab, index) => {
+                    if (indicesToActivate.includes(index)) {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+            }
+
     function showActiveTab(){
         const activeTab = localStorage.getItem('activeTab');
         if (activeTab !== null) {

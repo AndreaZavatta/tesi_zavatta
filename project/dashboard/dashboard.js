@@ -10,14 +10,8 @@
                 }
             });
 
-            const tabButtons = document.querySelectorAll('.tab');
-            tabButtons.forEach((tab, index) => {
-                if (index === tabIndex) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
+            showActiveBasedOnContainer('.tab-container-column', tabIndex);
+            showActiveBasedOnContainer('.tab-container-row',tabIndex);
 
             // Salva l'indice della tab attiva nel localStorage
             localStorage.setItem('activeTab', tabIndex);
@@ -32,6 +26,27 @@
         }
     }
 
+    function showActiveBasedOnContainer(str, tabIndex){
+                // Select the tab container
+        const tabContainer = document.querySelector(str);
+
+        // Check if the tab container is visible (not `display: none`)
+        if (window.getComputedStyle(tabContainer).display !== 'none') {
+            // Select only the visible `.tab` elements inside `.tab-container-column`
+            const tabButtons = Array.from(tabContainer.querySelectorAll('.tab')).filter(tab => {
+                return window.getComputedStyle(tab).display !== 'none';
+            });
+
+            // Apply the active class based on the tabIndex
+            tabButtons.forEach((tab, index) => {
+                if (index === tabIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+        }
+    }
     function showActiveTab(){
         const activeTab = localStorage.getItem('activeTab');
         if (activeTab !== null) {

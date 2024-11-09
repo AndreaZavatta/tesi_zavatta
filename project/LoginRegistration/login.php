@@ -81,6 +81,9 @@ function login($username, $password, $connection) {
         <div class="login-link">
             <p>Non hai un account? <a href="register.php">Registrati qui</a></p>
         </div>
+        <div class="login-link">
+            <p>Non vuoi registrarti? <a href="../dashboard/dashboard.php">Accedi senza login</a></p>
+        </div>
     </div>
 </body>
 </html>

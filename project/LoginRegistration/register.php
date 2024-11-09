@@ -127,6 +127,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login-link">
             <p>Hai già un account? <a href="login.php">Accedi qui</a></p>
         </div>
+        <div class="login-link">
+            <p>Non vuoi registrarti? <a href="../dashboard/dashboard.php">Accedi senza login</a></p>
+        </div>
     </div>
 </body>
 </html>

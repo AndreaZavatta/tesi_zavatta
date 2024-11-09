@@ -108,7 +108,7 @@ label {
 	flex-direction: column;
 	justify-content: space-around;
 	width: 600px;
-	height: 500px;
+	min-height: 550px;
 	margin: 20px auto;
 	padding: 20px;
 	background-color: #ffffff; /* White background */
@@ -171,13 +171,20 @@ form {
 }
 
 /* Tab styles */
-.tab-container {
+.tab-container-column {
 	flex-direction: column;
 	display: flex;
 	justify-content: center;
 	position: fixed;
 	height: 100%;
 	z-index: 10;
+}
+
+.tab-container-row {
+	flex-direction: row;
+	display: flex;
+	justify-content: center;
+	display: none;
 }
 
 /* Styles for individual tabs */
@@ -394,4 +401,14 @@ button:hover {
 	font-weight: bold;
 	margin-top: 10px;
 	display: block;
+}
+
+@media (max-width: 950px) {
+	/* Hide element1 and show element2 */
+	.tab-container-row {
+		display: block;
+	}
+	.tab-container-column {
+		display: none;
+	}
 }

@@ -3,30 +3,29 @@ session_start();
 require_once "../db_connection.php";
 
 // Ensure the user is logged in
-if (!isset($_SESSION['admin_id'])) {
-    die("Access denied: user not logged in.");
-}
+
 
 if (!isset($connection) || !$connection instanceof mysqli) {
     die("Database connection is not established or is closed.");
 }
-
-// Get the user's profile_id based on their session
-$userId = $_SESSION['admin_id'];
-$query = "
-    SELECT profile_id 
-    FROM users 
-    WHERE id = ?
-";
-$stmt = $connection->prepare($query);
-if (!$stmt) {
-    die("Failed to prepare statement: " . $connection->error);
-}
-$stmt->bind_param("i", $userId);
-$stmt->execute();
-$stmt->bind_result($profileId);
-$stmt->fetch();
-$stmt->close();
+if (isset($_SESSION['admin_id'])) {
+    // Get the user's profile_id based on their session
+    $userId = $_SESSION['admin_id'];
+    $query = "
+        SELECT profile_id 
+        FROM users 
+        WHERE id = ?
+    ";
+    $stmt = $connection->prepare($query);
+    if (!$stmt) {
+        die("Failed to prepare statement: " . $connection->error);
+    }
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $stmt->bind_result($profileId);
+    $stmt->fetch();
+    $stmt->close();
+    }
 
 // Function to check if the user has a specific permission
 function hasPermission($permissionName) {

@@ -50,7 +50,7 @@
 
         </div>
     <?php if (isset($_SESSION['admin_id'])): ?>
-        <div class="tab-container">
+        <div class="tab-container-column">
             <?php if (haspermission('Import Voting Data') || haspermission('Import Map Data')): ?>
                 <span class="tab" onclick="showTab(0)">Load File</span>
             <?php endif; ?>
@@ -66,6 +66,20 @@
     <div class="center_column cover_full">
         <h2>Dashboard</h2>
         <div class="container">
+            <?php if (isset($_SESSION['admin_id'])): ?>
+                <div class="tab-container-row">
+                    <?php if (haspermission('Import Voting Data') || haspermission('Import Map Data')): ?>
+                        <span class="tab" onclick="showTab(0)">Load File</span>
+                    <?php endif; ?>
+                    <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
+                    <?php if (haspermission('Register User')): ?>
+                        <span class="tab" onclick="showTab(1)">Register a User</span>
+                    <?php endif; ?>
+                    <?php if (hasSomeUserPermission()): ?>
+                        <span class="tab" onclick="showTab(2)">Handle Users</span>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
             <!-- Spinner Container -->
             <div id="loading-spinner" class="spinner" style="display: none;">
                 <div class="loader"></div>
@@ -119,7 +133,7 @@
                     <?php endif; ?>
 
                     <button onclick="window.location.href='../votazioni/';" class="data_visualization_button" id="visualization_button_votazioni">Data Visualization</button>
-                    <button onclick="window.location.href='../';" class="data_visualization_button" id="visualization_button_traffic">Data Visualization</button>
+                    <button onclick="window.location.href='../mapVisualization.php';" class="data_visualization_button" id="visualization_button_traffic">Data Visualization</button>
                 </div>
                 <?php if (isset($_SESSION['admin_id']) && hasPermission('Register User')): ?>
                     <div class="tab-content">

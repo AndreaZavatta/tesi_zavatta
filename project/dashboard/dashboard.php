@@ -193,11 +193,10 @@
                 <div class="tab-content">
                     <h3>Data Visualization</h3>
                     <p>select the data you would like to work with</p>
-                    <select id="datasets" name="datasets">
+                    <select id="datasetsVisualization" name="datasetsVisualization">
                         <option value="Traffic">Traffic</option>
                         <option value="Balloting">Balloting</option>
                     </select>
-                    <?php include './mapVisualization.php'; ?> <!-- Include il file mapVisualization.php -->
                 </div>
             <?php endif; ?>
 

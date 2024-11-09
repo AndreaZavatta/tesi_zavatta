@@ -102,7 +102,7 @@
                         <fieldset id="traffic-fieldset">
                             <legend>Mappa</legend>
                             <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
-                                <label for="csv_file_app1">Seleziona il file CSV per visualizzare i dati sulla mappa</label>
+                                <label for="csv_file_app1">Choose the CSV file for visualizing data on the map</label>
                                 <input type="file" id="csv_file_app1" name="csv_file" accept=".csv" required>
                                 <div class="load_buttons">
                                     <button type="submit">Load File</button>
@@ -118,7 +118,7 @@
                         <fieldset id="balloting-fieldset">
                             <legend>Votazioni</legend>
                             <form id="upload-form-app2" method="POST" enctype="multipart/form-data">
-                                <label for="json_file">Seleziona il file JSON per visualizzare le votazioni:</label>
+                                <label for="json_file">Choose the json file for visualizing balloting data:</label>
                                 <input type="file" id="json_file" name="json_file" accept=".json" required>
                                 <div class="load_buttons">
                                     <button type="submit">Load File</button>

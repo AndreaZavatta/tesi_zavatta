@@ -105,7 +105,7 @@
                     <!-- Section for Application 1 -->
                     <?php if (isset($_SESSION['admin_id'])): ?>
                         <?php if (haspermission('Import Map Data')): ?>
-                        <fieldset id="traffic-fieldset">
+                        <fieldset id="traffic-fieldset" style="display:none;">
                             <legend>Mappa</legend>
                             <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
                                 <label for="csv_file_app1">Choose the CSV file for visualizing data on the map</label>
@@ -121,7 +121,7 @@
                         <?php endif; ?>
                     <!-- Section for Application 2 -->
                      <?php if (haspermission('Import Voting Data')): ?>
-                        <fieldset id="balloting-fieldset">
+                        <fieldset id="balloting-fieldset" style="display:none;">
                             <legend>Votazioni</legend>
                             <form id="upload-form-app2" method="POST" enctype="multipart/form-data">
                                 <label for="json_file">Choose the json file for visualizing balloting data:</label>
@@ -138,7 +138,7 @@
                         <?php endif; ?>
                     <?php endif; ?>
 
-                    <button onclick="window.location.href='../votazioni/';" class="data_visualization_button" id="visualization_button_votazioni">Data Visualization</button>
+                    <button onclick="window.location.href='../votazioni/';" class="data_visualization_button" id="visualization_button_votazioni" >Data Visualization</button>
                     <button onclick="window.location.href='../mapVisualization.php';" class="data_visualization_button" id="visualization_button_traffic">Data Visualization</button>
                 </div>
                 <?php if (isset($_SESSION['admin_id']) && hasPermission('Register User')): ?>
@@ -191,8 +191,16 @@
             <?php endif; ?>
             <?php if (isset($_SESSION['admin_id']) && hasSomeUserPermission()): ?>
                 <div class="tab-content">
+                    <h3>Data Visualization</h3>
+                    <p>select the data you would like to work with</p>
+                    <select id="datasets" name="datasets">
+                        <option value="Traffic">Traffic</option>
+                        <option value="Balloting">Balloting</option>
+                    </select>
+                    <?php include './mapVisualization.php'; ?> <!-- Include il file mapVisualization.php -->
                 </div>
             <?php endif; ?>
+
 
             <!-- Elementmodal per visualizzare il riepilogo -->
             <div id="summary" style="display: none;">

@@ -37,7 +37,7 @@ div {
 
 /* Hidden elements */
 .hide {
-	visibility: hidden;
+	display: none;
 }
 
 #date-range {

@@ -18,10 +18,9 @@ body {
 
 .profile_section {
 	position: fixed; /* Use fixed to stay in place while scrolling */
-	top: 20px; /* Distance from the top */
-	right: 20px; /* Distance from the right */
+	right: 5px; /* Distance from the right */
 	z-index: 10;
-	margin: 30px;
+	margin: 20px;
 	font-size: 24px;
 	cursor: pointer;
 }
@@ -183,8 +182,9 @@ form {
 .tab-container-row {
 	flex-direction: row;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	display: none;
+	height: 35px;
 }
 
 /* Styles for individual tabs */
@@ -403,12 +403,19 @@ button:hover {
 	display: block;
 }
 
-@media (max-width: 950px) {
+@media (max-width: 992px) {
 	/* Hide element1 and show element2 */
 	.tab-container-row {
-		display: block;
+		display: flex;
+		height: 45px;
 	}
 	.tab-container-column {
 		display: none;
+	}
+}
+
+@media (max-width: 600px) {
+	.container {
+		width: 100%;
 	}
 }

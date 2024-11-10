@@ -19,7 +19,7 @@
         const logoutButton = document.getElementsByClassName("log_button")[0];
         // Toggle visibility of the logout button
         if (logoutButton.style.display === "none") {
-            logoutButton.style.display = "block";
+            logoutButton.style.display = "flex";
         } else {
             logoutButton.style.display = "none";
         }

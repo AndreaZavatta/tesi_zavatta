@@ -71,7 +71,7 @@
         </div>
     <?php endif; ?>
     <div class="center_column cover_full">
-        <h2>Dashboard</h2>
+        <h2 id="title_dashboard">Dashboard</h2>
         <div class="container">
             <?php if (isset($_SESSION['admin_id'])): ?>
                 <div class="tab-container-row">

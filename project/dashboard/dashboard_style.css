@@ -21,6 +21,10 @@ body {
 }
 
 .profile_section {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	padding: 5px;
+	background-color: rgb(255, 255, 255);
+	border-radius: 4px;
 	position: fixed; /* Use fixed to stay in place while scrolling */
 	right: 5px; /* Distance from the right */
 	z-index: 10;
@@ -33,13 +37,8 @@ body {
 	align-items: center;
 	gap: 10px;
 }
-form {
-	padding: 40px;
-}
-
 .cover_full {
 	width: 100%;
-	height: 100%;
 	position: absolute;
 }
 
@@ -127,6 +126,9 @@ h2 {
 	color: #3d4f5c; /* Dark gray for main headings */
 }
 
+#title_dashboard {
+	margin-top: 70px !important;
+}
 /* Spinner Styles */
 .spinner {
 	display: flex;
@@ -280,9 +282,9 @@ button {
 	padding: 10px;
 	background-color: #95132f; /* Rich red */
 	color: white;
-	font-size: 16px;
+	font-size: 16px !important;
 	border: none;
-	border-radius: 5px;
+	border-radius: 5px !important;
 	cursor: pointer;
 	transition: background-color 0.3s;
 	max-width: 400px;
@@ -316,9 +318,10 @@ button:hover {
 }
 
 .log_button {
-	margin-top: 15px;
-	margin-left: 15px;
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #users-table td:first-child div {
@@ -374,6 +377,7 @@ button:hover {
 }
 #editUsernameModal {
 	width: 20%;
+	min-width: 300px;
 }
 
 .modal-content input[type="text"],

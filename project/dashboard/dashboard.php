@@ -140,9 +140,6 @@
                         </fieldset>
                         <?php endif; ?>
                     <?php endif; ?>
-
-                    <button onclick="window.location.href='../votazioni/';" class="data_visualization_button" id="visualization_button_votazioni" >Data Visualization</button>
-                    <button onclick="window.location.href='../mapVisualization.php';" class="data_visualization_button" id="visualization_button_traffic">Data Visualization</button>
                 </div>
                 <?php if (isset($_SESSION['admin_id']) && hasPermission('Register User')): ?>
                     <div class="tab-content">

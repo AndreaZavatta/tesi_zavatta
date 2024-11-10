@@ -55,7 +55,7 @@ if (strpos($requestUri, 'api/data') !== false && $requestMethod === 'GET') {
                 sedute AS s ON pr.seduta_id = s.id
             JOIN 
                 votazioni AS v ON v.presenza_id = pr.id
-            limit 8500
+            limit 100
         ";
         $stmt = $pdo->query($sql);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -91,7 +91,7 @@ if (strpos($requestUri, 'api/data') !== false && $requestMethod === 'GET') {
                 votazioni AS v ON v.presenza_id = pr.id
             WHERE 
                 s.data_seduta = ?
-            limit 8500
+            limit 100
         ";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$sedDay]);

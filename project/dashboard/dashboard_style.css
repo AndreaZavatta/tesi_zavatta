@@ -351,8 +351,9 @@ button:hover {
 
 .modal {
 	position: fixed;
-	top: 50%;
-	left: 50%;
+	height: auto !important;
+	top: 50% !important;
+	left: 50% !important;
 	transform: translate(-50%, -50%);
 	z-index: 1000; /* Posiziona il modale sopra l'overlay */
 	background-color: white;

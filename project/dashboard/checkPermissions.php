@@ -73,7 +73,23 @@ function hasViewPermissions(){
     return hasPermission('View Map Data') || hasPermission('View Voting Data'); 
 }
 
-function hasImportDataPermission(){
+function hasImportDataPermissions(){
     return hasPermission('Import Map Data') || hasPermission('Import Voting Data'); 
+}
+
+function hasDeletingPermissions(){
+    return hasPermission('Delete Map Data') || hasPermission('Delete Voting Data') || hasPermission('Delete User'); 
+}
+
+function hasRegisterPermissions(){
+    return hasPermission('Register User');
+}
+
+function hasModifyPermissions(){
+    return hasPermission('Modify User Name') || hasPermission('Modify User Password');
+}
+
+function hasOnlyViewPermission(){
+    return hasViewPermissions() && !(hasImportDataPermissions() || hasDeletingPermissions() || hasRegisterPermissions() || hasModifyPermissions());
 }
 ?>

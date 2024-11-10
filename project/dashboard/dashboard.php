@@ -99,7 +99,7 @@
 
             
                 <!-- Menu Tabs -->
-                <?php if (isset($_SESSION['admin_id']) && hasImportDataPermission()): ?>
+                <?php if (isset($_SESSION['admin_id']) && hasImportDataPermissions()): ?>
                     <div class="tab-content">
                         <h3>Load file</h3>
                         <p>select the data you would like to work with</p>
@@ -193,7 +193,7 @@
                 </div>
             <?php endif; ?>
             <div class="tab-content data-visualization" 
-                style="<?php if (!isset($_SESSION['admin_id']) || hasViewPermissions()) echo 'display: block;'; ?>">
+                style="<?php if (!isset($_SESSION['admin_id']) || hasOnlyViewPermission()) echo 'display: block;'; ?>">
                 <h3>Data Visualization</h3>
                 <p>Select the data you would like to work with</p>
                 <form method="POST" action="">

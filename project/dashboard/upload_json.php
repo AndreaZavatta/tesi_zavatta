@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['json_file'])) {
 
     if (move_uploaded_file($tempFilePath, $destinationPath)) {
         // Include `import.php` to access the `processJsonFile` function
-        include_once '../votazioni/import.php';
+        include_once './votazioni/import.php';
 
         // Call the function to process the JSON file
         $result = processJsonFile($destinationPath);

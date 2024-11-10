@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 // Load database configuration from db_config.php
-$configPath = __DIR__ . '/../db_config.php';
+$configPath = __DIR__ . '/../../db_config.php';
 if (!file_exists($configPath)) {
     echo json_encode(["error" => "Configuration file not found"]);
     exit;

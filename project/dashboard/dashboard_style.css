@@ -63,6 +63,9 @@ form {
 label {
 	margin: auto;
 }
+.data-visualization {
+	overflow: auto;
+}
 
 .load_buttons {
 	display: flex;
@@ -320,7 +323,7 @@ button:hover {
 
 #users-table td:first-child div {
 	width: 130px;
-	display: flex;
+	display: flex !important;
 	justify-content: space-between;
 	align-items: center;
 }

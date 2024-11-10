@@ -31,7 +31,7 @@ function register($username, $password, $connection) {
 
 
 
-    $profileId = 5; // Setting profile_id to 5
+    $profileId = 1; // Setting profile_id to 5
     $stmt = $connection->prepare("INSERT INTO users (username, password_hash, profile_id) VALUES (?, ?, ?)");
     $stmt->bind_param('ssi', $username, $passwordHash, $profileId);
 

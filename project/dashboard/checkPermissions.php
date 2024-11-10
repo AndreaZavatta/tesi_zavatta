@@ -68,4 +68,12 @@ function isAdmin() {
 function hasSomeUserPermission(){
     return hasPermission('Modify User Name') || hasPermission('Modify User Password') || hasPermission('Delete User');
 }
+
+function hasViewPermissions(){
+    return hasPermission('View Map Data') || hasPermission('View Voting Data'); 
+}
+
+function hasImportDataPermission(){
+    return hasPermission('Import Map Data') || hasPermission('Import Voting Data'); 
+}
 ?>

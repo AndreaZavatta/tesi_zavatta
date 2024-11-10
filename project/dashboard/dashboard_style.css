@@ -6,6 +6,10 @@
 	box-sizing: border-box;
 }
 
+p {
+	margin: 0 !important;
+}
+
 /* Ensure the body occupies the entire viewport */
 html,
 body {
@@ -26,6 +30,7 @@ body {
 }
 .profile_data {
 	display: flex;
+	align-items: center;
 	gap: 10px;
 }
 form {
@@ -313,15 +318,6 @@ button:hover {
 	cursor: pointer;
 }
 
-#users-table td {
-	height: 40px;
-	text-align: center;
-}
-
-#users-table td:first-child {
-	display: flex;
-	justify-content: center;
-}
 #users-table td:first-child div {
 	width: 130px;
 	display: flex;
@@ -402,7 +398,7 @@ button:hover {
 	display: block;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1663px) {
 	/* Hide element1 and show element2 */
 	.tab-container-row {
 		display: flex;

@@ -197,6 +197,7 @@
                         <option value="Traffic">Traffic</option>
                         <option value="Balloting">Balloting</option>
                     </select>
+                    <?php include './mapVisualization.php'; ?> <!-- Include il file mapVisualization.php -->
                 </div>
             <?php endif; ?>
 

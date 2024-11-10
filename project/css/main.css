@@ -21,13 +21,6 @@ fieldset {
 	background-color: #ffffff; /* White background inside fieldset */
 }
 
-fieldset > legend,
-div {
-	margin-left: 5px;
-	margin-bottom: 5px;
-	color: #95132f; /* Rich red for legends and div text */
-}
-
 /* Map styling */
 #map {
 	height: 80%;

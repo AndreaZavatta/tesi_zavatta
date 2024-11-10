@@ -4,6 +4,7 @@
     require_once "./getProfiles.php";
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
+    $selectedDataset = $_POST['datasetsVisualization'] ?? 'Traffic'; // Default to 'Traffic' if nothing is selected
 
 ?>
 
@@ -193,12 +194,19 @@
                 <div class="tab-content data-visualization">
                     <h3>Data Visualization</h3>
                     <p>select the data you would like to work with</p>
-                    <select id="datasetsVisualization" name="datasetsVisualization">
-                        <option value="Traffic">Traffic</option>
-                        <option value="Balloting">Balloting</option>
-                    </select>
-                    <?php //include './mapVisualization.php'; ?>
-                    <?php include('./votazioni/home.html');?>
+                    <form method="POST" action="">
+                        <select id="datasetsVisualization" name="datasetsVisualization" onchange="this.form.submit()">
+                            <option value="Traffic" <?php if ($selectedDataset == 'Traffic') echo 'selected'; ?>>Traffic</option>
+                            <option value="Balloting" <?php if ($selectedDataset == 'Balloting') echo 'selected'; ?>>Balloting</option>
+                        </select>
+                    </form>
+                    <?php
+                        if ($selectedDataset == 'Traffic') {
+                            include './mapVisualization.php';
+                        } elseif ($selectedDataset == 'Balloting') {
+                            include './votazioni/home.html';
+                        }
+                    ?>
                 </div>
             <?php endif; ?>
 

@@ -23,7 +23,7 @@ fieldset {
 
 /* Map styling */
 #map {
-	height: 80%;
+	height: 300px;
 	background-color: #ffe4e6; /* Very light pink for a subtle background */
 	border-radius: 5px;
 }

@@ -1,336 +1,213 @@
 \clearpage{\pagestyle{empty}\cleardoublepage}
-\chapter{Contesto e Stato dell’Arte}
+\chapter{Contesto e Stato dell'arte}                %crea il capitolo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
+\pagenumbering{arabic}                  %mette i numeri arabi
+La gestione efficiente dei dati è diventata un elemento cruciale per il corretto funzionamento dei moderni sistemi informativi. Con il rapido avanzamento tecnologico e la crescita continua della quantità di dati accessibili, le pubbliche amministrazioni e le organizzazioni private si trovano a fronteggiare volumi sempre più vasti e complessi di informazioni, spesso eterogenee e distribuite. In tale contesto, l’ingegnerizzazione dei sistemi di gestione dei dati rappresenta una leva fondamentale per garantire che le informazioni possano essere utilizzate in modo efficace, migliorando l’accessibilità, la scalabilità e la manutenibilità dei sistemi.
 
-Nella progettazione di applicazioni moderne, i sistemi di gestione dei dati sono fondamentali per garantire efficienza, scalabilità e sicurezza.
+L’ingegnerizzazione dei dati è un processo strategico che comprende interventi mirati all’ottimizzazione e all’aggiornamento delle infrastrutture e delle architetture di gestione dei dati. In un’era in cui i dati costituiscono una risorsa indispensabile per supportare decisioni strategiche e promuovere la trasparenza amministrativa, questa metodologia consente di adattare i sistemi informativi alle nuove esigenze, facilitando l’integrazione di tecnologie e funzionalità innovative. Questo approccio risulta particolarmente rilevante nella gestione e nella valorizzazione degli open data.
 
-Secondo \cite{Elm17}, "i sistemi di gestione dei dati relazionali sono essenziali per strutturare informazioni complesse e garantire accessibilità e coerenza."
+Gli open data, ovvero i dati disponibili al pubblico, costituiscono una risorsa fondamentale per favorire la trasparenza, incoraggiare l’innovazione e stimolare la partecipazione civica.
+Tuttavia, il valore degli open data dipende in larga misura dalla qualità delle infrastrutture che ne supportano la gestione e la pubblicazione: senza un’adeguata organizzazione, i dati possono risultare difficili da interpretare, frammentati o poco accessibili. Per questo motivo, molte amministrazioni pubbliche stanno ripensando le proprie infrastrutture informatiche e i processi di gestione dei dati, adottando metodologie di ingegnerizzazione orientate a migliorare la qualità e la fruibilità delle informazioni pubbliche.
 
-Tuttavia, molti database non rispondono a questi requisiti, rendendo necessaria la loro reingegnerizzazione.
+Nel presente capitolo si approfondiranno il concetto di open data, le principali caratteristiche di questi dati e i benefici della loro adozione nella pubblica amministrazione. Inoltre, verranno analizzate le criticità legate alla gestione e alla fruibilità degli open data, con un focus specifico sul progetto di ingegnerizzazione di una piattaforma di visualizzazione dati. Tale piattaforma è stata sviluppata per evidenziare e rendere più comprensibili i dati resi disponibili attraverso open data, sfruttando tecniche di data visualization per facilitare l’accesso e l’interpretazione delle informazioni da parte di un pubblico più ampio.
 
-Come notato da \cite{Cod70}, "la mancanza di una progettazione documentata può aumentare la difficoltà di manutenzione dei sistemi legacy".
+\section{Introduzione agli Open Data}
 
-Il presente progetto di tesi affronta queste problematiche, con l'obiettivo di migliorarne l'accesso e l'organizzazione dei dati, integrando funzionalità avanzate come la registrazione, l'autenticazione e il caricamento di dati tramite file.
+In questa sezione viene introdotto il concetto di open data, spiegandone i principi fondamentali e i vantaggi per la pubblica amministrazione e la società civile. Vengono inoltre discusse le normative e l'evoluzione storica degli open data, sottolineando il loro ruolo nell’innovazione e nella trasparenza.
 
+\subsection{Definizione e Principi Fondamentali}
 
-\section{Struttura dei dati complessa e poco documentata}
-Una delle principali problematiche che affliggono i database legacy riguarda la complessità della loro struttura dati, derivata da progettazioni iniziali inadeguate o da una documentazione non aggiornata. La mancanza di una strategia di ottimizzazione nella progettazione porta a database poco flessibili e difficili da manutenere, dove è comune trovare duplicazione di dati, tabelle ridondanti e relazioni mal strutturate. 
+Negli ultimi anni, la disponibilità e l’accesso ai dati hanno assunto un'importanza crescente nella società moderna, soprattutto in
+ambito pubblico. Con il termine \textit{open data} si fa riferimento a un insieme di dati resi pubblicamente accessibili, che possono essere utilizzati, riutilizzati e distribuiti senza limitazioni. Gli open data permettono, infatti, un utilizzo libero da parte di chiunque, indipendentemente da restrizioni di copyright o limitazioni tecniche, con l’obiettivo di generare un valore aggiunto per la collettività \cite{Smith2018}.
 
-Vediamo alcuni degli effetti principali di questa complessità e le possibili soluzioni per rendere la struttura dati più snella e comprensibile.
+Gli open data si fondano sul principio che i dati prodotti da enti pubblici e privati, soprattutto se finanziati con fondi pubblici, debbano essere resi accessibili per promuovere la trasparenza e l’innovazione. La disponibilità di tali dati consente di ampliare la conoscenza su vari aspetti della vita pubblica, come l’ambiente, la mobilità, la sanità e l’istruzione, facilitando la creazione di servizi innovativi e promuovendo il coinvolgimento attivo della cittadinanza \cite{Davies2019}. Questa apertura delle informazioni rappresenta, quindi, uno strumento fondamentale per avvicinare i cittadini alle istituzioni, favorendo un dialogo costante e stimolando la partecipazione attiva alle decisioni pubbliche.
 
+\subsection{Vantaggi degli Open Data}
 
-\begin{itemize}
-    \item \textbf{Difficoltà di manutenzione:} La complessità strutturale di un database aumenta esponenzialmente la difficoltà di manutenzione. Ad esempio, modifiche a una singola colonna possono richiedere interventi in molte tabelle interconnesse, con un rischio maggiore di introdurre errori.
-    \item \textbf{Problemi di onboarding per nuovi sviluppatori:} La mancanza di documentazione aggiornata limita la comprensione del funzionamento complessivo del database, rallentando i tempi di sviluppo e aumentando il rischio di errori.
-    \item \textbf{Duplicazione dei dati:} L’adozione di soluzioni temporanee e la mancanza di normalizzazione possono portare alla duplicazione dei dati, incrementando l’uso di risorse e i rischi di inconsistenza.
-\end{itemize}
+Oltre a promuovere la trasparenza, gli open data assumono un significativo valore economico. I dati aperti sono infatti una risorsa essenziale per il settore privato e la società civile, che li utilizza per sviluppare applicazioni e servizi utili alla collettività. L’obiettivo principale di queste politiche di apertura è fornire a cittadini, aziende e istituzioni l'accesso a una base informativa che favorisca lo sviluppo di soluzioni innovative, migliorando la qualità della vita e l’efficienza dei servizi pubblici. Le aziende, in particolare le start-up, possono beneficiare dell'accesso a questi dati riducendo i costi di acquisizione delle informazioni e, di conseguenza, sviluppando servizi mirati che rispondano alle esigenze locali.
 
-\subsubsection{Esempio di Struttura Complessa in un E-commerce}
-Immaginiamo un database per un sito di e-commerce, originariamente progettato per gestire un numero limitato di prodotti e ordini. Con il tempo, l'azienda ha aggiunto moduli per la gestione di recensioni, promozioni e programmi fedeltà. Tuttavia, tali funzionalità sono state integrate senza una revisione della struttura dati iniziale, portando a una complessità eccessiva. Questo tipo di espansione non pianificata genera tabelle duplicate, ridondanza di dati e query lente a causa dell'elevato numero di join tra tabelle. 
+Gli open data sono caratterizzati da principi chiave che ne determinano l’efficacia e l’utilità per la collettività. Uno di questi è la disponibilità, che implica che i dati siano facilmente reperibili e accessibili, preferibilmente in formati non proprietari come CSV, JSON o XML, che permettono una manipolazione e una condivisione agevole. Questo principio è strettamente legato alla riutilizzabilità: i dati devono essere distribuiti con licenze aperte, che ne consentano l’uso e la modifica senza particolari restrizioni, facilitando l’integrazione con altre fonti di dati \cite{Kitchin2014}. Inoltre, la loro interoperabilità, cioè l’adozione di standard condivisi, agevola l’integrazione di dati provenienti da contesti e fonti differenti, permettendo analisi più complete e l’integrazione in applicazioni complesse.
 
-Un processo di reingegnerizzazione potrebbe risolvere questi problemi attraverso la normalizzazione e l’eliminazione delle ridondanze, migliorando significativamente le prestazioni e la manutenibilità del database.
+\subsection{Evoluzione e Normative degli Open Data}
 
+Il movimento degli open data ha origini che risalgono agli anni ’90, quando iniziarono a diffondersi le prime politiche di trasparenza governativa. Il Freedom of Information Act (FOIA) negli Stati Uniti, e successivamente leggi simili in altri Paesi, rappresentano i primi passi verso una maggiore disponibilità dei dati pubblici. Con l’avvento delle tecnologie digitali e la crescente mole di informazioni, queste politiche si sono evolute, enfatizzando la necessità di rendere i dati non solo pubblici, ma anche fruibili digitalmente. A partire dagli anni 2000, il concetto di open data ha acquisito una dimensione globale, con iniziative promosse a livello internazionale per incoraggiare i governi a rendere disponibili dati in formati aperti e accessibili \cite{OpenDataHandbook}.
 
-\subsubsection{Soluzioni per Semplificare la Struttura}
-La reingegnerizzazione del database comprende tecniche di normalizzazione, eliminazione delle tabelle duplicate e una revisione della documentazione.
+In Europa, la Direttiva 2003/98/CE sul riutilizzo delle informazioni del settore pubblico ha rappresentato un progresso significativo verso l’implementazione di politiche orientate agli open data, stimolando i Paesi membri a implementare pratiche di apertura dei dati. La \textit{Open Data Charter}, adottata da numerosi Paesi, promuove principi di accessibilità e riutilizzabilità per garantire che i dati possano essere impiegati efficacemente in analisi di big data, applicazioni digitali e iniziative civiche \cite{OpenDataCharter}.
 
+Gli open data, pertanto, rappresentano una risorsa preziosa per la società contemporanea, ma il loro impiego richiede un impegno costante da parte delle istituzioni per garantire che siano utilizzati in modo efficace e sicuro. La gestione della qualità, dell’interoperabilità e della protezione dei dati è un fattore essenziale per massimizzare l'impatto positivo di questa risorsa sulla collettività.
 
-\begin{itemize}
-    \item \textbf{Normalizzazione:} La normalizzazione consiste nel ridurre la ridondanza dei dati organizzando gli attributi in modo che non vi sia ripetizione di informazioni tra tabelle.
 
-    La normalizzazione, secondo \cite{Sil19}, "è una tecnica fondamentale per migliorare l'integrità e l'efficienza dei database."
-    
-    Ad esempio, una struttura normalizzata permette di separare le informazioni dei clienti (nome, indirizzo, email) dalle loro transazioni (prodotti acquistati, quantità).
-    \item \textbf{Eliminazione delle ridondanze:} Identificare e rimuovere le tabelle duplicate è un passaggio fondamentale. Ad esempio, se due tabelle contengono informazioni molto simili sui clienti, è utile consolidare questi dati in un'unica tabella e creare delle viste che permettano di estrarre le informazioni necessarie senza duplicazione.
-    \item \textbf{Documentazione aggiornata:} Una delle soluzioni più semplici ma efficaci è quella di mantenere una documentazione costante della struttura del database. Strumenti come Entity Relationship Diagrams (ERD) o piattaforme come Confluence o GitHub Wiki possono essere utilizzati per tracciare tutte le modifiche.
-\end{itemize}
+\section{Open Data e Trasparenza nella Pubblica Amministrazione}
+Questa sezione esplora l'importanza della trasparenza per la pubblica amministrazione, con particolare attenzione al ruolo degli open data. Vengono analizzate anche le iniziative globali e nazionali che promuovono la trasparenza e la partecipazione attiva dei cittadini.
 
-La reingegnerizzazione della struttura non solo rende il database più facile da manutenere, ma riduce anche i rischi legati agli errori umani e migliora l'efficienza generale del sistema.
+\subsection{Il Ruolo della Trasparenza nelle Istituzioni Pubbliche}
 
-\subsection{Scalabilità Limitata}
-La scalabilità è un aspetto cruciale per i database moderni, in quanto consente al sistema di gestire crescenti volumi di dati e richieste mantenendo buone prestazioni. I database legacy, tuttavia, spesso non supportano una scalabilità ottimale, poiché non sono stati progettati per crescere con facilità. 
+La trasparenza è un principio fondamentale della gestione pubblica moderna e rappresenta un elemento essenziale per rafforzare la fiducia dei cittadini nelle istituzioni. Questo concetto implica che le informazioni e i dati relativi alle attività delle amministrazioni vengano resi accessibili e comprensibili, permettendo ai cittadini di monitorare le azioni e le decisioni degli enti pubblici. Gli \textit{open data} rappresentano il veicolo principale per attuare tale principio, consentendo un accesso libero e senza restrizioni a informazioni di pubblico interesse. Pubblicati in formati aperti e riutilizzabili, questi dati permettono ai cittadini di esercitare un controllo democratico sull'operato delle istituzioni e favoriscono una partecipazione attiva alla vita pubblica \cite{Davies2019}.
 
-Il confronto tra SQL e NoSQL dimostra come "i database NoSQL spesso si adattino meglio a sistemi scalabili" \cite{Sto10}.
+L’introduzione degli open data ha trasformato profondamente le relazioni tra le amministrazioni pubbliche e i cittadini, evolvendosi in parallelo ai progressi tecnologici. In Italia, la promozione della trasparenza è stata rafforzata dal Decreto Trasparenza (D.Lgs. n.33/2013), che stabilisce obblighi di pubblicazione e criteri di accessibilità per le informazioni pubbliche. Questa normativa, in linea con la Direttiva Europea sul Riutilizzo dei Dati del Settore Pubblico (2019/1024), punta a incentivare l’utilizzo e il riuso dei dati pubblici, incoraggiando iniziative civiche, accademiche e commerciali \cite{FOIAItalia}.
 
-Esistono due approcci principali alla scalabilità: la scalabilità verticale e la scalabilità orizzontale.
+\subsection{Iniziative Globali e Impatti della Trasparenza}
 
-Come descritto in \cite{Geo11}, "la scelta della strategia di scalabilità dipende spesso dalla natura del carico di lavoro e dall'architettura dell'applicazione."
+A livello globale, il concetto di trasparenza è stato formalizzato attraverso numerose iniziative internazionali.Lanciata nel 2011, l’Open Government Partnership (OGP) ha incoraggiato i governi a livello globale ad adottare politiche di trasparenza e accesso ai dati pubblici, contribuendo a rafforzare la responsabilità amministrativa. Gli stati partecipanti all’OGP si impegnano a sviluppare standard e politiche di open data per garantire l’accesso pubblico a dati rilevanti per la comunità. In questo contesto, molti Paesi hanno istituito portali nazionali di open data, centralizzando l’accesso a informazioni chiave in settori come economia, sanità e ambiente, facilitando inoltre la comparabilità dei dati tra nazioni \cite{OpenDataCharter}.
 
-\subsubsection{Scalabilità verticale}
-La scalabilit\'a verticale, o scaling-up, consiste nell'aumentare le risorse hardware di un server per gestire carichi di lavoro crescenti. Tuttavia, questo approccio ha limiti fisici e costi elevati, risultando praticabile solo per una crescita a breve termine. 
+Uno dei principali vantaggi degli open data nel contesto della trasparenza è la possibilità di promuovere una cittadinanza attiva e informata. I cittadini possono utilizzare i dati relativi alla spesa pubblica, alla gestione del territorio o alla sanità per monitorare come le risorse vengono impiegate, identificare possibili inefficienze e richiedere una gestione più responsabile. La possibilità di accedere a informazioni di interesse pubblico favorisce un controllo democratico diretto e accresce il livello di fiducia nei confronti delle istituzioni, migliorando la percezione della governance pubblica \cite{OECD2020}.
 
-\subsubsection{Scalabilità orizzontale}
-La scalabilità orizzontale, o scaling-out, distribuisce il carico di lavoro su più server, un metodo comunemente utilizzato nei sistemi distribuiti e nei servizi cloud come AWS e Google Cloud. Questo approccio consente una crescita sostenibile, ma non tutti i database legacy supportano questa architettura.
+\subsection{Qualità e Usabilità dei Dati}
 
+La qualità e l’usabilità dei dati pubblici sono requisiti essenziali affinché gli open data possano svolgere appieno il loro ruolo di strumenti di trasparenza. Affinché i dati aperti risultino realmente efficaci, devono rispettare criteri di accuratezza, completezza e aggiornamento periodico, in modo da rappresentare in maniera affidabile le attività amministrative. Dati incompleti, non aggiornati o imprecisi compromettono l’iniziativa di trasparenza e limitano la possibilità di una partecipazione consapevole da parte dei cittadini. Per questo motivo, le amministrazioni devono garantire che la raccolta e la pubblicazione dei dati rispettino standard qualitativi elevati, contribuendo a una rappresentazione fedele della realtà amministrativa \cite{Kitchin2014}.
 
-\subsubsection{Problemi di Scalabilità nei Database Relazionali}
-I database relazionali centralizzati come MySQL e PostgreSQL presentano colli di bottiglia quando il numero di utenti simultanei cresce.
+Oltre alla qualità, l’adozione di formati aperti e standardizzati, come JSON, CSV o XML, è fondamentale per migliorare l’interoperabilità e favorire il riuso dei dati pubblici. La standardizzazione rende i dati più facilmente interpretabili e permette agli utenti di analizzarli in maniera indipendente, utilizzando strumenti di visualizzazione e analisi. Questo approccio ha incentivato lo sviluppo di ecosistemi digitali aperti, in cui cittadini, ricercatori e sviluppatori possono collaborare alla creazione di servizi e applicazioni basati su dati pubblici, contribuendo così a innovazioni a vantaggio della collettività \cite{OpenDataHandbook}.
 
+\subsection{Coinvolgimento e Partecipazione dei Cittadini}
 
-\subsubsection{Soluzioni Moderne per la Scalabilità}
-Con l’aumento dei dati e delle richieste applicative, la scalabilità è diventata una caratteristica essenziale per i database moderni. Database distribuiti e cloud-native, come Google Cloud Spanner e Amazon Aurora, offrono funzionalità avanzate per la distribuzione geografica e la scalabilità orizzontale, riducendo la latenza e migliorando l’accessibilità globale dei dati. Questi sistemi non solo gestiscono più facilmente grandi volumi di dati, ma supportano anche il ridimensionamento automatico delle risorse.
+La trasparenza supportata dagli open data non solo consente un controllo più efficace sull'operato delle amministrazioni, ma promuove anche la partecipazione attiva dei cittadini. Attraverso piattaforme di open data, applicazioni per la gestione dei servizi comunali e strumenti di partecipazione civica, le amministrazioni possono facilitare il dialogo con la comunità e raccogliere feedback sui servizi pubblici. Questo tipo di interazione rappresenta un elemento essenziale per costruire una governance inclusiva e responsabile, in cui i cittadini possono contribuire attivamente alle politiche locali e influenzare le decisioni che riguardano la loro comunità.
 
-\paragraph{Caching Distribuito}
-Tecnologie come Redis e Memcached migliorano le prestazioni riducendo il carico sui database principali e consentendo l'accesso rapido ai dati più utilizzati. 
+Nel caso delle amministrazioni locali, i portali di open data rappresentano un ponte di comunicazione diretto con i cittadini, permettendo loro di accedere a informazioni su argomenti come la gestione del traffico, la qualità ambientale e i progetti in corso. Questo approccio facilita la trasparenza e rafforza la fiducia, creando un ambiente di dialogo in cui i cittadini possono esprimere opinioni e proposte basate su dati concreti. In questo modo, la trasparenza attraverso gli open data si traduce in un processo di partecipazione civica che promuove un maggiore coinvolgimento nella vita pubblica \cite{Janssen2012}.
 
-"Il caching è essenziale per applicazioni ad alte prestazioni", come sottolineato in \cite{Dea08}.
 
+\section{Problematiche e Sfide nella Gestione degli Open Data}
 
-Questo approccio è particolarmente utile in applicazioni che richiedono risposte in tempo reale.
+Gestire gli open data è un compito complesso che comporta sfide significative legate alla qualità, interoperabilità, sicurezza e sostenibilità. Le amministrazioni pubbliche, impegnate a favorire la trasparenza e semplificare l’accesso ai dati, devono superare diverse difficoltà per assicurare che i dati resi disponibili siano accurati, aggiornati e conformi agli standard di protezione della privacy. Questa sezione esplora le principali problematiche e sfide nella gestione degli open data, con una particolare attenzione alla qualità e accuratezza dei dati, agli standard di interoperabilità, alla sicurezza e privacy e alla sostenibilità delle risorse.
 
-\subsection{Performance Inefficace}
-Le prestazioni di un database sono fondamentali per le applicazioni che lo utilizzano. Una scarsa performance può manifestarsi in tempi di risposta lenti delle query, blocchi nelle transazioni o un uso inefficiente delle risorse hardware. Questo problema è particolarmente presente nei database legacy, dove scelte di progettazione o configurazioni non ottimali ne compromettono l'efficienza.
 
-\subsubsection{Indicizzazione inefficiente}
-Uno dei principali problemi delle prestazioni è l'indicizzazione inefficiente o assente. Gli indici accelerano l'accesso ai dati, riducendo il tempo necessario per eseguire le query.
 
-"La gestione degli indici è una pratica cruciale per ottimizzare le prestazioni nei database relazionali" \cite{Elm17}.
+\subsection{Qualità dei Dati e Accuratezza}
 
-Tuttavia, se gli indici non sono ben configurati, le prestazioni del sistema ne risentono notevolmente.
+La qualità dei dati è un elemento cruciale per garantire l'utilità degli open data. La qualità implica che i dati siano completi, accurati e aggiornati, in modo che possano rappresentare correttamente i fenomeni di interesse e fornire informazioni affidabili per gli utenti. Una delle sfide principali nella gestione degli open data è la difficoltà di assicurare che tutte le informazioni siano presenti e raccolte in maniera accurata. Dati incompleti o errati possono portare a decisioni mal informate e compromettere la credibilità delle amministrazioni che li pubblicano.
 
-\paragraph{Esempio di Problema}
-Supponiamo che una tabella di un e-commerce contenga milioni di record di transazioni. Senza un indice sulla colonna ID cliente, la ricerca delle transazioni di un cliente specifico richiederà la scansione dell'intera tabella, causando ritardi significativi.
+L’accuratezza si riferisce alla capacità dei dati di rappresentare fedelmente i fenomeni che descrivono. Un dataset accurato è essenziale per il processo decisionale, poiché fornisce una base solida su cui sviluppare politiche e interventi. Ad esempio, i dati sul traffico urbano devono essere aggiornati in tempo reale per permettere ai cittadini e alle amministrazioni di monitorare e pianificare gli spostamenti in modo efficiente. Tuttavia, garantire l’accuratezza e la completezza dei dati comporta numerosi ostacoli, poiché spesso le amministrazioni dispongono di risorse limitate e di strumenti non sempre adeguati per raccogliere e aggiornare i dati in modo continuo \cite{Janssen2012}.
 
-\paragraph{Soluzione: Aggiunta di Indici}
-Aggiungere indici alle colonne chiave, come gli ID dei clienti o i codici di prodotto, migliora drasticamente le prestazioni delle query. Tuttavia, l'uso eccessivo di indici rallenta le operazioni di scrittura, quindi è importante trovare un compromesso.
+L’aggiornamento regolare dei dati è un altro aspetto fondamentale per la loro qualità. Dati non aggiornati possono portare a decisioni basate su informazioni obsolete, che potrebbero non riflettere più la situazione attuale. La frequenza di aggiornamento varia a seconda del tipo di dato e delle sue applicazioni: per esempio, i dati ambientali devono essere aggiornati frequentemente per monitorare eventuali variazioni nelle condizioni atmosferiche o nei livelli di inquinamento. La carenza di risorse e di personale qualificato rende spesso difficile per le amministrazioni locali mantenere aggiornati i dati in modo continuo, compromettendo così la qualità complessiva delle informazioni fornite \cite{Kitchin2014}.
 
-\subsubsection{Query subottimali}
-Le query mal scritte o subottimali possono avere un impatto devastante sulle prestazioni del database, specialmente quando coinvolgono un numero elevato di join o condizioni non indicizzate. Query SQL che non sono ottimizzate possono causare rallentamenti significativi, poiché il database impiega più tempo per elaborare e restituire i risultati.
+\subsection{Standard di Qualità e Interoperabilità}
 
-\paragraph{Esempio di problema}
-Un esempio comune è rappresentato dalle query che coinvolgono molteplici join tra tabelle di grandi dimensioni. Una query che unisce cinque o sei tabelle, senza una progettazione adeguata e senza l'uso di indici, può richiedere un tempo di esecuzione molto lungo. Inoltre, query con funzioni aggregate (come \texttt{COUNT}, \texttt{SUM}, \texttt{AVG}) su tabelle non indicizzate possono ulteriormente peggiorare le prestazioni.
+Gli standard di qualità e interoperabilità rappresentano componenti essenziali per garantire che gli open data siano utilizzabili e integrabili con altre fonti. L’interoperabilità, in particolare, si riferisce alla capacità dei dati di essere letti, interpretati e utilizzati in modo coerente da diverse applicazioni e sistemi, facilitando così l'integrazione e l'analisi di dataset provenienti da fonti differenti.
 
-\paragraph{Soluzione: Ottimizzazione delle query}
-L'ottimizzazione delle query è un processo che include vari passaggi, come:
-\begin{itemize}
-    \item \textbf{Uso degli indici:} Come menzionato in precedenza, l'utilizzo di indici sulle colonne giuste può ridurre drasticamente i tempi di esecuzione delle query.
-    \item \textbf{Query più semplici:} Ridurre il numero di join e semplificare le condizioni delle query può accelerare il recupero dei dati. Ad esempio, suddividere una query complessa in più query più semplici può spesso produrre risultati migliori.
-    \item \textbf{Evitare funzioni sulle colonne:} Funzioni come \texttt{UPPER()}, \texttt{LOWER()} o \texttt{TRIM()} nelle condizioni delle query impediscono l'uso degli indici, poiché il database deve applicare la funzione a ciascun valore prima di eseguire il confronto. È preferibile eseguire la trasformazione dei dati all'interno del codice applicativo, quando possibile.
-    \item \textbf{Caching dei risultati:} In alcuni casi, è possibile memorizzare nella cache i risultati di query complesse o frequenti, utilizzando tecnologie come Redis o Memcached. Ciò riduce il carico sul database e velocizza l'accesso ai dati.
-\end{itemize}
+Per promuovere l’interoperabilità, molti enti pubblici adottano formati aperti e standardizzati come JSON, XML e CSV, che sono ampiamente riconosciuti e supportati da vari strumenti di analisi. Il formato JSON, ad esempio, è particolarmente utile per rappresentare dati strutturati e complessi, consentendo una manipolazione flessibile e una facile integrazione con altre applicazioni. Tuttavia, la scelta del formato deve essere accompagnata da uno standard di metadati che faciliti l’interpretazione dei dati e ne garantisca la coerenza. I metadati descrivono informazioni essenziali come la fonte, la data di aggiornamento e le modalità di raccolta, facilitando il riuso dei dati in modo corretto e informato \cite{ComuneBologna2023}.
 
-\subsubsection{Problemi di progettazione delle tabelle}
-Un'altra causa di inefficienza delle prestazioni può risiedere nella progettazione stessa delle tabelle. Le tabelle mal progettate, con una struttura dati non ottimizzata, possono portare a problemi di frammentazione dei dati e ad una gestione inefficiente dello spazio di archiviazione.
+Il profilo DCAT-AP, adottato a livello europeo, è un esempio di standard di metadati che supporta l'interoperabilità dei dati pubblici. DCAT-AP fornisce un modello per la descrizione dei dati aperti, migliorando la coerenza e l’uniformità nella documentazione dei dataset. Altri standard internazionali, come l’\textit{ISO 19115} per i dati geografici, garantiscono una struttura di metadati dettagliata e consentono la condivisione dei dati tra diverse istituzioni. Adottare standard di qualità e interoperabilità consente alle amministrazioni di pubblicare dati che siano facilmente integrabili con altre fonti e utilizzabili in contesti applicativi diversificati \cite{Smith2018}.
 
-\paragraph{Esempio di problema}
-Un problema comune è la denormalizzazione prematura delle tabelle, che comporta la duplicazione dei dati. Ad esempio, una tabella che memorizza informazioni sugli ordini potrebbe includere campi ridondanti come il nome del cliente o l'indirizzo di spedizione, informazioni che dovrebbero essere memorizzate in una tabella separata. Questa ridondanza non solo occupa spazio di archiviazione extra, ma rende anche più lento il processo di aggiornamento e modifica dei dati.
+Nonostante l’importanza degli standard, la loro adozione presenta sfide significative. La mancanza di protocolli comuni a livello internazionale limita la possibilità di integrare facilmente i dataset provenienti da paesi e amministrazioni diverse, ostacolando l’efficacia di analisi globali. Inoltre, implementare standard di qualità richiede investimenti in risorse e personale qualificato, che spesso rappresentano un limite per le amministrazioni locali \cite{OpenDataCharter}.
 
-\paragraph{Soluzione: Normalizzazione e partizionamento}
-\begin{itemize}
-    \item \textbf{Normalizzazione:} L'applicazione delle regole di normalizzazione può ridurre la duplicazione dei dati e migliorare le prestazioni del database. Le prime tre forme normali (1NF, 2NF e 3NF) sono generalmente sufficienti per la maggior parte delle applicazioni, garantendo che i dati siano suddivisi in tabelle che rappresentano entità uniche e correlate tra loro tramite chiavi esterne.
-    \item \textbf{Partizionamento delle tabelle:} Per database molto grandi, è utile implementare il partizionamento delle tabelle. Questo comporta la suddivisione dei dati di una tabella in più parti, o partizioni, che possono essere distribuite su diversi dischi o server. Ad esempio, una tabella di transazioni può essere partizionata in base all'anno della transazione, riducendo così la quantità di dati che deve essere esaminata da ogni query.
-\end{itemize}
+\subsection{Sicurezza, Privacy e Normative di Protezione}
 
-\subsubsection{Uso inefficiente delle risorse hardware}
-Infine, l'uso inefficiente delle risorse hardware, come CPU, memoria e spazio su disco, può ridurre notevolmente le prestazioni del database. Spesso, questo problema si verifica quando non vengono monitorate correttamente le risorse disponibili, oppure quando il sistema non è configurato per distribuire il carico in modo ottimale.
+La protezione della privacy e la sicurezza dei dati sono priorità fondamentali nella gestione degli open data, soprattutto quando i dataset contengono informazioni sensibili. Nonostante gli open data siano generalmente anonimi, la combinazione di diverse fonti può accrescere il rischio di re-identificazione, sollevando preoccupazioni riguardo alla protezione dei dati personali. Il GDPR (Regolamento Generale sulla Protezione dei Dati) richiede che le amministrazioni adottino misure rigorose per assicurare la riservatezza e la sicurezza delle informazioni personali. Per rispettare questi requisiti, è necessario adottare tecniche di anonimizzazione e aggregazione dei dati, come la soppressione delle variabili identificative e la pseudonimizzazione, che riducono il rischio di esposizione senza compromettere l’utilità dei dati per scopi analitici e applicativi \cite{GDPR2016}.
 
-\paragraph{Esempio di problema}
-In un sistema che gestisce grandi volumi di dati, la memoria (RAM) svolge un ruolo fondamentale nella gestione della cache del database e nella velocità di accesso ai dati. Se la quantit\`a di RAM disponibile \\è insufficiente, il sistema inizier\`a a utilizzare lo spazio su disco per archiviare temporaneamente i dati (swapping), rallentando drasticamente le prestazioni.
-
-\paragraph{Soluzione: Monitoraggio e tuning}
-Il monitoraggio continuo delle risorse hardware, combinato con il tuning del database, può migliorare significativamente le prestazioni. Strumenti come \texttt{Prometheus}, \texttt{Grafana}, e i sistemi di monitoraggio nativi dei database possono essere utilizzati per rilevare i colli di bottiglia e ottimizzare l'allocazione delle risorse.
-
-\subsection{Sicurezza Insufficiente}
-La sicurezza dei dati rappresenta una priorità nella progettazione dei database moderni, specialmente alla luce delle attuali minacce informatiche, sempre più complesse e frequenti.
+Tuttavia, implementare tali tecniche richiede competenze avanzate e risorse significative, che non tutte le amministrazioni possiedono. Inoltre, alcuni dati, come quelli relativi alla sanità o ai servizi sociali, richiedono un livello di protezione ancora più elevato, poiché contengono informazioni particolarmente sensibili. L'equilibrio tra la necessità di trasparenza e la protezione della privacy rimane una sfida complessa, che richiede un approccio bilanciato per evitare violazioni della privacy e garantire che i dati siano utilizzati in modo etico e sicuro \cite{Gurumurthy2019}.
 
-Le linee guida OWASP del 2023 offrono un elenco delle principali vulnerabilità nei sistemi web \cite{OWA23}.
+Oltre alla protezione della privacy, la sicurezza dei dati è essenziale per prevenire accessi non autorizzati e abusi. Le amministrazioni devono adottare misure di sicurezza, come l’uso di protocolli di crittografia e la protezione degli accessi, per evitare che i dati possano essere manipolati o utilizzati in modo improprio. L’adozione di politiche di sicurezza rigorose è particolarmente importante per i dati di natura sensibile, come quelli legati alla sicurezza pubblica o alle infrastrutture critiche.
 
-Soluzioni avanzate come i database cloud-native forniscono nuovi strumenti per una gestione scalabile e sicura delle informazioni, con funzionalità integrate di crittografia e accesso controllato.
+\subsection{Sostenibilità e Sfide Economiche}
 
-Le principali sfide di sicurezza nei database legacy includono la protezione dei dati sensibili, la gestione sicura delle credenziali e la prevenzione di accessi non autorizzati. La necessità di un approccio alla sicurezza più strutturato e aggiornato è fondamentale per ridurre i rischi e proteggere le risorse critiche.
+La sostenibilità delle iniziative di open data è una questione centrale, poiché la gestione e la pubblicazione dei dati richiedono investimenti considerevoli in termini di risorse umane, finanziarie e tecnologiche. La raccolta, l’aggiornamento e la manutenzione continua dei dati comportano costi elevati, e molte amministrazioni locali, in particolare quelle di dimensioni ridotte, faticano a sostenere le spese necessarie per garantire un accesso continuo e affidabile ai dati.
 
+Per affrontare questa problematica, molte amministrazioni stanno cercando di sviluppare modelli di collaborazione con il settore privato e con organizzazioni non governative. Il partenariato pubblico-privato (PPP) rappresenta una soluzione efficace per condividere i costi e le responsabilità nella gestione degli open data. Attraverso queste partnership, le amministrazioni possono accedere a competenze tecnologiche avanzate e a risorse finanziarie che consentono di mantenere la qualità e la continuità delle iniziative di open data \cite{McKinsey2013}.
 
-Di seguito esaminiamo le principali problematiche di sicurezza nei database tradizionali e le soluzioni pi\'u moderne per affrontarle.
-
-\subsubsection{Protezione dei dati sensibili}
-Molti database legacy non implementano misure sufficienti per proteggere i dati sensibili, come informazioni finanziarie, dati personali, o credenziali di accesso. In alcuni casi, queste informazioni vengono memorizzate in chiaro all\'interno del database, esponendole a rischi significativi in caso di accesso non autorizzato.
-
-\paragraph{Esempio di problema}
-Un esempio comune è la memorizzazione in chiaro delle password degli utenti. Se un database che contiene password non crittografate viene compromesso, gli aggressori possono facilmente ottenere l'accesso a una vasta quantità di account. Inoltre, in molti casi, lo stesso utente potrebbe utilizzare la stessa password su diversi servizi, aumentando il rischio di attacchi a catena.
-
-\paragraph{Soluzione: Crittografia dei dati}
-Una delle soluzioni principali per proteggere i dati sensibili è l'uso della crittografia. 
-
-"La crittografia delle password e dei dati sensibili è una pratica raccomandata per ridurre i rischi di accesso non autorizzato" \cite{Sch15}.
-
-In particolare:
-\begin{itemize}
-    \item \textbf{Crittografia delle password:} Le password devono essere crittografate utilizzando algoritmi sicuri come \texttt{bcrypt}, \texttt{argon2} o \texttt{PBKDF2}, che includono tecniche di hashing e salting. Questi algoritmi garantiscono che anche se un aggressore ottiene accesso al database, non possa facilmente risalire alla password originale.
-    \item \textbf{Crittografia dei dati sensibili:} Oltre alle password, è essenziale crittografare anche altri dati sensibili come i numeri di carte di credito, i dati sanitari o le informazioni di identificazione personale (PII). L'uso di crittografia simmetrica (AES) o asimmetrica (RSA) permette di proteggere i dati sia a riposo (stored data) che in transito (data in transit).
-\end{itemize}
-
-\subsubsection{Gestione delle credenziali e autenticazione debole}
-Molti sistemi legacy implementano meccanismi di autenticazione che non sono più sicuri rispetto agli standard moderni. Ad esempio, l'uso di credenziali deboli (password semplici o non aggiornate), insieme all'assenza di metodi di autenticazione a più fattori, rende il sistema vulnerabile ad attacchi di forza bruta o a tentativi di accesso non autorizzato.
-
-\paragraph{Esempio di problema}
-Un problema comune è l'assenza di policy per la complessità delle password. Molti sistemi permettono agli utenti di creare password semplici (come "123456" o "password"), che possono essere facilmente indovinate o violate attraverso attacchi automatizzati.
-
-\paragraph{Soluzione: Autenticazione sicura e multi-fattore}
-Per risolvere questi problemi, le migliori pratiche di sicurezza suggeriscono l'implementazione delle seguenti soluzioni:
-\begin{itemize}
-    \item \textbf{Autenticazione a due fattori (2FA):} L'uso dell'autenticazione a due fattori aggiunge un livello di protezione supplementare. Oltre alla password, l'utente deve fornire un secondo fattore di autenticazione, come un codice inviato via SMS o generato da un'applicazione di autenticazione (ad esempio, Google Authenticator).
-    \item \textbf{OAuth e JWT:} L'adozione di standard come OAuth per la gestione dell'autenticazione basata su token offre un metodo sicuro e scalabile per gestire le sessioni utente. JWT (JSON Web Token) permette di creare token sicuri per l'autenticazione delle sessioni, evitando di memorizzare le credenziali in chiaro o di mantenere sessioni lunghe non necessarie.
-    \item \textbf{Policy di password robuste:} Implementare una policy che richieda agli utenti di creare password complesse, aggiornare periodicamente le credenziali e impedire il riutilizzo di vecchie password può ridurre significativamente il rischio di compromissione.
-\end{itemize}
-
-\subsubsection{Accesso non autorizzato e SQL Injection}
-L'SQL Injection è una delle vulnerabilità più comuni nei database, soprattutto in sistemi legacy che non hanno adottato pratiche di programmazione sicura. Questa tecnica permette a un aggressore di eseguire comandi SQL arbitrari su un database attraverso input non validati, portando a possibili fughe di dati, manipolazioni o eliminazioni di tabelle.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{sources/cybersecurity-team.jpg} % sostituisci con il nome effettivo del file
-    \caption{Team di cybersecurity che monitora in tempo reale la sicurezza del database, proteggendo i dati da accessi non autorizzati.}
-    \label{fig:team_cybersecurity_monitoraggio}
-\end{figure}
-
-
-\paragraph{Esempio di problema}
-Un sito web che accetta input non validati direttamente in una query SQL è vulnerabile a SQL Injection. Ad esempio, un modulo di login che accetta direttamente l'input dell'utente senza adeguata sanitizzazione può permettere a un malintenzionato di inserire un codice malevolo, come:
-\[
-\texttt{' OR '1'='1'; --}
-\]
-Questo tipo di attacco può bypassare il normale processo di autenticazione e dare all'aggressore l'accesso al sistema.
-
-\paragraph{Soluzione: Sanitizzazione e query preparate}
-La protezione contro SQL Injection si basa su pratiche di programmazione sicura:
-\begin{itemize}
-    \item \textbf{Query preparate:} L'uso di query preparate o parametriche impedisce l'iniezione di codice SQL non autorizzato. In questo caso, i parametri della query sono trattati come dati e non come comandi SQL.
-    \item \textbf{Sanitizzazione degli input:} È fondamentale validare e sanificare ogni input fornito dagli utenti, sia attraverso moduli web, API o altri punti di accesso. Questo garantisce che gli input contengano solo valori attesi, come stringhe alfanumeriche, e non comandi malevoli.
-    \item \textbf{Web Application Firewalls (WAF):} Implementare un WAF può aggiungere un ulteriore livello di protezione, monitorando e bloccando automaticamente i tentativi di iniezione SQL o altri attacchi comuni sulle applicazioni web.
-\end{itemize}
-
-\subsubsection{Mancanza di controllo degli accessi granulari}
-Un altro problema frequente nei database legacy è l'assenza di controlli granulari sugli accessi. Molti sistemi implementano ruoli di accesso rigidi e poco flessibili, che concedono a utenti o applicazioni più permessi di quelli effettivamente necessari per il loro scopo.
-
-\paragraph{Esempio di problema}
-In un sistema legacy, è possibile che un utente con ruolo di gestione dei dati abbia accesso completo a tutte le tabelle del database, anche a quelle che non sono pertinenti alle sue mansioni. Questo approccio aumenta il rischio di errore umano o abuso di accesso.
-
-\paragraph{Soluzione: Controllo degli accessi basato su ruoli (RBAC)}
-Un moderno approccio alla gestione degli accessi prevede l'implementazione di RBAC (Role-Based Access Control), che limita l'accesso ai dati in base ai ruoli degli utenti. In RBAC, a ogni utente viene assegnato un ruolo specifico con un set limitato di privilegi, garantendo che possa accedere solo alle risorse necessarie per svolgere il proprio lavoro.
-\begin{itemize}
-    \item \textbf{Principio del minimo privilegio:} Un sistema ben progettato dovrebbe implementare il principio del minimo privilegio, dove gli utenti e le applicazioni possono accedere solo alle risorse minime necessarie per eseguire le proprie operazioni.
-    \item \textbf{Monitoraggio e auditing:} Oltre ai controlli di accesso, è importante implementare un sistema di auditing che monitori tutte le attività nel database, generando log dettagliati su chi accede a quali dati e quando. Ciò permette di identificare immediatamente eventuali comportamenti sospetti.
-\end{itemize}
-
-\subsubsection{Backup e ripristino dei dati}
-Infine, molti database legacy non dispongono di adeguati sistemi di backup e ripristino, rendendo difficile il recupero dei dati in caso di attacco o malfunzionamento. La perdita o compromissione dei dati, in assenza di backup frequenti e sicuri, può avere un impatto devastante.
-
-\paragraph{Esempio di problema}
-Un attacco ransomware potrebbe crittografare i dati del database e richiedere un riscatto per il loro ripristino. Senza un sistema di backup sicuro, l'azienda potrebbe perdere definitivamente l'accesso ai dati critici.
-
-\paragraph{Soluzione: Backup regolari e sicuri}
-Le migliori pratiche includono:
-\begin{itemize}
-    \item \textbf{Backup frequenti e automatizzati:} Implementare un sistema di backup regolare, preferibilmente automatizzato, che memorizzi copie aggiornate del database su server separati e sicuri.
-    \item \textbf{Test periodici di ripristino:} È importante non solo creare backup, ma anche testare regolarmente il processo di ripristino per assicurarsi che i dati possano essere recuperati rapidamente e senza errori.
-    \item \textbf{Crittografia dei backup:} I backup dovrebbero essere crittografati per impedire che informazioni sensibili vengano compromesse anche se i backup stessi vengono rubati o violati.
-\end{itemize}
-\section{Stato dell’arte nella reingegnerizzazione dei database}
-Negli ultimi anni, la reingegnerizzazione dei database ha assunto un'importanza crescente nel campo dell'informatica, spinta dalla necessità di migliorare le prestazioni, la sicurezza e la scalabilità dei sistemi di gestione dei dati. La complessità dei sistemi moderni, l'aumento esponenziale del volume dei dati e le crescenti aspettative degli utenti richiedono l'adozione di tecniche avanzate per gestire, ottimizzare e mantenere i database.
-
-In questa sezione esaminiamo le principali tecnologie e metodologie che attualmente definiscono lo stato dell'arte nella reingegnerizzazione dei database, inclusi ORM, migrazioni di database, database distribuiti.
-
-\subsection{Object-Relational Mapping (ORM)}
-L'Object-Relational Mapping (ORM) è una tecnica che consente di mappare le tabelle di un database relazionale agli oggetti nei linguaggi di programmazione orientati agli oggetti. Gli ORM sono strumenti essenziali nel modernizzare la gestione dei database, poiché facilitano la comunicazione tra l'applicazione e il database, riducendo la necessità di scrivere query SQL complesse e rendendo il codice più modulare e manutenibile.
-
-\subsubsection{Come funziona l'ORM}
-Gli ORM, come \textbf{Hibernate}, \textbf{Doctrine} e \textbf{Entity Framework}, permettono agli sviluppatori di manipolare i dati del database attraverso oggetti di alto livello senza dover scrivere direttamente il codice SQL. L'ORM genera automaticamente le query SQL necessarie in base alle operazioni eseguite sugli oggetti dell'applicazione. Ad esempio, in un'applicazione e-commerce, una classe "Prodotto" può essere mappata a una tabella "prodotti" nel database. Gli sviluppatori possono quindi lavorare con l'oggetto "Prodotto" nel loro codice, lasciando all'ORM il compito di tradurre le operazioni sugli oggetti in query SQL.
-
-\subsubsection{Vantaggi e limitazioni}
-\begin{itemize}
-    \item \textbf{Vantaggi:}
-    \begin{itemize}
-        \item \textit{Astrazione del livello di persistenza}: Gli ORM consentono agli sviluppatori di concentrarsi sulla logica dell'applicazione, senza doversi preoccupare dei dettagli di implementazione delle query SQL.
-        \item \textit{Manutenzione semplificata}: Poiché gli ORM separano la logica di business dalla gestione dei dati, il codice diventa più facile da mantenere e aggiornare. Le modifiche alla struttura del database possono essere implementate senza dover riscrivere il codice SQL.
-        \item \textit{Riduzione degli errori}: Gli ORM riducono la probabilità di errori umani, come la scrittura di query SQL mal formate o vulnerabili a SQL injection, poiché le query sono generate automaticamente.
-    \end{itemize}
-    \item \textbf{Limitazioni:}
-    \begin{itemize}
-        \item \textit{Prestazioni inferiori}: Gli ORM, se non configurati correttamente, possono introdurre un overhead aggiuntivo, rallentando le prestazioni delle applicazioni che devono eseguire un gran numero di operazioni su database molto grandi.
-        \item \textit{Query complesse}: Sebbene gli ORM siano molto utili per le operazioni CRUD (Create, Read, Update, Delete), la loro efficacia diminuisce con query più complesse che richiedono ottimizzazioni avanzate o operazioni non standard sui dati.
-    \end{itemize}
-\end{itemize}
-
-\subsubsection{Strumenti ORM più utilizzati}
-Alcuni degli ORM più utilizzati nel settore includono:
-\begin{itemize}
-    \item \textbf{Hibernate} (Java): Un framework ORM per Java che offre numerose funzionalità avanzate per la gestione dei dati e delle relazioni tra le entità del database.
-    \item \textbf{Doctrine} (PHP): Un ORM per PHP che supporta diverse strategie di mapping e include un sistema di migrazioni per mantenere il database allineato con le modifiche apportate al modello di dati.
-    \item \textbf{Entity Framework} (C\#/.NET): Lo strumento ORM principale per il framework .NET, che consente di eseguire query LINQ per accedere ai dati tramite oggetti.
-\end{itemize}
-
-\subsection{Migrazioni di database}
-Le migrazioni di database sono un metodo che permette di applicare modifiche incrementali alla struttura di un database in modo controllato e sicuro. Le migrazioni risolvono uno dei problemi principali nella gestione dei database: come aggiornare la struttura dati senza compromettere i dati esistenti o causare downtime.
-
-\subsubsection{Come funzionano le migrazioni di database}
-Con le migrazioni di database, ogni modifica alla struttura del database, come l'aggiunta di una colonna o la modifica di un indice, viene codificata in uno script che può essere eseguito in modo incrementale. Questo approccio consente di mantenere una cronologia delle modifiche, semplificando la gestione delle versioni del database e garantendo che il database di produzione e quelli di sviluppo siano sempre sincronizzati.
-
-Ad esempio, se si vuole aggiungere una nuova colonna "email" alla tabella "utenti", si può scrivere una migrazione che aggiunge la colonna e aggiorna tutti i record esistenti. Se successivamente è necessario rimuovere o modificare questa colonna, un'altra migrazione può essere applicata senza alterare i dati in modo manuale o pericoloso.
-
-\subsubsection{Strumenti per le migrazioni}
-Alcuni degli strumenti più popolari per le migrazioni di database includono:
-\begin{itemize}
-    \item \textbf{Flyway}: Uno degli strumenti di migrazione più popolari, supporta vari tipi di database, come PostgreSQL, MySQL e Oracle. Flyway gestisce le migrazioni attraverso file SQL o script Java.
-    \item \textbf{Liquibase}: Uno strumento open-source che consente di eseguire migrazioni di database attraverso script XML, YAML, JSON o SQL. Liquibase offre anche funzionalità di rollback che permettono di annullare facilmente una modifica al database.
-\end{itemize}
-
-\subsubsection{Vantaggi delle migrazioni di database}
-\begin{itemize}
-    \item \textit{Controllo delle versioni}: Le migrazioni permettono di mantenere un registro dettagliato di tutte le modifiche al database, garantendo che l'intero team possa lavorare con la stessa versione della struttura dati.
-    \item \textit{Aggiornamenti incrementali}: Ogni modifica è applicata in modo incrementale, riducendo il rischio di errori e permettendo il rollback in caso di problemi.
-    \item \textit{Semplicità di implementazione}: Gli strumenti di migrazione sono semplici da integrare nei processi di sviluppo esistenti e possono essere eseguiti automaticamente durante il deploy di una nuova versione dell'applicazione.
-\end{itemize}
-
-\subsection{Database distribuiti e cloud-native}
-L'evoluzione dei database distribuiti e dei sistemi cloud-native ha cambiato profondamente il modo in cui i database vengono progettati e gestiti. I database distribuiti sono progettati per essere eseguiti su più nodi o server, garantendo un'alta disponibilità e una scalabilità orizzontale, mentre i database cloud-native sono pensati per sfruttare al massimo le infrastrutture cloud.
-
-\subsubsection{Database distribuiti}
-I database distribuiti come \textbf{Apache Cassandra}, \textbf{Google Cloud Spanner} e \textbf{CockroachDB} consentono di distribuire i dati su più server o regioni geografiche, garantendo la tolleranza ai guasti e una scalabilità pressoché illimitata. Questi sistemi utilizzano algoritmi di consenso distribuiti, come il \textbf{Paxos} o il \textbf{Raft}, per garantire la coerenza dei dati su tutti i nodi.
-
-\paragraph{Vantaggi dei database distribuiti}
-\begin{itemize}
-    \item \textit{Alta disponibilità}: La distribuzione dei dati su più nodi garantisce che il sistema rimanga disponibile anche in caso di guasto di uno o più nodi.
-    \item \textit{Scalabilità orizzontale}: A differenza dei database relazionali tradizionali, che si basano principalmente sulla scalabilità verticale, i database distribuiti possono scalare orizzontalmente aggiungendo nuovi nodi al cluster.
-    \item \textit{Bassa latenza globale}: I database distribuiti possono ridurre la latenza per gli utenti geograficamente distanti, replicando i dati in più regioni e rispondendo alle query dal nodo più vicino.
-\end{itemize}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{sources/data-center-scaled.jpeg}
-    \caption{Data center moderno che ospita le infrastrutture di database cloud-native.}
-    \label{fig:datacenter_cloud}
-\end{figure}
-
-\subsubsection{Database cloud-native}
-Con l'avvento delle piattaforme cloud, molti database moderni sono stati progettati per sfruttare le caratteristiche uniche del cloud, come l'auto-scaling, il provisioning dinamico delle risorse e il supporto per microservizi. Servizi come \textbf{Amazon RDS}, \textbf{Azure SQL Database} e \textbf{Google Cloud SQL} offrono database relazionali che possono essere facilmente scalati in base al carico e gestiti senza l'intervento manuale del team IT.
-
-\paragraph{Vantaggi dei database cloud-native}
-\begin{itemize}
-    \item \textit{Gestione semplificata}: I database cloud-native eliminano la necessità di gestire l'infrastruttura fisica, permettendo ai team di sviluppo di concentrarsi esclusivamente sull'ottimizzazione delle query e delle applicazioni.
-    \item \textit{Auto-scaling}: Questi database possono scalare automaticamente in base alla domanda, allocando o deallocando risorse in modo dinamico.
-    \item \textit{Resilienza incorporata}: I database cloud-native sono progettati per tollerare guasti hardware, garantendo l'alta disponibilità e la continuità operativa.
-\end{itemize}
-
-\paragraph{Migrazione verso Database Cloud-Native}
-Un esempio significativo è rappresentato dall'adozione di Amazon Aurora da parte di diverse aziende, che hanno scelto di migrare le loro infrastrutture legacy verso soluzioni cloud-native. Questa migrazione ha permesso di ottenere scalabilità, riduzione della latenza e maggiore sicurezza, eliminando la necessità di gestire hardware dedicato e migliorando al contempo la resilienza e la capacità di gestire picchi di traffico.
-
-
-\section*{Conclusioni}
-In questo capitolo, abbiamo esplorato alcune delle principali problematiche che affliggono i database legacy, inclusa la complessità della struttura dati, i limiti di scalabilità e le inefficienze nelle prestazioni. La reingegnerizzazione di un database si propone di risolvere questi problemi, migliorando la manutenibilità, l'efficienza e la sicurezza.
-
-Nel prossimo capitolo, ci concentreremo sulle tecnologie, i linguaggi e i framework utilizzati per la reingegnerizzazione di un database, illustrando le caratteristiche dei sistemi ORM, le strategie di migrazione e le tecniche avanzate di sicurezza.
-
-
-
-%\begin{figure}[h]                       %crea l'ambiente figura; [h] sta
-                                        %   per here, cioè la figura va qui
-%\begin{center}                          %centra nel mezzo della pagina
-                                        %   la figura
-%\includegraphics[width=5cm]{figura.eps}%inserisce una figura larga 5cm
-                                        %se si vuole usare va scommentata
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%inserisce la legenda ed etichetta
-                                        %   la figura con \label{fig:prima}
-%\caption[legenda elenco figure]{legenda sotto la figura}\label{fig:prima}
-%\end{center}
-%\end{figure}
+ Tuttavia, implementare sistemi automatizzati richiede investimenti iniziali significativi e la disponibilità di infrastrutture tecnologiche avanzate. La mancanza di risorse finanziarie e di personale qualificato rappresenta quindi un ostacolo importante, che può compromettere la continuità delle iniziative di open data e limitare l'accessibilità dei dati a lungo termine.
 
+\section{Strategie di Reingegnerizzazione del Software}
+
+La reingegnerizzazione del software è un processo complesso e multidimensionale che mira a migliorare la struttura, le funzionalità e le prestazioni di un sistema esistente. Nella gestione degli open data, queste strategie permettono di trasformare i dati grezzi in risorse utili e accessibili per utenti e sviluppatori. Di seguito vengono analizzate alcune delle principali tecniche di reingegnerizzazione applicabili, con riferimento specifico a contesti di open data e alle loro sfide particolari.
+
+\subsection{Automazione e Gestione Dinamica dei Dati}
+
+Nei sistemi di open data, uno dei principali obiettivi della reingegnerizzazione è l’automazione della gestione dei dati. Grazie a questa tecnica, è possibile semplificare e accelerare il caricamento dei dati, riducendo la necessità di interventi manuali. Ad esempio, sistemi moderni per open data permettono l'importazione diretta di file in formati come CSV o JSON, che vengono automaticamente elaborati e trasformati in tabelle di database, pronte per essere interrogate e integrate nelle applicazioni.
+
+L’automazione consente una gestione più efficiente delle operazioni, come l'aggiornamento periodico dei dati e la creazione automatica di tabelle basate sulle strutture rilevate nei file caricati. Questo approccio non solo riduce il tempo necessario per aggiornare i dati, ma anche il rischio di errori umani. In un contesto in cui i dati pubblici vengono aggiornati frequentemente, come nel caso dei dati sul traffico o sulle condizioni meteorologiche, l'automazione garantisce che i dati disponibili siano sempre aggiornati e accurati.
+
+Oltre a migliorare la gestione operativa, l'automazione aiuta a mantenere la coerenza nei dati e a ridurre la ridondanza. Sistemi di reingegnerizzazione avanzati implementano algoritmi di deduplicazione e validazione dei dati, che rilevano eventuali incongruenze e assicurano l’integrità dei dati importati. Grazie a queste strategie, è possibile ottimizzare il database per garantire che i dati siano completi, accurati e pronti per essere utilizzati nelle applicazioni di visualizzazione e analisi.
+
+\subsection{Interfacce Intuitive e Gestione degli Utenti}
+
+La reingegnerizzazione del software richiede un ripensamento delle interfacce utente, in particolare per garantire che l’interazione con il sistema sia intuitiva e accessibile. La progettazione di dashboard centralizzate consente agli utenti di gestire le principali operazioni, come il caricamento dei dati, la gestione degli utenti e l’accesso a strumenti di visualizzazione, in un’unica interfaccia. Nei sistemi di open data, le interfacce devono essere intuitive anche per utenti senza competenze tecniche avanzate, poiché una delle finalità principali dei dati aperti è permetterne l’utilizzo da parte di un vasto pubblico.
+
+Un’interfaccia ben strutturata permette anche una gestione efficace delle autorizzazioni. In molte applicazioni di open data, infatti, è fondamentale proteggere l'accesso a determinati dati sensibili e consentire l'accesso solo agli utenti autorizzati. La reingegnerizzazione delle interfacce può includere la definizione di ruoli specifici e permessi differenziati, consentendo un controllo dettagliato su chi può visualizzare, modificare o aggiungere dati nel sistema. Questo approccio aumenta la sicurezza e la conformità alle normative di gestione dei dati, garantendo al contempo un accesso sicuro alle informazioni.
+
+Un altro aspetto cruciale è la sicurezza dei dati personali. La crittografia delle credenziali è una tecnica standard per proteggere le password e altre informazioni sensibili. Implementando algoritmi di hashing e tecniche avanzate di autenticazione, come l'autenticazione a due fattori (2FA), è possibile aumentare significativamente la sicurezza delle informazioni degli utenti e proteggere il sistema da accessi non autorizzati. Questi aspetti di sicurezza sono particolarmente rilevanti per i sistemi di open data, dove l’accessibilità deve essere bilanciata con la necessità di proteggere i dati degli utenti.
+
+\subsection{Sicurezza dei Dati e Conformità alle Normative}
+
+Nella reingegnerizzazione dei sistemi software, la sicurezza dei dati riveste un ruolo centrale, soprattutto in contesti che trattano open data, dove l’esposizione al pubblico richiede una protezione maggiore. Le tecniche di crittografia per proteggere i dati sia in transito che a riposo sono essenziali per garantire che le informazioni rimangano riservate. Per esempio, nei sistemi di gestione utenti, le credenziali possono essere salvaguardate con tecniche di hashing delle password, rendendo più difficile l’accesso non autorizzato anche in caso di violazione del sistema.
+
+Oltre alla crittografia, la conformità alle normative di protezione dei dati rappresenta un requisito indispensabile. Il Regolamento Generale sulla Protezione dei Dati (GDPR) impone standard rigorosi per garantire che i dati personali siano gestiti in modo sicuro e rispettoso della privacy. La reingegnerizzazione dei sistemi per open data richiede quindi l’adozione di tecniche di anonimizzazione e pseudonimizzazione, che permettono di trattare e analizzare i dati senza esporre informazioni personali sensibili.
+
+Inoltre, un sistema sicuro deve prevedere controlli di accesso basati su ruoli, garantendo che solo gli utenti autorizzati possano accedere a determinate informazioni. Questo approccio non solo migliora la sicurezza, ma consente anche una gestione più precisa delle autorizzazioni, necessaria per mantenere la conformità con le normative. L'adozione di protocolli di sicurezza, come TLS per la trasmissione sicura dei dati, è una pratica consolidata nei processi di reingegnerizzazione, specialmente quando il sistema gestisce dati accessibili al pubblico.
+
+\subsection{Integrazione tramite API e Accessibilità dei Dati}
+
+Un aspetto importante della reingegnerizzazione dei sistemi per open data è l’integrazione di API (Application Programming Interface), che permette di rendere i dati accessibili a sviluppatori e applicazioni esterne. Le API permettono di interrogare il database in tempo reale e di ottenere i dati in formati standardizzati, come JSON o XML, che possono essere facilmente utilizzati da altre applicazioni. Questo approccio rende il sistema flessibile e aumenta la sua interoperabilità con altri software, consentendo anche l’integrazione con strumenti avanzati di data visualization e analytics.
+
+Le API RESTful sono tra le più utilizzate in contesti di open data per la loro semplicità e facilità di implementazione. Queste API permettono di accedere ai dati tramite richieste HTTP standard, consentendo una gestione sicura e flessibile delle informazioni. Una reingegnerizzazione efficace prevede la documentazione accurata delle API, facilitando l'accesso ai dati e promuovendo un uso più ampio delle informazioni pubbliche, poiché utenti e sviluppatori esterni possono facilmente integrare questi dati nei loro sistemi.
+
+Inoltre, la creazione di API permette di aggiornare automaticamente i dati disponibili agli utenti, garantendo che siano sempre in linea con le informazioni più recenti. Questo è particolarmente utile nei sistemi che gestiscono dati dinamici, come i dati ambientali o di mobilità urbana, dove le informazioni devono essere aggiornate frequentemente per rimanere rilevanti. In questo modo, la reingegnerizzazione del sistema favorisce un accesso ai dati aggiornato e affidabile, semplificando la condivisione delle informazioni con altri servizi.
+
+\subsection{Monitoraggio delle Prestazioni}
+
+Nella reingegnerizzazione dei sistemi software, l’ottimizzazione delle prestazioni è un elemento cruciale, specialmente per piattaforme di open data che devono essere in grado di gestire elevati volumi di richieste simultanee e grandi quantità di dati. Garantire prestazioni ottimali richiede un insieme di strategie e tecniche mirate a migliorare la rapidità e l’efficienza del sistema, riducendo i tempi di risposta e migliorando l’esperienza complessiva degli utenti.
+
+Una delle tecniche più comuni per migliorare le prestazioni è l'implementazione di un sistema di caching, che permette di memorizzare temporaneamente i dati più frequentemente richiesti in una memoria ad accesso rapido. Questo approccio consente di ridurre il numero di accessi diretti al database e migliorare significativamente la velocità di risposta, poiché i dati possono essere recuperati in tempi molto più brevi. Oltre al caching, l'ottimizzazione delle query del database è un'altra pratica fondamentale, che prevede l’analisi e la riscrittura delle query SQL per ridurre i tempi di elaborazione e minimizzare l’uso delle risorse di sistema.
+
+Il bilanciamento del carico (load balancing) è un'altra tecnica avanzata utilizzata per distribuire le richieste su più server, evitando il sovraccarico su un singolo nodo e migliorando la resilienza complessiva del sistema. Con l’uso di bilanciatori di carico, i sistemi open data possono gestire in modo più efficiente picchi improvvisi di richieste, garantendo prestazioni costanti e riducendo il rischio di downtime.
+
+Un aspetto strettamente legato all’ottimizzazione delle prestazioni è il monitoraggio continuo del sistema, che permette di rilevare eventuali colli di bottiglia e criticità prima che diventino problematiche per gli utenti. Il monitoraggio può essere effettuato utilizzando strumenti di log avanzati e dashboard di performance che forniscono una panoramica in tempo reale sulle metriche chiave del sistema, come l’utilizzo della CPU, della memoria e del tempo di risposta. Analizzando i dati di monitoraggio, i team di sviluppo possono identificare pattern di utilizzo, prevedere esigenze future e pianificare interventi mirati per mantenere elevate le prestazioni.
+
+Inoltre, l’adozione di tecniche di monitoraggio proattivo e di automazione delle notifiche consente di implementare un sistema di allerta rapido in grado di notificare immediatamente eventuali anomalie o cali di prestazione. In questo modo, i tecnici possono intervenire tempestivamente e prevenire disservizi che potrebbero influire negativamente sull’accessibilità e l’affidabilità della piattaforma.
+
+L’ottimizzazione delle prestazioni e il monitoraggio continuo non solo migliorano l’esperienza utente, ma sono anche essenziali per la sostenibilità e la scalabilità dei sistemi open data. Infatti, in un contesto dove la quantità e la varietà dei dati sono in continua crescita, l’adozione di pratiche di ottimizzazione e monitoraggio consente al sistema di adattarsi a un aumento delle richieste senza compromettere la qualità del servizio, garantendo al contempo una fruizione affidabile e costante delle informazioni pubbliche.
+
+
+\subsection{Testing e Qualità del Software}
+
+La reingegnerizzazione di un software implica inevitabilmente un'attenta fase di testing, necessaria per garantire la qualità e l’affidabilità del sistema. Nei sistemi di open data, il testing deve includere non solo le funzionalità di base, ma anche la sicurezza e la conformità ai requisiti di interoperabilità. I test automatici rappresentano una pratica standard nella reingegnerizzazione, poiché consentono di individuare rapidamente eventuali errori o incompatibilità e di risolverli in modo efficiente.
+
+Oltre ai test funzionali, è importante eseguire test di carico e di stress, che permettono di valutare come il sistema risponde a un utilizzo intensivo. Per i sistemi open data, i test di carico sono particolarmente rilevanti, poiché il sistema potrebbe dover gestire un numero elevato di richieste simultanee provenienti da diversi utenti o applicazioni esterne. La reingegnerizzazione include dunque una fase approfondita di testing per assicurare che il sistema possa mantenere le prestazioni ottimali e offrire una user experience di alta qualità anche in condizioni di uso intensivo.
+
+In sintesi, la reingegnerizzazione di un software per open data rappresenta un investimento significativo che consente di ottenere un sistema più sicuro, efficiente e scalabile. Le tecniche descritte, dall'automazione alla modularità e al testing, offrono una base solida per garantire che il sistema sia in grado di rispondere alle esigenze degli utenti e di adattarsi alle nuove tecnologie in modo continuo e sostenibile.
+
+\section{Importanza della Visualizzazione dei Dati}
+
+La visualizzazione dei dati svolge un ruolo fondamentale nel rendere accessibili e comprensibili informazioni complesse e voluminose. In un’epoca di crescita esponenziale nella produzione e disponibilità di dati, la capacità di rappresentare visivamente le informazioni è essenziale per facilitare il processo decisionale e la comprensione da parte di un vasto pubblico, che include sia i cittadini che i decisori pubblici.
+
+Nel contesto degli open data, la data visualization assume un valore strategico: consente di interpretare fenomeni articolati e di promuovere la trasparenza e la partecipazione civica. Le rappresentazioni visive riducono la complessità dei dati e permettono di identificare in modo intuitivo trend, schemi e anomalie, rendendo i dataset di grandi dimensioni accessibili e significativi anche per coloro che non possiedono competenze tecniche avanzate. Questo strumento non è solo un supporto alla comunicazione, ma un elemento chiave della democrazia digitale, poiché consente ai cittadini di interagire direttamente con i dati pubblici e di partecipare informati ai processi decisionali \cite{Few2013, Davies2019}.
+
+\subsection{Metodologie di Visualizzazione dei Dati}
+
+Esistono diverse metodologie per la visualizzazione dei dati, ciascuna delle quali si adatta a specifici tipi di dati e obiettivi di comunicazione. Di seguito vengono esaminate le principali tecniche utilizzate per rappresentare visivamente i dati e i contesti in cui esse risultano più efficaci:
+
+\subsubsection{Grafici e Diagrammi}
+I grafici a barre, a linee, a torta e a dispersione sono tra le tecniche di visualizzazione più comuni e versatili, utilizzati per rappresentare dati quantitativi e per confrontare variabili. Ad esempio, i grafici a barre sono particolarmente utili per confrontare categorie discrete, come il tasso di partecipazione elettorale nei diversi quartieri, mentre i grafici a linee sono ideali per visualizzare tendenze temporali, come la variazione dei livelli di inquinamento nel corso dell'anno. I grafici a torta, invece, rappresentano proporzioni all’interno di un dataset, ma possono risultare meno efficaci se il numero di categorie è elevato o se le differenze tra i dati sono minime \cite{Few2013}.
+
+Questi grafici sono ampiamente utilizzati nel contesto degli open data per rappresentare informazioni su mobilità, spesa pubblica e dati ambientali. Ad esempio, un grafico a barre può illustrare la ripartizione del bilancio comunale per settore, mentre un grafico a linee può rappresentare l’andamento dell'affluenza elettorale in un comune. La semplicità di interpretazione di questi grafici li rende particolarmente adatti per un pubblico ampio e diversificato.
+
+\subsubsection{Mappe Geospaziali}
+Le mappe geospaziali sono fondamentali per rappresentare dati che contengono componenti geografiche, come la distribuzione della popolazione, la qualità dell'aria e i livelli di traffico. Le mappe tematiche permettono di visualizzare la distribuzione spaziale delle variabili, rendendo immediatamente evidenti le differenze tra le aree geografiche. Ad esempio, una mappa di densità o \textit{heatmap} può evidenziare le aree con maggiore intensità di traffico, fornendo una rappresentazione visiva delle zone più congestionate in città \cite{Peterson2014}.
+
+Questo tipo di rappresentazione è particolarmente utile nel contesto degli open data comunali, in quanto consente di monitorare il traffico, l’inquinamento e altri fenomeni territoriali, facilitando una comprensione immediata delle condizioni locali. Le amministrazioni comunali utilizzano spesso mappe interattive per informare i cittadini sulle condizioni della mobilità o sulla qualità dell'aria nelle diverse aree, permettendo loro di adottare misure preventive o di pianificare i propri spostamenti in modo efficiente \cite{Davies2019}.
+
+\subsubsection{Grafici di Rete}
+I grafici di rete vengono utilizzati per rappresentare le connessioni e le relazioni tra elementi diversi, come i flussi di trasporto o le interazioni tra utenti in un sistema. Questa metodologia si basa su nodi e collegamenti, ed è particolarmente utile in ambiti come l'analisi delle reti sociali, dei flussi di traffico o delle connessioni tra luoghi di interesse. Nel contesto degli open data, i grafici di rete possono essere utilizzati per visualizzare la rete di trasporto urbano o per analizzare le interazioni tra cittadini e servizi pubblici \cite{Kanza2019}.
+
+\subsubsection{Dashboard Interattive}
+Le dashboard interattive offrono una panoramica dettagliata di più variabili e consentono agli utenti di esplorare e filtrare i dati in base alle proprie esigenze. Le dashboard sono utilizzate da amministrazioni pubbliche e aziende per visualizzare dati aggiornati e per confrontare diversi indicatori. Nel contesto degli open data, le dashboard interattive permettono di accedere a informazioni dettagliate su argomenti di interesse pubblico, come la spesa pubblica, i dati sanitari o la qualità dei servizi comunali, facilitando il controllo democratico delle risorse e delle politiche pubbliche \cite{Smith2018}.
+
+L'interattività delle dashboard consente ai cittadini di esplorare i dati in modo autonomo, filtrando le informazioni in base a parametri specifici e approfondendo i dettagli più rilevanti per le proprie esigenze. Questa personalizzazione dell’esperienza utente rende i dati più accessibili e comprensibili, incentivando una partecipazione civica più informata.
+
+\subsubsection{Visualizzazioni Avanzate e Interattive}
+Le visualizzazioni avanzate e interattive, realizzate con strumenti come \textit{D3.js}, \textit{Plotly} e \textit{Leaflet.js}, permettono di rappresentare dati complessi e multidimensionali in modo dinamico. Questi strumenti sono particolarmente efficaci per esplorare dati ad alta dimensionalità e per offrire una maggiore flessibilità nella visualizzazione, consentendo agli utenti di analizzare i dati in profondità e di personalizzare l'esplorazione delle informazioni. Ad esempio, \textit{Leaflet.js} è una libreria ampiamente utilizzata per creare mappe interattive che permettono di visualizzare dati geospaziali in modo immediato e intuitivo \cite{Wilkinson2021}.
+
+Le visualizzazioni avanzate sono particolarmente utili per rappresentare dati pubblici complessi, come le condizioni del traffico o i dati ambientali, poiché permettono di aggiornare i dati in tempo reale e di fornire un’esperienza utente coinvolgente e personalizzata. Queste visualizzazioni facilitano una comunicazione chiara e accessibile dei dati, promuovendo la partecipazione attiva dei cittadini.
+
+\subsection{La Visualizzazione dei Dati nel Contesto degli Open Data}
+
+Nel contesto degli open data, la visualizzazione dei dati gioca un ruolo cruciale nel rendere accessibili le informazioni a un pubblico ampio e diversificato. Gli open data, infatti, sono rivolti non solo a esperti e sviluppatori, ma anche a cittadini che desiderano informarsi e partecipare alle decisioni pubbliche. Le rappresentazioni visive, come mappe, grafici interattivi e dashboard, permettono a tutti gli utenti di esplorare e interpretare i dati con facilità, offrendo una visione chiara e sintetica delle informazioni.
+
+La visualizzazione facilita la trasformazione dei dati grezzi in conoscenza utile, consentendo ai cittadini di comprendere meglio fenomeni complessi come la distribuzione delle risorse pubbliche, le tendenze demografiche o le condizioni ambientali. Ad esempio, le mappe della qualità dell'aria o del traffico urbano permettono agli utenti di identificare immediatamente le zone critiche e di pianificare spostamenti o altre attività in modo informato \cite{Kitchin2014}.
+
+\subsection{Criteri di Qualità e Accessibilità nella Visualizzazione}
+
+Per garantire un'efficace fruizione delle informazioni, le visualizzazioni di open data devono rispettare alcuni criteri fondamentali di qualità e accessibilità. Le visualizzazioni devono essere chiare, leggibili e facilmente comprensibili. La scelta dei colori, delle forme e delle dimensioni deve quindi essere fatta con cura, per facilitare la distinzione tra le variabili e per ridurre il rischio di fraintendimenti \cite{Few2013}.
+
+Inoltre, le visualizzazioni interattive, come le dashboard, consentono di esplorare i dati in modo personalizzato, favorendo l'accessibilità e l’inclusività. La possibilità di filtrare e navigare tra i dati permette agli utenti di accedere rapidamente alle informazioni di loro interesse, senza dover analizzare dataset complessi. In questo modo, la visualizzazione dei dati diventa uno strumento non solo di analisi, ma anche di comunicazione efficace e di democratizzazione delle informazioni \cite{OECD2020}.
+
+La visualizzazione dei dati è uno strumento essenziale per interpretare e trasmettere informazioni in modo chiaro, rendendo i dati comprensibili e accessibili a un pubblico ampio e diversificato. Nel contesto degli open data, la visualizzazione è essenziale per promuovere la trasparenza e la partecipazione civica, consentendo ai cittadini di acquisire consapevolezza e di interagire attivamente con le informazioni pubbliche. La data visualization non solo supporta decisioni informate, ma rafforza anche il rapporto di fiducia tra le istituzioni e la comunità, incentivando un modello di governance aperto e inclusivo \cite{Few2013}.

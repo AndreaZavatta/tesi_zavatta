@@ -20,9 +20,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per impostare il documento
 \usepackage{fancyhdr}
-
-\usepackage{tikz}
-\usetikzlibrary{positioning}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per avere l'indentazione
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   all'inizio dei capitoli, ...
@@ -43,15 +40,12 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{latexsym}
-\usepackage{amsthm} 
+\usepackage{amsthm}
+\usepackage{cite}
 \usepackage{listings}
 \usepackage{hyperref} 
 \usepackage[square,numbers,sort]{natbib} 
 \usepackage{xcolor}
-\usepackage{lmodern} % Font moderni per evitare errori di font
-\usepackage{fancyhdr} % Pacchetto per le intestazioni e le note a piè di pagina
-\setlength{\headheight}{14.5pt} % Risolve il problema della headheight
-\sloppy % Gestisce automaticamente le parole che vanno fuori margine
 %\bibliographystyle{unsrt}
 \bibliographystyle{unsrtnat}
 
@@ -85,8 +79,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Comandi Custom %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\xstudent}{Andrea Zavatta}
-\newcommand{\xsupervisor}{Silvia Mirri}
+\newcommand{\xstudent}{Nome dello studente}
+\newcommand{\xsupervisor}{Nome del relatore}
 
 
 
@@ -123,7 +117,21 @@
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
 INDICE}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
     
+    
+
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%
+	% inizio corpo del documento
+	%
+	% sequenze delle varie sezioni
+	% è consigliato mantenere una struttura logica ben definita per separare le sezioni
+	% si consiglia di reificare tale struttura fisicamente sul file system
+	%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 
 	

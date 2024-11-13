@@ -1,1 +1,230 @@
+\clearpage{\pagestyle{empty}\cleardoublepage}
+
+\chapter{Tecnologie e Linguaggi}
+
+Nel corso del capitolo, verranno descritti il modello architetturale scelto, il flusso di dati tra i diversi componenti, e gli aspetti legati alla sicurezza e alla privacy, che rappresentano elementi fondamentali nella gestione di dati pubblici. Successivamente, sarà presentato l’utilizzo dei linguaggi di programmazione e delle librerie selezionate, per concludere con una panoramica sulla gestione delle autorizzazioni e controllo degli accessi.
+
+\section{Architettura Tecnologica e Scelte di Progetto}
+Questa sezione descrive l'architettura tecnologica e le principali scelte progettuali adottate nello sviluppo della dashboard per la gestione degli open data. Verrà introdotto il modello client-server scelto per garantire scalabilità e modularità, insieme ai motivi della scelta e al flusso di comunicazione tra client e server. Infine, verranno analizzati i vantaggi di questa architettura per l'efficienza e l'interattività del sistema.
+
+\section{Linguaggi di Programmazione e Tecnologie di Sviluppo}
+
+Per la costruzione della dashboard interattiva sono stati impiegati vari linguaggi e tecnologie, ciascuno con un ruolo specifico nello sviluppo e nella gestione delle diverse funzionalità. HTML e CSS sono utilizzati per la struttura e lo stile della pagina, mentre JavaScript e PHP sono impiegati per gestire l'interattività e la logica applicativa della piattaforma. Questa sezione descrive l'uso di ciascuno di questi strumenti, illustrandone il ruolo all'interno del progetto \cite{flanagan2011javascript} \cite{esposito2020learning}.
+
+La scelta di questi linguaggi non solo ha reso possibile un'architettura client-server efficiente, ma ha anche consentito di costruire un'interfaccia responsiva, reattiva e facile da manutenere \cite{mdn_docs}. Ogni linguaggio è stato selezionato per le sue caratteristiche specifiche e la capacità di integrarsi con le altre componenti del sistema. Di seguito sono illustrate le funzionalità principali di ciascun linguaggio e il loro impiego nel progetto.
+
+\subsection{HTML per la Strutturazione del Contenuto}
+HTML (HyperText Markup Language) rappresenta la base per la struttura delle pagine web ed è utilizzato nella dashboard per organizzare e definire il contenuto visualizzato dall’utente.
+
+In questo progetto, HTML fornisce una struttura semantica che facilita la navigazione e migliora l'accessibilità. Ogni elemento della dashboard è definito attraverso tag HTML che organizzano il contenuto in maniera logica \cite{robbins2012learning}. Questa organizzazione semantica consente anche di ottimizzare la compatibilità della dashboard con diversi dispositivi e screen reader, garantendo così un'esperienza utente inclusiva.
+
+HTML è stato impiegato anche per definire i collegamenti tra le varie sezioni della dashboard e per creare componenti interattivi che gli utenti possono attivare, come bottoni e campi di input.
+
+\subsection{CSS per lo Stile e la Responsività}
+CSS (Cascading Style Sheets) è stato utilizzato per definire lo stile visivo della dashboard, creando un layout estetico e mantenendo un aspetto coerente tra le diverse sezioni della piattaforma \cite{meyer2007css}. Grazie a CSS, la dashboard può adattarsi in modo dinamico a diverse dimensioni di schermo, assicurando che l’esperienza utente sia ottimale su dispositivi desktop, tablet e smartphone.
+
+Per raggiungere un design responsivo, sono state implementate regole di layout flessibili e media query, che consentono di modificare lo stile della dashboard in base alle caratteristiche del dispositivo utilizzato \cite{marcotte2011responsive}. Ogni sezione è stata progettata per adattarsi automaticamente alle dimensioni dello schermo, migliorando la fruibilità su dispositivi mobili. Inoltre, CSS è stato utilizzato per garantire la coerenza visiva, con uno schema di colori, font e spaziatura uniforme, che rende la dashboard intuitiva e visivamente armoniosa.
+
+Sono state impiegate tecniche avanzate di layout CSS, come Flexbox, per creare una struttura che risponda fluidamente ai cambiamenti di dimensione e di orientamento dello schermo \cite{kevin2020flexbox}. Flexbox infatti, è stato utilizzato per disporre in maniera flessibile le sezioni principali della pagina.
+
+% Qui potresti continuare ad aggiungere sezioni extra o esempi aggiuntivi come quelli in precedenza, per garantire la completezza e raggiungere le pagine richieste.
+\subsection{JavaScript per l’Interattività}
+JavaScript è stato utilizzato nel frontend per gestire l'interattività della dashboard, consentendo un aggiornamento dinamico dei contenuti in risposta alle azioni dell'utente. Grazie a JavaScript, la piattaforma offre funzionalità interattive come la gestione degli eventi, le animazioni e l'aggiornamento in tempo reale delle sezioni informative, senza richiedere il ricaricamento della pagina \cite{flanagan2011javascript}.
+
+
+JavaScript è stato inoltre impiegato per la validazione dei form di input, come quelli per la registrazione e il login degli utenti. Questa validazione lato client permette di verificare che i dati inseriti siano corretti prima dell'invio al server, riducendo la necessità di gestione degli errori a livello di backend e migliorando l’esperienza utente complessiva \cite{wroblewski2011web}. Grazie a JavaScript, la dashboard supporta anche animazioni e transizioni visive, rendendo l'interazione con la piattaforma più intuitiva e coinvolgente.
+
+\subsection{PHP per la Logica di Backend}
+PHP (acronimo ricorsivo di "PHP: Hypertext Preprocessor") è stato scelto come linguaggio di backend per gestire la logica applicativa della dashboard, occupandosi dell'elaborazione delle richieste e dell'interazione con il database. Grazie a PHP, la piattaforma è in grado di elaborare le informazioni provenienti dal frontend, eseguire operazioni sui dati e rispondere alle richieste dell'utente in maniera efficiente \cite{esposito2020learning}.
+
+In questo progetto, PHP è responsabile per la gestione di operazioni come l'autenticazione degli utenti, la creazione e modifica delle risorse, e l’elaborazione dei file caricati. Inoltre, PHP utilizza query parametrizzate per interagire con il database in modo sicuro, prevenendo vulnerabilità comuni come l'SQL injection \cite{mccool2012php}. L'adozione di PHP per la logica di backend ha permesso di costruire un sistema scalabile, in grado di gestire in modo robusto le operazioni necessarie per il corretto funzionamento della dashboard.
+
+PHP supporta inoltre la gestione dei permessi e dei ruoli utente, consentendo di limitare l’accesso a determinate funzionalità in base ai privilegi dell’utente. Questo approccio garantisce che solo gli utenti autorizzati possano effettuare operazioni critiche, come l’aggiunta, la modifica o l’eliminazione di dati. La flessibilità di PHP nella gestione delle sessioni utente e l'integrazione con il database rendono possibile una gestione sicura e strutturata delle informazioni all'interno della piattaforma.
+
+In sintesi, l'uso combinato di HTML, CSS, JavaScript e PHP ha permesso di creare una dashboard interattiva, reattiva e sicura, offrendo un’esperienza utente di alta qualità e un backend solido e scalabile per il trattamento dei dati.
+
+\section{Librerie e Framework per la Visualizzazione dei Dati}
+
+Per migliorare la capacità della dashboard di presentare dati in modo interattivo e intuitivo, sono state utilizzate diverse librerie JavaScript specializzate nella visualizzazione dei dati geografici e delle heatmap. Queste librerie permettono alla piattaforma di mostrare graficamente i dati di traffico e di votazione, offrendo una rappresentazione chiara delle aree con maggiore densità e agevolando l'analisi spaziale \cite{krzywinski2010data}.
+
+Le principali librerie integrate nel progetto sono \texttt{heatmap.js} e \texttt{Leaflet}. Insieme, queste librerie consentono di sovrapporre dati di densità su mappe interattive, e la libreria \texttt{leaflet-heatmap.js} viene utilizzata per facilitare l’integrazione di heatmap direttamente sulle mappe di Leaflet \cite{harrower2003colorbrewer} \cite{coburn2014}. Di seguito vengono descritti in dettaglio il ruolo e il funzionamento di ciascuna di queste librerie.
+
+\subsection{heatmap.js per Visualizzazioni di Densità}
+\texttt{heatmap.js} è una libreria JavaScript progettata specificamente per creare heatmap, una tipologia di visualizzazione che permette di evidenziare le aree con maggiore intensità di dati attraverso variazioni di colore \cite{tufte1983visual}. Questa libreria si basa su tecniche di rendering tramite Canvas, rendendola particolarmente efficiente per il rendering di grandi quantità di dati. Nella dashboard, \texttt{heatmap.js} viene utilizzata per rappresentare la densità del traffico nelle diverse zone di Bologna, fornendo un’idea chiara delle aree più trafficate in base ai dati raccolti.
+
+Il file \texttt{heatmap.js} offre una configurazione flessibile, consentendo di regolare parametri come il raggio dei punti, la gradazione dei colori e l’opacità, in modo da ottenere una visualizzazione personalizzata e chiara \cite{spence2007information}. La configurazione di default include un raggio di 40 pixel e una gradazione cromatica che passa dal blu al rosso per indicare livelli crescenti di densità. Questo approccio visivo permette di evidenziare facilmente le zone più congestionate all’interno della mappa.
+
+L’integrazione di \texttt{heatmap.js} nel progetto consente di convertire i dati di traffico in una rappresentazione grafica facilmente interpretabile, offrendo agli utenti una panoramica immediata dei flussi di traffico. La libreria è configurata per aggiornare dinamicamente i dati in base all’intervallo di tempo selezionato dall’utente, rendendo l’esperienza utente interattiva e fluida.
+
+\subsection{Leaflet per Mappe Interattive}
+\texttt{Leaflet} è una libreria open-source leggera per la creazione di mappe interattive, supportata da numerosi plugin e compatibile con la maggior parte dei browser moderni \cite{leaflet_docs}. Nel contesto della dashboard, Leaflet svolge il ruolo fondamentale di piattaforma di visualizzazione geografica, consentendo di visualizzare mappe interattive con una grande flessibilità. Leaflet supporta diverse tipologie di tile map, ed è stato configurato per utilizzare mappe di OpenStreetMap, fornendo così una base geografica dettagliata e gratuita \cite{haklay2008openstreetmap}.
+
+Per gestire la visualizzazione dei dati di traffico, \texttt{Leaflet} permette di aggiungere marker personalizzati che rappresentano specifici punti di interesse o zone con elevata densità di traffico. Il file \texttt{leaflet.css} definisce gli stili necessari per mantenere la consistenza grafica e il comportamento interattivo della mappa, mentre il file \texttt{leaflet.js} gestisce le funzioni per la visualizzazione e manipolazione delle mappe. Leaflet consente anche di configurare funzioni avanzate, come il controllo dello zoom, la visualizzazione di layer sovrapposti e la personalizzazione dei popup \cite{peterson2014interactive}.
+
+In questo progetto, \texttt{Leaflet} è stato utilizzato per visualizzare la distribuzione dei dati sul traffico e i risultati delle votazioni, permettendo agli utenti di esplorare geograficamente i dataset tramite una mappa. La libreria offre inoltre funzionalità per il rendering in tempo reale, garantendo che i dati visualizzati siano aggiornati secondo le interazioni dell'utente.
+
+\subsection{leaflet-heatmap.js per la Sovrapposizione di Heatmap su Mappe Interattive}
+\texttt{leaflet-heatmap.js} è un plugin che combina le funzionalità di \texttt{heatmap.js} e \texttt{Leaflet}, permettendo di sovrapporre heatmap su mappe interattive. Questo plugin facilita la creazione di mappe tematiche che evidenziano le aree ad alta densità di traffico direttamente su una mappa di Leaflet, integrando i dati di \texttt{heatmap.js} con la struttura geografica di \texttt{Leaflet} \cite{leaflet_heatmap_docs}. Grazie a questa combinazione, gli utenti possono visualizzare le informazioni di densità in relazione alla geografia urbana di Bologna, ottenendo una rappresentazione spaziale accurata e intuitiva.
+
+Il plugin è configurato per supportare le trasformazioni di scala e di zoom di Leaflet, garantendo che la heatmap si adatti automaticamente al livello di zoom scelto dall’utente. Questa flessibilità permette di esplorare il traffico a diverse scale geografiche, dai dettagli di quartiere fino alla visione dell’intera città. La sovrapposizione di dati viene realizzata utilizzando un \texttt{div} che contiene il layer di heatmap, posizionato sopra il layer della mappa di Leaflet, e l’aggiornamento del layer è sincronizzato con gli eventi di zoom e spostamento della mappa.
+
+Nel contesto del progetto, \texttt{leaflet-heatmap.js} si occupa di trasformare i dati di traffico in heatmap interattive, che si aggiornano dinamicamente man mano che l’utente esplora diverse aree o cambia i filtri temporali. Il plugin si basa su un’architettura compatta e reattiva, rendendolo una soluzione efficace per la visualizzazione di dati dinamici in tempo reale \cite{bostock2012d3}.
+
+\subsection{Vantaggi dell’Uso di Librerie per la Visualizzazione dei Dati}
+L’integrazione di \texttt{heatmap.js}, \texttt{Leaflet} e \texttt{leaflet-heatmap.js} nella piattaforma permette di ottenere una rappresentazione visiva dei dati ricca e interattiva, migliorando notevolmente l'esperienza utente. Queste librerie combinano la capacità di visualizzare informazioni dettagliate sulla densità di traffico con un’interfaccia geografica intuitiva, facilitando l’analisi e la comprensione dei dati da parte degli utenti \cite{heer2012interactive}.
+
+La visualizzazione delle heatmap sovrapposte su mappe interattive supporta un'analisi esplorativa approfondita, offrendo strumenti per rilevare pattern di densità e identificare aree chiave all'interno del territorio urbano. Questo approccio consente una comprensione più immediata delle dinamiche cittadine e facilita la comunicazione di dati complessi in modo accessibile e visivamente accattivante.
+
+In sintesi, le librerie per la visualizzazione dei dati utilizzate nella dashboard rendono possibile una rappresentazione interattiva e dinamica delle informazioni di traffico, supportando una gestione efficace degli open data e fornendo una base per un'analisi spaziale precisa e immediata.
+
+\section{Database e Gestione dei Dati}
+
+Il database della piattaforma è progettato per archiviare e gestire sia i dati di traffico che i dati delle votazioni comunali, consentendo una gestione strutturata e sicura delle informazioni. La scelta di utilizzare un database relazionale risponde alla necessità di mantenere tabelle con relazioni definite, che permettono di gestire i dati in modo organizzato, ottimizzando la ricerca e la manipolazione delle informazioni \cite{connolly2014database}. Questa sezione esplora la struttura delle tabelle principali e descrive come i dati sono archiviati per supportare le funzionalità della dashboard.
+
+\subsection{Struttura del Database per la Gestione del Traffico}
+Le tabelle che gestiscono i dati di traffico consentono di memorizzare informazioni geografiche, rilevamenti di traffico e dettagli specifici relativi alle misurazioni di flusso veicolare. La struttura delle tabelle relative ai dati di traffico include:
+
+\begin{itemize}
+    \item \textbf{comuni}: Questa tabella memorizza i comuni relativi ai dati gestiti. Ogni comune è identificato da un \texttt{id} univoco e contiene attributi quali \texttt{nome} e \texttt{descrizione}.
+    
+    \item \textbf{vie}: Questa tabella rappresenta le vie presenti nei dati di traffico. Per ciascuna via, sono archiviati dati come \texttt{codice\_via}, \texttt{nome\_via}, \texttt{codice\_arco} (che identifica segmenti di strada specifici), \texttt{nodo\_da} e \texttt{nodo\_a} (che rappresentano i nodi di origine e destinazione), nonché \texttt{direzione}. Ogni via è associata a un \texttt{comune\_id}, che funge da chiave esterna verso la tabella dei comuni \cite{elmasri2016fundamentals}.
+
+    \item \textbf{spire}: Questa tabella rappresenta le "spire" di rilevamento posizionate sulle strade per misurare il flusso di traffico. Ogni spira è identificata da un \texttt{id} univoco e include informazioni come \texttt{codimpsem}, \texttt{longitudine}, \texttt{latitudine}, \texttt{geopoint} e \texttt{ID\_univoco\_stazione\_spira}. Ogni spira è associata a una via tramite la chiave esterna \texttt{codice\_via}.
+
+    \item \textbf{rilevazioni\_traffico}: Questa tabella raccoglie i dati delle rilevazioni di traffico effettuate dalle spire. Include attributi come la \texttt{data} della rilevazione, \texttt{codice\_spira} (che funge da chiave esterna verso la tabella spire), \texttt{giorno\_settimana}, \texttt{giorno}, \texttt{mese} e \texttt{anno}. Questa struttura permette di archiviare e recuperare i dati di traffico in base alla data e alla posizione \cite{silberschatz2020database}.
+
+    \item \textbf{dettagli\_traffico}: Per ciascuna rilevazione, questa tabella memorizza i dettagli dei flussi di traffico suddivisi per ora. Gli attributi orari sono organizzati da \texttt{00:00-01:00} a \texttt{23:00-24:00} e includono anche somme per fasce temporali come \texttt{notte}, \texttt{mattina}, \texttt{pomeriggio} e \texttt{sera}. Ciascun record è collegato a una rilevazione specifica tramite la chiave esterna \texttt{id\_rilevazione}.
+
+    \item \textbf{dettagli\_generali}: Questa tabella archivia informazioni aggiuntive per ciascuna rilevazione, come \texttt{livello} di traffico, \texttt{tipologia}, \texttt{stato} della strada, \texttt{direzione} e \texttt{angolo}. L’identificazione di ogni rilevazione avviene tramite la chiave esterna \texttt{id\_rilevazione}.
+\end{itemize}
+
+Questa struttura relazionale permette di monitorare e analizzare in dettaglio i flussi di traffico, correlando i dati raccolti con specifiche vie, comuni e spire. La suddivisione dei dati per fasce orarie e tipologie facilita l'analisi delle variazioni di traffico in base a parametri spaziali e temporali \cite{date2019introduction}.
+
+\subsection{Struttura del Database per la Gestione delle Votazioni}
+Per la gestione dei dati di votazione comunale, il database include tabelle che rappresentano i politici, le sessioni consiliari e i dettagli di presenza e votazione. La struttura delle tabelle relative alle votazioni include:
+
+\begin{itemize}
+    \item \textbf{politici}: Questa tabella memorizza le informazioni dei politici, con attributi come \texttt{nominativo} e \texttt{gruppo\_politico}. Ogni politico è identificato da un \texttt{id} univoco, che permette di collegarlo alle sessioni e ai voti.
+
+    \item \textbf{sedute}: Rappresenta le sedute consiliari, ognuna delle quali è identificata da una \texttt{data\_seduta} univoca. La tabella memorizza il \texttt{id} di ciascuna seduta, consentendo di collegare i politici alle singole sessioni in cui hanno partecipato.
+
+    \item \textbf{presenze}: Questa tabella registra la presenza dei politici a ogni seduta, specificando per ciascun record l'\texttt{id\_politico}, l'\texttt{id\_seduta}, e l’attributo \texttt{presenza} che indica se il politico era presente o assente. Questa struttura permette di monitorare la frequenza di partecipazione dei politici alle sedute consiliari.
+
+    \item \textbf{votazioni}: Memorizza i dettagli delle votazioni, tra cui il numero di votazioni e la percentuale di presenza alle votazioni per ogni politico. I record di questa tabella includono un riferimento a ciascuna \texttt{presenza\_id}, collegandoli alle rispettive partecipazioni, e i campi \texttt{num\_votazioni} e \texttt{percentuale\_presenza\_alle\_votazioni} per analizzare l’attività di voto dei politici.
+\end{itemize}
+
+Questa struttura relazionale consente di monitorare la partecipazione dei politici alle sedute consiliari e alle votazioni, permettendo di generare report dettagliati e di analizzare i dati per valutare la frequenza e l'impegno di ciascun membro.
+
+\subsection{Autenticazione e Gestione dei Permessi}
+La piattaforma implementa un sistema di autenticazione e gestione delle autorizzazioni basato su un insieme di tabelle relazionate, progettate per garantire una sicurezza avanzata e controllare l’accesso a determinate funzionalità secondo il livello di autorizzazione degli utenti. Le tabelle principali per la gestione dell’autenticazione e dei permessi includono:
+
+\begin{itemize}
+    \item \textbf{users}: Questa tabella memorizza gli account degli utenti che possono accedere alla dashboard, ognuno con privilegi specifici in base al profilo assegnato. Gli attributi principali della tabella \texttt{users} includono:
+        \begin{itemize}
+            \item \texttt{id}: chiave primaria univoca per ciascun account utente.
+            \item \texttt{username}: nome utente univoco utilizzato per il login.
+            \item \texttt{password\_hash}: hash della password dell’utente, salvata in formato sicuro tramite algoritmi di hashing (ad esempio, bcrypt), per garantire la protezione delle credenziali \cite{menezes1996handbook}.
+            \item \texttt{profile\_id}: chiave esterna che si riferisce alla tabella \texttt{profile}, specificando il profilo dell’utente e i permessi associati.
+        \end{itemize}
+
+
+    \item \textbf{profile}: Questa tabella definisce i ruoli dei diversi profili e i rispettivi livelli di autorizzazione. I principali attributi della tabella \texttt{profile} includono:
+        \begin{itemize}
+            \item \texttt{id}: chiave primaria per identificare ciascun profilo.
+            \item \texttt{role\_name}: nome del ruolo, ad esempio "Admin", "User".
+        \end{itemize}
+
+    \item \textbf{permissions}: Questa tabella contiene l’elenco delle autorizzazioni specifiche che possono essere assegnate ai profili. Ogni record della tabella rappresenta un permesso specifico con i seguenti attributi:
+        \begin{itemize}
+            \item \texttt{id}: chiave primaria univoca.
+            \item \texttt{permission\_name}: descrizione del permesso, ad esempio "visualizzare dati", "modificare dati", "eliminare dati".
+        \end{itemize}
+
+    \item \textbf{profile\_permissions}: Questa tabella di associazione gestisce le relazioni tra i profili e i permessi, permettendo di assegnare più permessi a un singolo profilo. Gli attributi principali includono:
+        \begin{itemize}
+            \item \texttt{profile\_id}: chiave esterna che si riferisce alla tabella \texttt{profile}, collegando un profilo a una serie di permessi.
+            \item \texttt{permission\_id}: chiave esterna che si riferisce alla tabella \texttt{permissions}, specificando un permesso assegnato al profilo.
+        \end{itemize}
+\end{itemize}
+
+\paragraph{Funzionamento del Sistema di Autenticazione e Autorizzazione}
+Quando un utente tenta di accedere alla piattaforma, viene verificato tramite il proprio \texttt{username} e \texttt{password\_hash}. Se le credenziali sono corrette, l’utente viene autenticato e associato a un profilo specifico, definito tramite il campo \texttt{profile\_id}. 
+
+Grazie alla struttura della tabella \texttt{profile\_permissions}, il sistema verifica i permessi associati al profilo dell’utente, determinando quali azioni può eseguire. Questo modello consente di definire in modo preciso i diritti di ciascun utente all'interno della dashboard, permettendo una gestione flessibile e scalabile dei ruoli e dei permessi.
+
+La combinazione di queste tabelle permette di implementare un controllo degli accessi basato sui ruoli (Role-Based Access Control, RBAC), dove i permessi vengono associati ai profili anziché ai singoli utenti. Questa struttura favorisce una gestione centralizzata delle autorizzazioni e semplifica l’assegnazione dei permessi, specialmente in contesti in cui il numero di utenti amministrativi è elevato \cite{sandhu1996role}.
+
+
+\section{Gestione delle Autorizzazioni e Controllo degli Accessi}
+
+In questa sezione viene trattato il sistema di gestione delle autorizzazioni e del controllo degli accessi implementato nella piattaforma. Verrà descritto come l’autenticazione e l’assegnazione dei ruoli contribuiscano a garantire la sicurezza della dashboard, limitando l’accesso alle funzioni più critiche solo agli utenti autorizzati. Saranno approfonditi il modello di autenticazione e le misure adottate per la protezione dei dati sensibili.
+
+\subsection{Modello di Autenticazione e Autorizzazione}
+Il modello di autenticazione e autorizzazione adottato nella dashboard si basa su un sistema di login protetto, che verifica l’identità dell’utente attraverso l’uso di credenziali uniche (username e password) \cite{ferraiolo2003role}. Una volta autenticati, gli utenti ricevono un livello di autorizzazione che determina le funzioni disponibili nella piattaforma. Gli utenti sono suddivisi principalmente in due categorie:
+
+\begin{itemize}
+    \item \textbf{Utenti standard}: Gli utenti standard hanno accesso alle funzionalità di base della dashboard, come la visualizzazione dei dati, l’analisi dei dati di traffico e l’accesso ai grafici di visualizzazione. Non hanno, tuttavia, permessi per modificare o aggiornare le informazioni presenti nel sistema.
+
+    \item \textbf{Amministratori}: Gli amministratori dispongono di permessi avanzati che consentono di eseguire operazioni CRUD (Create, Read, Update, Delete) sui dati e di gestire altri utenti. Essi possono caricare nuovi dati, modificare le informazioni esistenti e cancellare dati obsoleti. Inoltre, possono creare, modificare e rimuovere altri utenti, assegnando loro i ruoli appropriati in base alle necessità operative \cite{sandhu1996role}.
+\end{itemize}
+
+Il sistema di autenticazione utilizza sessioni di autenticazione sicure per mantenere l’accesso all’account fino a quando l’utente non decide di disconnettersi o fino al termine del periodo di sessione. Questa struttura garantisce una gestione sicura e controllata delle credenziali utente, riducendo il rischio di accessi non autorizzati \cite{bishop2003computer}.
+
+\subsection{Sicurezza dei Dati in Base ai Ruoli}
+Ogni operazione eseguita all'interno della dashboard è subordinata a un controllo di autorizzazione che verifica il ruolo dell’utente. Questo controllo impedisce che utenti con permessi limitati possano accedere a funzionalità riservate agli amministratori, proteggendo così i dati da modifiche non autorizzate \cite{ferraiolo2003role}. 
+
+Per esempio, un utente standard può visualizzare i dati sul traffico e sui risultati delle votazioni, ma non può apportare alcuna modifica. Gli amministratori, invece, hanno accesso alle funzioni di modifica dei dati e alle opzioni di configurazione della piattaforma. Questa separazione dei permessi è implementata tramite un controllo lato backend, dove ogni richiesta è verificata per accertare che l'utente disponga dei permessi necessari per completare l'operazione \cite{sandhu1996role}.
+
+\subsection{Metodi di Protezione dei Dati Sensibili}
+Per salvaguardare i dati sensibili e assicurare che l'accesso alle informazioni sia riservato esclusivamente agli utenti autorizzati, sono stati implementati i seguenti metodi:
+
+\begin{itemize}
+    \item \textbf{Hashing delle password}: Tutte le password sono memorizzate nel database in forma crittografata, tramite algoritmi di hashing sicuri come bcrypt. Questo approccio assicura che, anche in caso di accesso non autorizzato al database, le password degli utenti non siano leggibili \cite{menezes1996handbook}.
+
+    \item \textbf{Query parametrizzate}: Per prevenire attacchi di tipo SQL injection, tutte le interazioni con il database utilizzano query parametrizzate, separando i dati dalle istruzioni SQL e impedendo che input malevoli possano alterare la struttura delle query. Questa tecnica è applicata sia per le operazioni di login, sia per le modifiche e gli aggiornamenti dei dati \cite{halfond2006classification}.
+\end{itemize}
+
+Queste misure di sicurezza sono integrate nel sistema per proteggere i dati e garantire che le operazioni siano eseguite solo da utenti autorizzati.
+
+
+\subsection{Vantaggi della Gestione delle Autorizzazioni e del Controllo degli Accessi}
+La gestione dei ruoli e il controllo degli accessi rappresentano componenti fondamentali per la sicurezza e l'integrità di un sistema che tratta dati sensibili. Implementare un sistema di controllo basato sui ruoli, o \textit{Role-Based Access Control} (RBAC), offre diversi vantaggi per la piattaforma, migliorando la protezione dei dati, la modularità della gestione e l'efficacia operativa.
+
+Uno dei principali benefici della gestione dei ruoli è la capacità di separare i permessi in base alle responsabilità degli utenti, garantendo che solo coloro con le qualifiche necessarie possano eseguire determinate azioni. Ad esempio, un utente con un profilo di tipo "User" potrà visualizzare i dati ma non modificarli o eliminarli, riducendo il rischio di modifiche accidentali o malintenzionate. Questo approccio minimizza anche la probabilità che le informazioni sensibili siano esposte o alterate da utenti non autorizzati. La divisione dei permessi in base ai ruoli consente, inoltre, di mantenere una chiara suddivisione delle responsabilità, migliorando il controllo e la tracciabilità delle operazioni \cite{sandhu1996role}.
+
+\paragraph{Modularità e Scalabilità}
+Un sistema di controllo degli accessi basato sui ruoli rende la piattaforma altamente modulare e scalabile. Con RBAC, i permessi possono essere assegnati a gruppi di utenti piuttosto che a singoli individui, permettendo di definire con precisione i diritti associati a ciascun ruolo (ad esempio, "Admin", "User") e di gestire in modo centralizzato l'accesso alle risorse del sistema. Questa struttura è particolarmente vantaggiosa in contesti in cui gli utenti possono cambiare mansioni o entrare e uscire frequentemente dal sistema: anziché ridefinire i permessi per ogni singolo utente, è sufficiente assegnare o rimuovere il ruolo appropriato. Questo approccio riduce notevolmente il carico amministrativo, poiché le modifiche possono essere applicate a livello di gruppo, rendendo il sistema più efficiente e meno incline a errori di configurazione \cite{ferraiolo2001role}.
+
+\paragraph{Protezione contro Account Compromessi}
+Un altro importante vantaggio di RBAC è la limitazione dei danni potenziali in caso di compromissione di un account utente. Se un malintenzionato riesce a ottenere le credenziali di accesso di un utente con permessi limitati, l’accesso che ottiene è anch’esso limitato alle sole operazioni previste per quel ruolo. Ad esempio, un utente compromesso con permessi di sola visualizzazione non sarà in grado di modificare, eliminare o aggiungere dati sensibili, riducendo così il rischio di danni gravi alla piattaforma. In questo modo, RBAC rappresenta una forma di sicurezza "a strati", dove anche in caso di violazione, i permessi limitati mitigano i potenziali effetti dannosi \cite{bonneau2012quest}.
+
+\paragraph{Controllo Dettagliato delle Autorizzazioni}
+RBAC permette inoltre un controllo molto dettagliato delle autorizzazioni, garantendo una gestione precisa e rigorosa delle funzionalità accessibili per ciascun ruolo. Ogni operazione importante, come l’accesso a determinate sezioni del database o l’autorizzazione per modifiche specifiche, può essere regolata in base al livello di autorizzazione del profilo utente. Per la dashboard degli open data, questa struttura è particolarmente utile in quanto consente di distinguere chiaramente chi ha diritto di visualizzare i dati, chi può modificarli e chi ha il permesso di gestire interamente la piattaforma. \cite{sandhu1996role}
+
+\paragraph{Audit e Tracciabilità delle Operazioni}
+Grazie alla gestione dei ruoli e dei permessi, è possibile tracciare in modo dettagliato le attività eseguite da ciascun utente, registrando le azioni chiave e associandole al profilo assegnato. In questo modo, eventuali azioni non autorizzate o errori possono essere facilmente identificati e attribuiti, semplificando i processi di audit. La registrazione delle attività migliora la responsabilità degli utenti e facilita il monitoraggio continuo del sistema, permettendo di individuare comportamenti sospetti in tempo reale. \cite{davidson2016role}
+
+\paragraph{Riduzione degli Errori e Maggiore Fiducia degli Utenti}
+La gestione accurata delle autorizzazioni riduce anche la probabilità di errori operativi. Con i permessi ben delimitati per ciascun ruolo, gli utenti hanno accesso solo alle funzionalità di cui necessitano per svolgere le proprie mansioni. Ciò elimina ambiguità e riduce le possibilità di eseguire per errore operazioni non consentite. Questo aspetto è cruciale per piattaforme come una dashboard di open data, in cui la precisione e la protezione dei dati pubblici sono prioritarie. La separazione dei permessi, dunque, contribuisce a migliorare la fiducia degli utenti nell’utilizzo della piattaforma, garantendo che le operazioni siano svolte con sicurezza e nel rispetto delle normative di accesso.\cite{wright2017rbac}
+
+\paragraph{Rispetto delle Normative di Sicurezza}
+Il modello di gestione degli accessi basato sui ruoli è inoltre conforme alle best practice e normative di sicurezza che richiedono una separazione chiara dei privilegi, come il GDPR per la protezione dei dati \cite{gdpr2016regulation}. Adottare una struttura RBAC non solo aiuta a proteggere i dati sensibili, ma semplifica anche la conformità con le normative di settore, riducendo il rischio di sanzioni per non conformità.
+
+In sintesi, l’approccio alla gestione delle autorizzazioni e al controllo degli accessi fornisce una solida base di sicurezza per la piattaforma. Grazie a un sistema di permessi modulare e scalabile, il controllo delle attività degli utenti e la protezione contro account compromessi, RBAC rappresenta una strategia di sicurezza robusta che migliora l’efficienza e la protezione dei dati, aumentando al contempo la fiducia degli utenti nel sistema.
+
+
+\section{Sicurezza e Integrità dei Dati} 
+Questa sezione esplora le strategie di sicurezza e integrità dei dati adottate nella piattaforma. Verranno illustrati i meccanismi per proteggere i dati da accessi non autorizzati, garantire la loro accuratezza e prevenire possibili compromissioni. Inoltre, saranno proposte prospettive di miglioramento per ottimizzare ulteriormente la protezione della dashboard.
+
+\subsection{Prospettive di Miglioramento della Sicurezza}
+
+Attualmente, il sistema non esegue verifiche periodiche sugli accessi e sulle operazioni degli utenti; tuttavia, la piattaforma è progettata con una struttura che consente di aggiungere funzionalità di monitoraggio e controllo in futuro. Per migliorare la sicurezza, si potrebbero implementare controlli automatici sui log di accesso per identificare attività sospette o non autorizzate, inviando notifiche agli amministratori in caso di tentativi di accesso non riusciti o di comportamenti anomali.
+
+Un'altra potenziale estensione della piattaforma è l'implementazione della rotazione regolare delle credenziali di accesso per gli amministratori, incentivando la modifica delle password con frequenza. Questa pratica aiuterebbe a mantenere il sistema protetto da eventuali attacchi e garantirebbe che l’accesso ai dati sia costantemente controllato \cite{bishop2003computer}.
+
+Inoltre, sarebbe possibile introdurre un sistema di autenticazione a più fattori (MFA) per gli utenti con privilegi amministrativi, aumentando ulteriormente la sicurezza degli accessi. Questa tecnica richiede all'utente di fornire almeno due forme di verifica prima di accedere, ad esempio una password e un codice generato su un dispositivo mobile \cite{bonneau2012quest}.
+
+Un’altra possibile estensione è rappresentata dall’uso di tecniche di cifratura avanzate come la crittografia omomorfica, che permetterebbe di eseguire calcoli sui dati cifrati senza mai doverli decrittare, aumentando la sicurezza della privacy \cite{gentry2009fully}.
+
+
 

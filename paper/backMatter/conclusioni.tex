@@ -1,17 +1,22 @@
+\rhead[\fancyplain{}{\bfseries \leftmark}]{\fancyplain{}{\bfseries
+\thepage}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Bibliografia
+                                        %   nell'indice
+\addcontentsline{toc}{chapter}{Conclusioni}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%per fare le conclusioni
+\chapter*{Conclusioni}
+\thispagestyle{empty}
 
+Negli ultimi anni, l'accesso ai dati pubblici attraverso iniziative di open data ha assunto un ruolo fondamentale nel promuovere la trasparenza delle istituzioni e nel sostenere l'innovazione in vari settori. In questo contesto, il presente lavoro si è concentrato sulla progettazione e realizzazione di una piattaforma interattiva dedicata alla visualizzazione e analisi dei dati pubblici del Comune di Bologna, con l'obiettivo di rendere tali informazioni facilmente accessibili e fruibili da un'utenza eterogenea.
 
-%\chapter*{Conclusioni}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
-%\rhead[\fancyplain{}{\bfseries
-%CONCLUSIONI}]{\fancyplain{}{\bfseries\thepage}}
-%\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
-%CONCLUSIONI}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Conclusioni
-                                        %   nell'indice
+La piattaforma sviluppata è stata pensata per garantire una consultazione semplice e intuitiva, rispondendo alle esigenze sia dei cittadini interessati ad accedere rapidamente a dati di interesse quotidiano, come quelli sul traffico urbano o sulle votazioni comunali, sia di ricercatori e professionisti che necessitano di strumenti di analisi e rappresentazione grafica. A tale scopo, è stata progettata una struttura che combina accessibilità e funzionalità, rendendo possibile un’esplorazione dinamica e fluida dei dataset pubblici disponibili.
 
+Dal punto di vista tecnico, la piattaforma integra un'interfaccia frontend responsiva, adattabile a diversi dispositivi, con un backend robusto per la gestione dei dati e la sicurezza delle operazioni. Questa architettura garantisce affidabilità e coerenza delle informazioni, mantenendo al contempo una flessibilità sufficiente per futuri sviluppi o ampliamenti delle funzionalità della piattaforma.
 
-%\addcontentsline{toc}{chapter}{Conclusioni} Queste sono le
-%conclusioni.\\
+In termini di funzionalità di visualizzazione, sono state adottate diverse librerie e strumenti grafici, con l'obiettivo di offrire una rappresentazione chiara e immediata dei dati, permettendo così agli utenti di individuare facilmente pattern e tendenze di interesse. La piattaforma si propone dunque come uno strumento utile per promuovere un maggiore coinvolgimento dei cittadini e per valorizzare il patrimonio informativo messo a disposizione dall'amministrazione.
+
+Per quanto riguarda possibili sviluppi futuri, si è individuata l’opportunità di introdurre funzionalità avanzate come le notifiche in tempo reale e l'integrazione di strumenti per il monitoraggio delle prestazioni del sistema. Questi miglioramenti potranno contribuire a rendere la piattaforma ancora più efficiente e scalabile, rispondendo alle crescenti esigenze di accesso ai dati in contesti digitali dinamici.
+
+In conclusione, pur essendo aperta a ulteriori ottimizzazioni e sviluppi, la piattaforma realizzata costituisce un sistema funzionale e affidabile per la consultazione e l'analisi dei dati pubblici del Comune di Bologna. Essa rappresenta quindi un primo passo verso una gestione e diffusione dei dati pubblici che favorisca un'informazione accessibile e un dialogo trasparente tra l'amministrazione pubblica e la cittadinanza.

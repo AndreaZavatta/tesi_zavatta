@@ -1,30 +1,21 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagenumbering{roman}                   %serve per mettere i numeri romani
-\chapter*{Introduzione}
+\pagenumbering{roman}                   %serve per mettere i numeri
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \rhead[\fancyplain{}{\bfseries
 INTRODUZIONE}]{\fancyplain{}{\bfseries\thepage}}
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
-INTRODUZIONE}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Introduzione
                                         %   nell'indice
+\chapter*{Introduzione}
 \addcontentsline{toc}{chapter}{Introduzione}
+La crescente disponibilità di dati pubblici, spesso definiti come \textit{open data}, rappresenta oggi una risorsa fondamentale per promuovere trasparenza, partecipazione civica e innovazione. In ambito urbano, i dati pubblici sono utilizzati per migliorare l’efficienza dei servizi, ottimizzare la mobilità e pianificare politiche ambientali e sociali basate su evidenze concrete. Tuttavia, l’accesso e l’utilizzo efficace di queste informazioni richiedono strumenti tecnologici avanzati che possano rendere i dati fruibili e comprensibili anche per utenti non esperti. In tale contesto si inserisce il progetto di questa tesi, che si propone di creare una piattaforma interattiva per la gestione e visualizzazione dei dati pubblici del Comune di Bologna.
 
-La gestione dei dati è un aspetto cruciale nello sviluppo di applicazioni web moderne, specialmente per le pubbliche amministrazioni che, tramite i dati, supportano la trasparenza e l’efficienza dei servizi. Tuttavia, molti database preesistenti, spesso realizzati con tecnologie legacy, presentano difficoltà di manutenzione, accessibilità e scalabilità che ne limitano l'efficienza. In questo contesto, la reingegnerizzazione dei database diventa fondamentale per modernizzare le infrastrutture digitali e migliorare l’esperienza utente. La presente tesi si propone di ottimizzare la struttura di un database esistente, migliorandone l’accessibilità, l’efficienza e la capacità di integrazione con nuovi servizi.
+Questa piattaforma è concepita per supportare utenti con diversi livelli di competenza, dai cittadini interessati a comprendere le dinamiche della loro città, ai ricercatori e sviluppatori alla ricerca di informazioni approfondite per analisi o applicazioni specifiche. La piattaforma permette l’accesso a vari dataset tramite una dashboard intuitiva, che presenta funzionalità avanzate di visualizzazione interattiva e di analisi. Gli utenti possono esplorare le informazioni in modo dinamico tramite grafici, mappe e tabelle, rendendo più agevole l'individuazione di pattern e trend.
 
-Oltre alla ristrutturazione del database, sono state sviluppate funzionalità aggiuntive come la registrazione e l'autenticazione degli utenti, la gestione dei profili e il caricamento di dati tramite file CSV e JSON. Il progetto sfrutta tecnologie moderne, inclusi PHP, Python, JavaScript e HTML, che permettono di ottenere scalabilità e sicurezza, rendendo il sistema più fruibile e sicuro per l’utente finale.
+Il frontend è stato progettato seguendo i principi del design \textit{user-centered}, con particolare attenzione all’accessibilità e alla compatibilità cross-device, così da garantire un’esperienza utente ottimale su qualsiasi dispositivo. Il backend, realizzato con linguaggi e tecnologie consolidati, gestisce la logica applicativa e le operazioni di manipolazione dei dati, garantendo sicurezza e affidabilità anche in caso di richieste simultanee da più utenti. Particolare enfasi è stata posta sui meccanismi di autenticazione e autorizzazione, per garantire un accesso sicuro alle diverse funzionalità e proteggere le informazioni sensibili, in conformità con le normative vigenti, come il GDPR.
 
-\section*{Obiettivo della tesi}
-L’obiettivo principale della tesi è duplice: da una parte migliorare la struttura del database esistente per facilitarne l'uso e la gestione, dall’altra implementare un sistema di gestione utenti che includa funzionalità di registrazione, autenticazione, gestione dei profili e caricamento dati tramite file \textbf{CSV} e \textbf{JSON}. Tale progetto non solo migliora l’efficienza del sistema dati, ma garantisce anche un’esperienza utente sicura e fluida, grazie a un’interfaccia user-friendly e a protocolli di sicurezza avanzati.
+Inoltre, la piattaforma offre un sistema di gestione degli accessi basato sui ruoli (RBAC), che permette di differenziare i privilegi degli utenti, definendo in modo preciso chi può visualizzare, modificare o gestire i dati. Questa funzionalità è di fondamentale importanza per garantire la sicurezza delle informazioni e la sostenibilità del sistema in contesti di accesso pubblico.
 
-\section*{Risultati raggiunti}
-Il progetto ha portato a una significativa ottimizzazione della struttura dati, che ora risulta più scalabile e meno ridondante, facilitando la gestione delle informazioni. La ristrutturazione ha migliorato le prestazioni del sistema e ha permesso di integrare agevolmente le nuove funzionalità di gestione utenti e caricamento dati. Questo ha reso il sistema non solo più reattivo e sicuro, ma anche facilmente estendibile per future implementazioni.
+La tesi è strutturata come segue: il primo capitolo fornisce una panoramica sullo stato dell'arte riguardo le piattaforme per la gestione di open data, con un approfondimento sulle sfide tecniche e di design. Il secondo capitolo esplora le tecnologie e i linguaggi utilizzati per sviluppare la piattaforma, mentre il terzo capitolo è dedicato all'analisi delle scelte progettuali per il frontend e il backend e si conclude con una discussione sulle potenziali evoluzioni della piattaforma.
 
-\section*{Struttura della tesi}
-Il seguito della tesi è così organizzato:
-\begin{itemize}
-    \item \textbf{Capitolo 1: Contesto e stato dell'arte}. Fornisce una panoramica delle problematiche legate alla gestione e alla reingegnerizzazione dei database, con un focus sulle sfide comuni e sulle soluzioni tecnologiche attualmente disponibili.
-    \item \textbf{Capitolo 2: Tecnologie utilizzate}. Descrive in dettaglio le tecnologie e i linguaggi utilizzati nel progetto, inclusi PHP, JavaScript, Python e HTML, illustrandone i vantaggi e l’integrazione nel sistema.
-    \item \textbf{Capitolo 3: Progettazione e implementazione}. Offre una descrizione dettagliata delle fasi di progettazione e implementazione, con particolare attenzione alla ristrutturazione del database e allo sviluppo del sistema di autenticazione, gestione utenti e caricamento dati da file CSV e JSON.
-\end{itemize}
+In sintesi, questo progetto rappresenta un contributo alla gestione e valorizzazione degli open data per il Comune di Bologna, fornendo uno strumento capace di rendere accessibili e utili le informazioni pubbliche per una vasta gamma di utenti. La piattaforma si propone non solo come soluzione tecnica, ma come un passo verso una gestione più consapevole e partecipata delle risorse urbane.

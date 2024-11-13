@@ -1,0 +1,248 @@
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\chapter{Analisi e Sviluppo del Frontend e Backend della Piattaforma}
+
+Questo capitolo descrive i principi progettuali e le scelte tecniche alla base dello sviluppo del frontend e del backend della piattaforma. L'obiettivo primario è stato quello di costruire un sistema stabile, accessibile e scalabile, capace di soddisfare le necessità di una vasta gamma di utenti che accedono e interagiscono con i dati pubblici forniti dal Comune di Bologna.
+
+La sezione di frontend si concentra sull’interfaccia utente e sulla user experience (UX), evidenziando le strategie adottate per garantire un'interazione intuitiva e flessibile. In particolare, viene approfondita la struttura della dashboard, la gestione della navigazione e le tecniche di ottimizzazione dell’interfaccia per dispositivi mobili, al fine di garantire un accesso efficace e una visualizzazione chiara dei dati.
+
+La parte backend esplora invece i meccanismi di gestione dei dati e la logica operativa del sistema. In essa vengono descritte le tecniche di connessione e sincronizzazione con il database, la gestione degli accessi e delle autorizzazioni, nonché le soluzioni adottate per garantire la sicurezza e l'affidabilità del sistema. Il backend costituisce il fulcro delle operazioni della piattaforma, essendo responsabile dell'elaborazione dei dati e della loro disponibilità in tempo reale.
+
+Infine, vengono discussi alcuni possibili miglioramenti e ottimizzazioni sia per il frontend sia per il backend. Questi includono l'adozione di framework moderni, l’integrazione di strumenti avanzati di logging e testing, e l'implementazione di sistemi per la gestione automatica delle connessioni e delle notifiche real-time. Questi miglioramenti potrebbero contribuire a rendere la piattaforma ancora più performante, manutenibile e sicura, consentendo una crescita sostenibile e adattandosi a nuove esigenze operative e tecnologiche.
+
+Il capitolo è organizzato come segue:
+\begin{itemize}
+    \item La prima sezione analizza i requisiti e gli obiettivi specifici per il progetto, illustrando le necessità tecniche e funzionali che guidano lo sviluppo della piattaforma.
+    \item Successivamente, viene presentata la struttura del frontend, con un focus su design, organizzazione dell’interfaccia e strategie per la responsività.
+    \item La sezione dedicata al backend descrive la logica di gestione dei dati, i sistemi di sincronizzazione e i metodi di autenticazione, concentrandosi sulla stabilità e sicurezza del sistema.
+    \item Infine, vengono discussi i miglioramenti architetturali possibili per entrambi i componenti, delineando le future direzioni di sviluppo per aumentare l’efficienza e la scalabilità della piattaforma.
+\end{itemize}
+
+Questa struttura consente di comprendere a fondo le scelte tecniche e architetturali che supportano il funzionamento della piattaforma, offrendo una panoramica completa dello sviluppo sia del frontend che del backend in un contesto di gestione e visualizzazione dei dati open data.
+
+\section{Analisi dei Requisiti e Definizione degli Obiettivi del Progetto}
+Questa sezione esamina i requisiti essenziali e gli obiettivi specifici per lo sviluppo della piattaforma. Una comprensione accurata delle necessità degli utenti e delle finalità del progetto ha guidato la definizione delle funzionalità principali e delle specifiche tecniche della piattaforma. Gli obiettivi della dashboard, i requisiti dell’interfaccia utente e i vincoli tecnici identificati formano la base per progettare un sistema capace di soddisfare le esigenze di un ampio spettro di utenti, garantendo sicurezza, affidabilità e accessibilità.
+
+\subsection{Requisiti di Sistema e Obiettivi della Dashboard}
+
+L'analisi dei requisiti rappresenta un passaggio essenziale nello sviluppo della piattaforma, poiché definisce le specifiche tecniche e funzionali necessarie per rispondere in modo efficace alle esigenze di un'ampia gamma di utenti, garantendo al contempo il raggiungimento degli obiettivi del Comune di Bologna. La piattaforma si pone come obiettivo la realizzazione di una dashboard inclusiva e intuitiva, capace di adattarsi alle competenze diversificate dei suoi utilizzatori, supportando un sistema di gestione dati avanzato che favorisca l’accesso a informazioni chiave per cittadini, ricercatori, sviluppatori e rappresentanti del settore pubblico \cite{nielsen1994, cooper2014}.
+
+La diversità di utenti implica che la piattaforma debba essere progettata per supportare differenti livelli di competenza tecnica, offrendo funzionalità accessibili per i cittadini, che necessitano di un'interfaccia semplice e intuitiva, e opzioni più avanzate per sviluppatori e ricercatori, che possono richiedere strumenti complessi per l’analisi dei dati. Per soddisfare tali requisiti, la dashboard è stata sviluppata con l’obiettivo di offrire una rappresentazione chiara e immediata delle informazioni. La struttura della piattaforma è studiata per facilitare l’accesso rapido ai dati e agli strumenti di visualizzazione, garantendo al contempo una flessibilità tale da poter incorporare nuovi dataset e funzioni senza compromettere l’usabilità del sistema \cite{shneiderman2016designing}.
+
+I requisiti funzionali stabiliti sono stati suddivisi in una serie di funzioni chiave, che rappresentano i pilastri della piattaforma:
+\begin{itemize}
+    \item \textbf{Visualizzazione interattiva dei dati}: la piattaforma offre diversi strumenti di visualizzazione, tra cui grafici, mappe interattive e tabelle, che permettono agli utenti di esplorare e analizzare i dati in modo intuitivo e coinvolgente. La visualizzazione dei dati è pensata per essere flessibile e per adattarsi alle diverse tipologie di dataset gestiti, agevolando l’individuazione di pattern e tendenze.
+    
+    \item \textbf{Gestione degli utenti e controllo degli accessi}: la piattaforma consente agli amministratori di registrare nuovi utenti, modificare le informazioni di profili esistenti e, se necessario, rimuovere utenti dal sistema. Questo sistema di gestione utenti è integrato con un controllo degli accessi basato sui permessi, che garantisce che solo determinati profili abbiano accesso a specifiche funzioni. In particolare, i dati sensibili e le funzionalità amministrative sono accessibili esclusivamente agli utenti con permessi elevati, migliorando così la sicurezza complessiva della piattaforma.
+    
+    \item \textbf{Importazione e aggiornamento dei dati}: per mantenere la piattaforma aggiornata e rilevante, è fondamentale che i dataset possano essere aggiornati periodicamente. Gli amministratori hanno accesso a una funzionalità di \textit{loading} che permette loro di caricare nuovi dati o aggiornare i dataset esistenti in modo semplice e veloce. Questa funzionalità è pensata per minimizzare i tempi di inattività e assicurare che gli utenti accedano sempre a dati aggiornati e accurati.
+    
+\end{itemize}
+
+Queste funzionalità sono state progettate per garantire un'interazione fluida e intuitiva, pur mantenendo la possibilità di espandere il sistema in futuro. Poiché la piattaforma non si aggiorna automaticamente in tempo reale, ma dipende dall’azione degli amministratori per il caricamento dei dati, il sistema è strutturato in modo da ridurre al minimo i tempi di aggiornamento e massimizzare l'efficienza nella gestione dei dati. Questo approccio contribuisce a ridurre la necessità di interventi frequenti da parte degli amministratori, migliorando l'efficienza complessiva.
+
+Dal punto di vista dei requisiti non funzionali, la piattaforma è stata progettata per garantire elevate prestazioni anche in condizioni di carico elevato, assicurando che il sistema rispetti standard elevati di affidabilità e possa sostenere future espansioni senza comprometterne la stabilità \cite{feldmann2002scalability}. A questo scopo, l'architettura della piattaforma è stata suddivisa in moduli indipendenti, con una chiara separazione tra le funzionalità backend e frontend. Questa organizzazione permette di mantenere la coerenza del sistema anche in caso di modifiche parziali, facilitando inoltre l’integrazione di nuove tecnologie e funzionalità.
+
+L'architettura della piattaforma permette di aggiungere nuove funzionalità e servizi con modifiche minime al codice di base, garantendo la sostenibilità della piattaforma nel lungo periodo. La flessibilità della struttura rende infatti possibile l’espansione delle funzionalità esistenti, come l'integrazione di nuove visualizzazioni di dati, il supporto per ulteriori formati di file e l’aggiunta di funzioni di analisi avanzate. Inoltre, il sistema è progettato per garantire la massima compatibilità con standard e formati open data, permettendo al Comune di Bologna di aggiornare i dataset secondo le normative vigenti senza necessità di ulteriori personalizzazioni.
+
+In sintesi, i requisiti di sistema e gli obiettivi della dashboard rappresentano una solida base per la creazione di una piattaforma flessibile, scalabile e inclusiva, in grado di rispondere alle esigenze di un’utenza eterogenea e di adattarsi a futuri sviluppi tecnologici e operativi. Questa pianificazione ha permesso di costruire una struttura affidabile che facilita non solo l’accesso ai dati, ma anche la loro analisi e gestione, contribuendo a valorizzare il patrimonio informativo del Comune di Bologna.
+
+\subsection{Requisiti dell’Interfaccia Utente e User Experience (UX)}
+
+La progettazione dell'interfaccia utente (UI) della piattaforma segue un approccio incentrato sull'utente, con particolare attenzione all'accessibilità e all'usabilità \cite{w3c2018}. L'obiettivo è quello di realizzare un'interfaccia che risponda efficacemente alle esigenze di un pubblico diversificato, che include cittadini, sviluppatori, ricercatori e funzionari pubblici, e che al contempo sia esteticamente piacevole, intuitiva e facilmente navigabile. 
+
+I requisiti funzionali dell'interfaccia utente sono stati definiti per offrire un'esperienza ottimale, facilitando l'accesso rapido e preciso alle informazioni attraverso funzionalità chiave:
+\begin{itemize}
+    \item \textbf{Navigazione semplificata}: la presenza di una barra di navigazione persistente assicura un accesso rapido e continuo a tutte le sezioni principali della piattaforma. La barra di navigazione offre una visione chiara delle funzionalità disponibili e guida l’utente verso le aree di interesse con un minimo di clic, migliorando l'efficienza della navigazione e l’esperienza complessiva dell’utente \cite{cooper2014}. 
+    \item \textbf{Interazione intuitiva}: l’organizzazione visiva degli elementi, è stata studiata per consentire un accesso rapido anche agli utenti meno esperti. Gli elementi interattivi sono posizionati in modo strategico, con etichette e descrizioni chiare che migliorano l'orientamento all'interno della piattaforma. Questo layout riduce il tempo necessario per apprendere e utilizzare il sistema e contribuisce a rendere l’interazione più fluida e senza errori.
+\end{itemize}
+
+La scelta di una palette cromatica uniforme e di elementi grafici chiari mira alla riduzione del carico cognitivo, facilitando la comprensione e la navigazione tra le sezioni \cite{nielsen1994}. I colori sono stati scelti per garantire un contrasto adeguato, favorendo la leggibilità e rispettando le linee guida sull’accessibilità. Font leggibili e di dimensione appropriata completano il design, rendendo l’esperienza visiva gradevole e senza sforzo. 
+
+Inoltre, la piattaforma fornisce \textbf{feedback visivi} per ogni azione, come il caricamento dei dati o la modifica di un utente, per informare l'utente dello stato delle operazioni. Questi segnali, sotto forma di messaggi di stato o indicatori di progresso, riducono l'incertezza e contribuiscono a una maggiore confidenza nell'utilizzo della piattaforma. In particolare, i messaggi di conferma o di errore sono studiati per essere facilmente comprensibili, offrendo suggerimenti su come procedere in caso di errore.
+
+Un’altra caratteristica chiave è la compatibilità dell'interfaccia con dispositivi mobili. L'interfaccia è stata progettata con un \textbf{approccio responsive}, adattandosi in modo dinamico a diversi dispositivi e risoluzioni di schermo, tra cui tablet e smartphone. Questo approccio garantisce che la piattaforma possa essere utilizzata da qualsiasi dispositivo, mantenendo una UX coerente e intuitiva indipendentemente dal formato dello schermo. 
+
+
+\subsection{Vincoli Tecnici e Limiti Operativi}
+
+Durante la progettazione della piattaforma, sono emersi diversi vincoli tecnici e operativi che hanno influenzato le scelte architetturali e tecnologiche. Questi vincoli hanno richiesto un'accurata pianificazione per garantire la stabilità, la sicurezza e l'efficienza del sistema. Alcuni dei vincoli principali includono:
+
+\textbf{Compatibilità cross-browser e multi-dispositivo}. Poiché gli utenti accedono alla piattaforma da una varietà di dispositivi, inclusi desktop, tablet e smartphone, e utilizzano browser diversi come Chrome, Firefox, Safari ed Edge, è fondamentale che il sistema sia compatibile con tutte queste configurazioni. Per assicurare una visualizzazione uniforme e una navigazione fluida, è stato adottato un design responsive e testato su diverse risoluzioni di schermo e versioni di browser \cite{w3c2018}.
+
+
+\textbf{Sicurezza e protezione dei dati}. La sicurezza dei dati è un aspetto cruciale per la piattaforma, soprattutto considerando che si tratta di un sistema open data accessibile al pubblico. È stato implementato un sistema di autenticazione per limitare l’accesso ad alcune funzionalità amministrative, garantendo che solo utenti autorizzati possano accedere a funzioni sensibili come la gestione dei dataset e la modifica dei profili utente.\cite{openssl2020}.
+
+\textbf{Scalabilità della piattaforma}. Un altro aspetto operativo fondamentale è la scalabilità del sistema. La piattaforma è stata progettata per essere espandibile, permettendo di aggiungere nuove funzionalità e dataset senza stravolgere l'architettura di base. Ad esempio, in futuro sarà possibile integrare nuove viste o moduli per la visualizzazione di altri tipi di dati pubblici, semplicemente aggiungendo componenti o sezioni al sistema esistente \cite{feldmann2002scalability}. Questo approccio modulare riduce il rischio di dover eseguire riscritture estese del codice, facilitando la crescita della piattaforma in modo controllato.
+
+
+In sintesi, l’analisi dei requisiti e dei vincoli operativi ha guidato la progettazione di una piattaforma robusta e scalabile, capace di rispondere efficacemente alle esigenze degli utenti e di adattarsi a futuri sviluppi. La considerazione di tali vincoli ha contribuito a costruire una base solida, che garantisce l’affidabilità e la sostenibilità della piattaforma a lungo termine.
+
+\section{Struttura e Organizzazione del Frontend}
+
+Il frontend della piattaforma è l'elemento visibile e interattivo con cui gli utenti finali interagiscono. Questa sezione descrive in dettaglio l'architettura dell'interfaccia utente e le strategie di organizzazione e navigazione che permettono un'interazione fluida e intuitiva. Si analizzano inoltre i principi di responsività e adattabilità che permettono alla piattaforma di essere utilizzata su diversi dispositivi, garantendo un'esperienza di utilizzo coerente e performante.
+
+\subsection{Layout della Dashboard e Organizzazione delle Sezioni}
+Il frontend della piattaforma è stato progettato con un focus specifico sull’organizzazione e la navigabilità, adottando una struttura che facilita l’accesso alle informazioni e supporta la visualizzazione interattiva dei dati in modo dinamico e intuitivo \cite{cooper2014}. La scelta di un layout modulare e di tecnologie che garantiscano una piena responsività ha permesso di rendere la piattaforma fruibile sia da desktop che da dispositivi mobili \cite{w3c2018}.
+
+La dashboard è stata progettata seguendo i principi di design modulare, una scelta che consente di organizzare i componenti in sezioni indipendenti, ciascuna dedicata a una funzionalità o esigenza specifica degli utenti \cite{shneiderman2016designing}. Questa organizzazione ha permesso di ottenere un’interfaccia chiara e strutturata, in cui ogni componente è facilmente accessibile e visualizzabile \cite{nielsen1994}.
+
+\textbf{Sezioni principali e organizzazione degli spazi}. Il layout della dashboard è organizzato in due aree principali: una barra di navigazione laterale e un'area centrale che cambia contenuto in base alla selezione effettuata nella barra di navigazione. La barra di navigazione, sempre visibile sul lato sinistro, offre accesso rapido a tutte le funzionalità principali, tra cui il caricamento dei dataset, la visualizzazione grafica dei dati delle applicazioni, la registrazione di nuovi utenti e la gestione degli utenti (modifica e cancellazione). L’accesso a queste funzionalità è gestito in base ai privilegi dell’utente, con alcune opzioni riservate esclusivamente agli amministratori. Questo design facilita la navigazione, consentendo anche agli utenti meno esperti di trovare rapidamente le opzioni necessarie, riducendo i tempi di ricerca e migliorando l’efficienza complessiva \cite{feldmann2002scalability}.
+
+
+\textbf{Area di visualizzazione dei dati}. L’area centrale della dashboard è configurata per ospitare diverse funzionalità, tra cui una sezione dedicata alla visualizzazione dei dati selezionata tramite il menu di navigazione. Nella sezione di \textit{Data Visualization}, l’utente può scegliere un dataset specifico e visualizzarne i dati in modo intuitivo e interattivo. Per esempio, i dati relativi al traffico urbano possono essere rappresentati su una mappa interattiva, consentendo di analizzare facilmente la distribuzione geografica degli eventi. Allo stesso modo, i dati riguardanti le presenze e le votazioni del consiglio comunale di Bologna possono essere visualizzati attraverso grafici, diagrammi e tabelle che permettono di identificare rapidamente tendenze e confronti. Questa disposizione centrale delle funzionalità facilita la fruizione e l’esplorazione dei dati selezionati, rendendo le informazioni accessibili e intuitive.
+
+\textbf{Menu di selezione dataset}. All’interno della sezione di \textit{Data Visualization}, l’utente può selezionare rapidamente il dataset che intende visualizzare tramite un menu a tendina. Dopo aver scelto il dataset desiderato, la visualizzazione viene aggiornata automaticamente, mostrando le informazioni nel formato più appropriato, come mappe per i dati geografici o grafici e tabelle per dati statistici. Questo approccio flessibile consente di esplorare i dati in base alle necessità dell'utente e di adattare la visualizzazione alle caratteristiche specifiche del dataset, semplificando il processo di analisi e rendendo i dati più facilmente comprensibili.
+
+
+\textbf{Design modulare e flessibilità}. La modularità del layout consente inoltre di adattare e aggiornare facilmente la dashboard, aggiungendo nuove sezioni o funzionalità senza alterare la struttura generale. Questo approccio rende la piattaforma più flessibile, consentendo di rispondere alle esigenze future degli utenti senza dover riorganizzare l'interfaccia in modo complesso. La struttura modulare del layout supporta così una gestione scalabile e una manutenzione semplificata.
+
+\subsection{Implementazione della Navigazione e Gerarchia dei Contenuti}
+
+La navigazione è stata progettata per guidare l’utente in modo sequenziale, dall’inserimento dei dati alla visualizzazione delle informazioni, seguendo un ordine logico che facilita l’interazione con la piattaforma. Le funzionalità principali sono disposte in una barra di navigazione, garantendo un accesso immediato e continuo a tutte le sezioni.
+
+\textbf{Navigazione coerente e sequenziale}. La barra di navigazione consente all’utente di spostarsi agevolmente tra le diverse funzionalità della piattaforma. L’ordine dei collegamenti riflette il flusso naturale delle operazioni: dall’importazione dei dati tramite la sezione \textit{Load File}, fino alla gestione e visualizzazione dei dati attraverso \textit{Data Visualization}. Questo approccio semplifica il percorso dell'utente, risultando particolarmente utile per i nuovi utilizzatori della piattaforma, riducendo i tempi di ricerca e aumentando la coerenza dell'interfaccia.
+
+\textbf{Organizzazione dei contenuti e gerarchia visiva}. La struttura delle informazioni è organizzata in un ordine progressivo che riflette le azioni tipiche dell’utente. Dopo il caricamento dei dati, l’utente può accedere alle funzionalità di gestione utenti (\textit{Handle Users}) per la creazione, modifica o eliminazione di profili o registrazione utenti (\textit{Register a User}). Infine, la sezione \textit{Data Visualization} permette di esplorare visivamente i dati caricati. La disposizione sequenziale delle opzioni guida l’utente nel completamento delle operazioni in maniera logica e intuitiva, minimizzando errori e ottimizzando l’efficienza del flusso di lavoro.
+
+\textbf{Strumenti di supporto alla navigazione}. Per migliorare l’esperienza utente, sono stati integrati elementi di supporto come tooltip informativi. Quando l’utente passa il cursore sopra una funzione, i tooltip forniscono brevi descrizioni che spiegano l’utilità e l’uso di ogni sezione, facilitando l’apprendimento della piattaforma senza dover ricorrere a documentazioni esterne \cite{cooper2014}. Inoltre, questa guida contestuale aiuta a ridurre il carico cognitivo e a semplificare la navigazione, rendendo le operazioni più intuitive.
+
+\textbf{Riduzione del carico cognitivo}. La struttura sequenziale e coerente della barra di navigazione minimizza il carico cognitivo dell’utente, poiché le funzionalità sono disposte in un ordine intuitivo che rispecchia il flusso di lavoro naturale. Questo design permette agli utenti di concentrarsi sull’attività in corso, riducendo il rischio di errori e aumentando l’efficienza. L’organizzazione lineare delle funzionalità semplifica l’interazione e aiuta a mantenere l’utente orientato all’interno della piattaforma.
+
+\subsection{Ottimizzazione UX e Responsività dell’Interfaccia}
+
+L'ottimizzazione dell'interfaccia è stata pensata per garantire una user experience (UX) di alta qualità, indipendentemente dal dispositivo utilizzato \cite{w3c2018}. L’approccio adottato è stato quello del design mobile-first, che permette di ottimizzare la visualizzazione e l'usabilità della piattaforma su una varietà di dispositivi, dai desktop agli smartphone.
+
+\textbf{Design mobile-first e adattabilità}. L’interfaccia è stata sviluppata seguendo i principi del design mobile-first, che prevede un layout ottimizzato per dispositivi mobili, adattabile anche a schermi di grandi dimensioni. Questo approccio permette di garantire la massima accessibilità su smartphone e tablet, assicurando che tutte le funzionalità principali siano disponibili e facilmente utilizzabili anche su schermi ridotti. Grazie al mobile-first, la piattaforma mantiene una UX coerente e performante, indipendentemente dal dispositivo utilizzato dall'utente.
+
+\textbf{Tecnologie e framework per la responsività}. Per garantire una corretta visualizzazione su diversi dispositivi, sono stati utilizzati strumenti CSS avanzati come Flexbox, che permette di organizzare i contenuti in modo ordinato e dinamico in base alla dimensione dello schermo.
+
+\textbf{Ottimizzazione della user experience}. Per migliorare la UX, l'interfaccia è stata progettata con un approccio minimalista, eliminando elementi non essenziali e focalizzando l’attenzione sulle informazioni principali. Gli elementi interattivi, come pulsanti e selettori, sono stati posizionati strategicamente per facilitare l'accesso e la comprensione delle funzionalità.
+
+\textbf{Testing su dispositivi e risoluzioni diverse}. La responsività dell’interfaccia è stata verificata mediante test su diversi dispositivi e risoluzioni, per assicurarsi che la piattaforma mantenga un livello di usabilità elevato in qualsiasi contesto d’uso. Questo processo di testing ha permesso di individuare e risolvere eventuali problemi di visualizzazione su dispositivi mobili, migliorando ulteriormente la user experience. Gli adattamenti apportati assicurano che la piattaforma risulti fruibile anche in presenza di limiti tecnologici, come schermi di piccole dimensioni.
+
+In sintesi, la struttura e l’organizzazione del frontend sono state sviluppate per massimizzare l’efficienza, l’accessibilità e la semplicità d'uso della piattaforma. La disposizione delle funzionalità in una barra di navigazione e un design responsivo permettono di ottenere un’interfaccia intuitiva e chiara, adattabile alle esigenze di un'utenza diversificata. L’organizzazione sequenziale delle operazioni guida gli utenti, passo dopo passo, attraverso il processo di caricamento, gestione e visualizzazione dei dati open data del Comune di Bologna, rendendo queste informazioni accessibili a tutti e facilitando l’interazione anche per chi utilizza la piattaforma per la prima volta.
+
+
+
+\section{Backend: Logica di Gestione e Sincronizzazione dei Dati}
+
+Il backend rappresenta il nucleo della logica di elaborazione della piattaforma, gestendo la logica dei dati e la comunicazione con il frontend. In questa sezione vengono descritti i meccanismi di gestione dei dati, le tecniche di sincronizzazione e l'infrastruttura di sicurezza implementata per garantire stabilità e affidabilità. Questo insieme di funzioni backend è essenziale per sostenere il funzionamento dinamico e interattivo della dashboard, offrendo agli utenti un accesso sicuro e rapido ai dati.
+
+
+\subsection{Connessione e Comunicazione tra PHP e Database}
+
+La connessione al database rappresenta uno dei pilastri fondamentali del sistema backend, in quanto consente alla piattaforma di gestire le richieste degli utenti in modo stabile e sicuro, anche in presenza di più connessioni simultanee. Data l’importanza di minimizzare i tempi di risposta e garantire la sicurezza delle operazioni di accesso ai dati, è stata adottata una configurazione che utilizza query SQL semplici, insieme a tecniche di protezione contro attacchi malevoli.
+
+Il sistema utilizza direttamente le funzioni di PHP per eseguire le query SQL, senza fare uso della libreria PDO (PHP Data Objects). Il sistema implementa misure di sicurezza efficaci tramite query parametriche, una tecnica che separa la logica della query dai dati effettivi forniti dagli utenti, proteggendo così il sistema dagli attacchi di SQL injection. Utilizzando questa tecnica, il sistema garantisce che i dati forniti dagli utenti vengano trattati in modo sicuro e che le operazioni di accesso al database siano eseguite senza compromettere l'integrità dei dati.
+
+\textbf{Ottimizzazione delle Query per le Prestazioni}. Sono state adottate strategie per ottimizzare le query SQL più frequenti e ridurre il carico sul server. Ad esempio, le query vengono progettate per minimizzare l'uso di operazioni pesanti come \texttt{JOIN} e \texttt{GROUP BY} e per recuperare solo i dati necessari. Inoltre, vengono utilizzati indici sulle colonne chiave del database per migliorare le prestazioni delle operazioni di ricerca e di filtraggio, riducendo così i tempi di risposta per le operazioni più comuni.
+
+\textbf{Gestione delle Connessioni}. Data la natura delle richieste simultanee da parte degli utenti, è stata implementata una gestione efficiente delle connessioni al database per limitare il consumo di risorse. Il sistema apre e chiude le connessioni solo quando necessario, rilasciando le risorse immediatamente dopo ogni operazione.
+
+\subsection{Sincronizzazione dei Dati tra Frontend e Backend}
+
+La sincronizzazione dei dati tra il frontend e il backend è essenziale per fornire un’esperienza di utilizzo continua e reattiva. Data la complessità e la quantità di dati coinvolti, la piattaforma adotta una comunicazione asincrona che consente al frontend di aggiornare le informazioni in tempo reale senza interrompere l’esperienza di navigazione dell’utente.
+
+\textbf{Utilizzo di chiamate RESTful e JSON}. La sincronizzazione è stata realizzata mediante endpoint RESTful, un approccio che consente al frontend di interagire con il backend tramite metodi HTTP standard, come GET per recuperare i dati e POST per inviare aggiornamenti o nuovi dati. Le informazioni sono trasferite in formato JSON, che rappresenta una scelta ottimale in termini di leggibilità e leggerezza del payload, migliorando così la velocità e la reattività del sistema.
+
+
+\subsection{Persistenza e Aggiornamento dei Dati}
+I dati nel database sono aggiornati in modo dinamico attraverso caricamenti di file CSV e JSON, che vengono processati per estrarre e inserire nuove informazioni \cite{loshin2012bigdata}. La piattaforma offre un’interfaccia per il caricamento di dati da file che, una volta processati, popolano le tabelle corrispondenti. L’aggiornamento dei dati di traffico e votazione viene gestito tramite operazioni di inserimento e verifica, evitando duplicati e preservando la coerenza dei dati.
+
+Le funzioni di importazione includono query parametrizzate per prevenire vulnerabilità come l’SQL injection \cite{liskov2012query}. Questa attenzione alla sicurezza, unita alla struttura relazionale del database, garantisce che la piattaforma mantenga un elevato standard di integrità e sicurezza dei dati \cite{korth2010database}.
+
+In sintesi, la struttura del database della piattaforma è ottimizzata per supportare sia la gestione dei dati di traffico che quella delle votazioni comunali, con tabelle relazionate che permettono di analizzare le informazioni con precisione e sicurezza. La gestione dell’autenticazione e dei permessi tramite tabelle dedicate consente inoltre di controllare in modo accurato l’accesso alle funzionalità della dashboard, assicurando che i dati sensibili siano accessibili solo agli utenti autorizzati.
+
+\subsection{Gestione degli Errori e Affidabilità del Sistema}
+
+La gestione degli errori è un elemento cruciale per il backend della piattaforma, in quanto garantisce stabilità e continuità anche in presenza di malfunzionamenti o anomalie. La gestione degli errori è stata progettata per fornire feedback immediato e significativo all'utente, assicurando un'interazione fluida e informativa.
+
+\textbf{Feedback degli errori per l’utente}. Gli errori vengono gestiti principalmente con messaggi di feedback parlanti che vengono mostrati direttamente all’utente. Quando si verifica un errore, la piattaforma è in grado di fornire all’utente un messaggio chiaro e specifico sulla natura del problema, aiutandolo a comprendere l’azione da intraprendere.
+
+\textbf{Gestione degli errori critici e prevenzione dei crash}. Gli errori critici, che potrebbero compromettere la stabilità complessiva del sistema, sono gestiti tramite blocchi \texttt{try-catch}. In caso di errore irreversibile, la piattaforma è progettata per gestire l’evento in modo sicuro, fornendo messaggi d’errore informativi che invitano l’utente a ripetere l'operazione senza causare il crash del sistema.
+
+\section{Miglioramenti Potenziali per l’Architettura del Backend}
+
+Al fine di rendere la piattaforma più scalabile, mantenibile e sicura, sono stati identificati alcuni miglioramenti che potrebbero essere implementati in futuro. Questi suggerimenti coprono l’ottimizzazione del codice, la gestione delle risorse e l’adozione di nuove tecnologie. In particolare, le tecnologie per migliorare la gestione dei dati e le funzionalità di monitoraggio potrebbero supportare la crescita del sistema e migliorare la qualità complessiva del servizio.
+
+
+\subsection{Adozione di un ORM per la Gestione del Database}
+
+L’adozione di un ORM (Object-Relational Mapping), come \textit{Eloquent} di Laravel o \textit{Doctrine} per PHP, rappresenta una valida opzione per migliorare l’organizzazione e la leggibilità del codice. Gli ORM permettono di gestire il database come una raccolta di oggetti, con operazioni CRUD (Create, Read, Update, Delete) più semplici e leggibili rispetto alle query SQL tradizionali. 
+
+Un ORM potrebbe aiutare a:
+\begin{itemize}
+    \item Ridurre gli errori di sintassi SQL e migliorare la sicurezza contro SQL injection.
+    \item Incrementare la manutenibilità del codice, poiché gli sviluppatori potrebbero operare con modelli di dati a livello di codice senza interagire direttamente con SQL.
+    \item Migliorare la scalabilità, poiché gli ORM supportano l’uso di strutture dati complesse e relazioni che facilitano l’espansione del sistema.
+\end{itemize}
+
+\subsection{Implementazione di un Sistema di Logging Centralizzato}
+
+L'integrazione di un sistema di logging centralizzato rappresenterebbe un ulteriore miglioramento in termini di monitoraggio e risoluzione dei problemi. Un sistema di log permette di:
+\begin{itemize}
+    \item Registrare in tempo reale errori, eccezioni e attività del sistema.
+    \item Migliorare il debugging e facilitare l’individuazione di problematiche ricorrenti o critiche.
+    \item Monitorare le prestazioni del sistema, fornendo dati utili per ottimizzare le risorse e prevedere colli di bottiglia.
+\end{itemize}
+
+Sistemi come \textit{Logstash} in combinazione con \textit{Elasticsearch} e \textit{Kibana} (la cosiddetta ELK stack) potrebbero offrire un'infrastruttura di monitoraggio avanzata.
+
+\subsection{Connessioni Persistenti e Pooling delle Connessioni al Database}
+
+Attualmente, le connessioni vengono aperte e chiuse per ogni operazione. Tuttavia, l’adozione di connessioni persistenti e di un \textit{connection pool} potrebbe migliorare la gestione delle risorse. I vantaggi includono:
+\begin{itemize}
+    \item Riduzione del carico del server e del tempo di risposta.
+    \item Maggiore efficienza nelle applicazioni che gestiscono molte richieste simultanee.
+\end{itemize}
+
+\subsection{Sicurezza Avanzata e Backup Automatizzati}
+
+In un ambiente open data, la sicurezza dei dati è fondamentale. L'implementazione di tecniche di cifratura avanzata per le comunicazioni e di autenticazione basata su OAuth potrebbe aumentare la protezione delle informazioni e dei dati sensibili. Inoltre, l’aggiunta di un sistema di backup automatico per i dati consentirebbe di garantire una maggiore affidabilità in caso di guasti.
+
+\subsection{Notifiche Real-Time Tramite WebSocket}
+
+Infine, per migliorare l’esperienza dell’utente e la reattività del sistema, l’implementazione di WebSocket consentirebbe al backend di inviare aggiornamenti al frontend in tempo reale. Questa tecnologia sarebbe particolarmente utile per comunicare eventi importanti, come aggiornamenti critici dei dataset o modifiche nei permessi degli utenti, migliorando la fluidità dell’ interfaccia.
+
+
+\section{Miglioramenti per l’Ottimizzazione del Front-End}
+
+L’ottimizzazione del frontend e la gestione dell’interfaccia utente costituiscono aspetti fondamentali per garantire una piattaforma reattiva, performante e accessibile. Il miglioramento delle interazioni utente, la responsività e l'accessibilità dell’interfaccia, e la gestione dinamica dei dati sono stati elementi essenziali per offrire un’esperienza utente fluida, particolarmente importante per una piattaforma che gestisce un volume significativo di dati.
+
+\subsection{Scalabilità del Frontend e Pianificazione per l’Espansione}
+\label{sec:scalabilita_frontend}
+
+Attualmente, il frontend della piattaforma è stato sviluppato utilizzando HTML, CSS e JavaScript puro, senza l’adozione di framework avanzati. Questo approccio ha permesso di ottenere una piattaforma leggera e immediatamente accessibile, particolarmente adatta per utenti con competenze tecniche di base. Tuttavia, considerando un possibile aumento della complessità del sistema e l’evoluzione delle esigenze degli utenti, è importante prevedere possibili miglioramenti in termini di scalabilità e manutenibilità del codice.
+
+Una delle possibili espansioni future potrebbe consistere nell'integrazione di framework frontend moderni, come \textbf{React}, \textbf{Vue.js} o \textbf{Angular}, i quali permetterebbero una gestione più strutturata del codice JavaScript e un’architettura basata su componenti riutilizzabili. L’adozione di un framework frontend consentirebbe di:
+
+\begin{itemize}
+    \item Separare logicamente le componenti dell’interfaccia, facilitando lo sviluppo modulare e la manutenzione del codice.
+    \item Implementare un aggiornamento reattivo dei dati attraverso l’uso di \textit{state management}, garantendo una sincronizzazione efficiente con il backend.
+    \item Aumentare la riusabilità del codice, poiché le componenti sviluppate potrebbero essere riutilizzate in diverse parti della piattaforma.
+\end{itemize}
+
+
+Inoltre, l'adozione di un framework potrebbe migliorare le performance della piattaforma. Grazie alla virtualizzazione del DOM e alle tecniche di rendering selettivo (come il \textit{lazy loading} delle componenti non immediatamente visibili), sarebbe possibile ottimizzare ulteriormente l'utilizzo delle risorse. Tuttavia, un'implementazione di questo tipo comporterebbe anche un aumento della complessità iniziale del progetto.
+
+Un’altra potenziale espansione riguarda l’utilizzo di CSS avanzato o precompilatori CSS, come \textbf{Sass} o \textbf{Less}, che consentirebbero di organizzare meglio gli stili e di creare regole CSS più modulari e mantenibili.
+
+In sintesi, l’adozione di un framework e l’introduzione di strumenti per la gestione avanzata del CSS rappresentano soluzioni scalabili per affrontare le necessità future della piattaforma, permettendo di migliorare la manutenibilità e la robustezza del frontend.
+
+\subsection{Pianificazione del Testing e Integrazione di Test Automatici}
+\label{sec:testing_frontend}
+
+Attualmente, il testing del frontend è stato limitato a prove manuali di interazione con l’interfaccia per verificare il corretto funzionamento delle principali funzionalità. Sebbene questo approccio sia stato sufficiente per la fase di sviluppo iniziale, l’integrazione di strumenti di testing automatico rappresenta una componente cruciale per garantire la qualità e la stabilità del sistema a lungo termine \cite{monitoring2021}.
+
+Un primo miglioramento potrebbe essere l’implementazione di \textbf{test unitari} per il codice JavaScript, utilizzando librerie come \textbf{Jest} o \textbf{Mocha}. I test unitari permetterebbero di verificare in modo isolato le singole funzioni e metodi del codice, garantendo che ciascuna parte del sistema si comporti come previsto anche in caso di modifiche o aggiornamenti futuri. Inoltre, l’integrazione di test unitari è particolarmente importante per evitare regressioni, cioè errori che potrebbero emergere nel sistema a causa di modifiche non correlate.
+
+Un altro livello di testing riguarda i \textbf{test di integrazione}, volti a verificare la corretta interazione tra le componenti del frontend e tra frontend e backend. Questi test potrebbero essere eseguiti utilizzando framework come \textbf{Cypress} o \textbf{Selenium}, che consentono di simulare l’interazione dell’utente con l’interfaccia e di automatizzare il processo di verifica di scenari complessi \cite{monitoring2021}.
+
+Infine, l’introduzione di \textbf{test end-to-end} rappresenterebbe un ulteriore passo verso la completa automazione del testing. Questo tipo di test riproduce il comportamento degli utenti finali all'interno della piattaforma, permettendo di identificare eventuali problemi di navigazione o di interazione con i dati visualizzati. Utilizzando Cypress o Selenium, sarebbe possibile simulare interazioni complete, dall’autenticazione alla navigazione tra diverse sezioni della dashboard, migliorando così la robustezza e l’affidabilità complessiva della piattaforma.
+
+In futuro, l’implementazione di un sistema di testing completo per il frontend consentirebbe di identificare e risolvere in modo proattivo eventuali anomalie, supportando il processo di sviluppo continuo e riducendo i tempi di risoluzione degli errori.
+
+\subsection{Considerazioni sulla Manutenibilità e Aggiornamenti Futuri}
+\label{sec:manutenzione_aggiornamenti}
+
+Manutenibilità e aggiornamenti continuativi sono elementi chiave per il mantenimento di un frontend performante e stabile. Data la scelta attuale di JavaScript, HTML e CSS, è possibile pianificare future strategie di refactoring che includano la migrazione verso un’architettura a componenti. Una revisione della struttura del codice, con l’introduzione di metodologie di sviluppo standardizzate e di documentazione, favorirebbe una manutenzione semplificata e un aggiornamento più rapido alle tecnologie più avanzate, mantenendo nel tempo l’affidabilità e la facilità d’uso del frontend.

@@ -1,0 +1,80 @@
+/* General Reset */
+body,
+ul,
+li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-family: Arial, sans-serif;
+}
+
+.nav ul {
+	padding: 0;
+	margin: 0;
+}
+
+/* Navbar Styling */
+.nav {
+	top: 0;
+	position: fixed;
+	width: 100%;
+	background-color: #4d0011 !important;
+	align-items: center;
+	padding: 10px;
+	display: flex;
+	justify-content: start;
+	z-index: 100;
+}
+
+.menu {
+	display: flex;
+	align-items: center;
+}
+
+.menu-item {
+	position: relative;
+}
+
+.menu > .menu-item > a {
+	color: white;
+	text-decoration: none;
+	padding: 10px 15px;
+	display: block;
+}
+
+/* Submenu Styling */
+.submenu {
+	position: absolute;
+	top: 100%;
+	width: 150px;
+	border-radius: 1px;
+	background-color: #95132f;
+	display: none; /* Hidden by default */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	z-index: 1000; /* Ensures submenu appears above other elements */
+}
+
+.sub-right {
+	right: 15px;
+}
+
+.submenu li a {
+	color: white;
+	text-decoration: none;
+	padding: 10px 15px;
+	display: block;
+}
+
+.submenu li a:hover {
+	background-color: #4d0011;
+}
+
+.space-nav {
+	flex: 1;
+}
+
+/* Keep Submenu Visible on Hover */
+.menu-item:hover > .submenu,
+.submenu:hover {
+	display: block;
+}

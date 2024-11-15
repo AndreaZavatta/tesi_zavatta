@@ -16,80 +16,69 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="dashboard_style.css"> <!-- Collegamento al file CSS -->
+    <link rel="stylesheet" href="navbar.css"> <!-- Collegamento al file CSS -->
     <script src="dashboard.js" defer></script> <!-- Collegamento al file JS separato -->
 </head>
 <body>
-        <div class="profile_section">
-            <?php if (isset($_SESSION['admin_id'])): ?>
-                <div class="profile_data" onclick="toggleLogout()">
-                    <p>
+        <nav class="nav">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="#">Traffico</a>
+                    <ul class="submenu">
+                        <li><a href="#">Carica Dati</a></li>
+                        <li><a href="#">Visualizza Mappa</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="#">Votazioni</a>
+                    <ul class="submenu">
+                        <li><a href="#">Carica Dati</a></li>
+                        <li><a href="#">Visualizza Sedute</a></li>
+                        <li><a href="#">Visualizza Consiglieri</a></li>
+                        <li><a href="#">Visualizza Gruppi</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item" onclick="showTab(1)">
+                    <a href="#">Register a User</a>
+                </li>
+                <li class="menu-item" onclick="showTab(2)">
+                    <a href="#">Handle Users</a>
+                </li>
+
+            </ul>
+            <div class="space-nav"></div>
+            <ul class="profile_section menu">
+                    <li class="menu-item">
+                        <a href="#">                            
                         <?php
-                            $adminId = $_SESSION['admin_id'];
-                            $query = "SELECT username FROM users WHERE id = ?";
-                            $stmt = $connection->prepare($query);
-                            $stmt->bind_param('i', $adminId);
-                            $stmt->execute();
-                            $result = $stmt->get_result();
+                                $adminId = $_SESSION['admin_id'];
+                                $query = "SELECT username FROM users WHERE id = ?";
+                                $stmt = $connection->prepare($query);
+                                $stmt->bind_param('i', $adminId);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
 
-                            if ($result->num_rows > 0) {
-                                $row = $result->fetch_assoc();
-                                echo htmlspecialchars($row['username']);
-                            } else {
-                                echo "Errore nel recupero del profilo.";
-                            }
+                                if ($result->num_rows > 0) {
+                                    $row = $result->fetch_assoc();
+                                    echo htmlspecialchars($row['username']);
+                                } else {
+                                    echo "Errore nel recupero del profilo.";
+                                }
 
-                            $stmt->close();
-                        ?>
-                    </p>
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="log_button" style="display: none;">
-                    <button onclick="window.location.href='logout.php';">Logout</button>
-                </div>
-                <?php else: ?>
-                <div class="log_button">
-                    <button onclick="window.location.href='../LoginRegistration/login.php';">Login</button>
-                </div>
-            <?php endif; ?>
-        </div>
+                                $stmt->close();
+                            ?>
+                        <i class="fas fa-user"></i>
+                            </a>
 
-    <?php if (isset($_SESSION['admin_id'])): ?>
-        <div class="tab-container-column">
-            <?php if (haspermission('Import Voting Data') || haspermission('Import Map Data')): ?>
-                <span class="tab" onclick="showTab(0)">Load File</span>
-            <?php endif; ?>
-            <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
-            <?php if (haspermission('Register User')): ?>
-                <span class="tab" onclick="showTab(1)">Register a User</span>
-            <?php endif; ?>
-            <?php if (hasSomeUserPermission()): ?>
-                <span class="tab" onclick="showTab(2)">Handle Users</span>
-            <?php endif; ?>
-            <?php if (hasSomeUserPermission()): ?>
-                <span class="tab" onclick="showTab(3)">Data Visualization</span>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
-    <div class="center_column cover_full">
-        <h2 id="title_dashboard">Dashboard</h2>
-        <div class="container">
-            <?php if (isset($_SESSION['admin_id'])): ?>
-                <div class="tab-container-row">
-                    <?php if (haspermission('Import Voting Data') || haspermission('Import Map Data')): ?>
-                        <span class="tab" onclick="showTab(0)">Load File</span>
-                    <?php endif; ?>
-                    <!--<span class="tab" onclick="showTab(2)">Cambia Password</span>-->
-                    <?php if (haspermission('Register User')): ?>
-                        <span class="tab" onclick="showTab(1)">Register a User</span>
-                    <?php endif; ?>
-                    <?php if (hasSomeUserPermission()): ?>
-                        <span class="tab" onclick="showTab(2)">Handle Users</span>
-                    <?php endif; ?>
-                    <?php if (hasSomeUserPermission()): ?>
-                        <span class="tab" onclick="showTab(3)">Data Visualization</span>
-                    <?php endif; ?>
-                </div>
-            <?php endif; ?>
+                    <ul class="submenu sub-right">
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    <div class="inside-body">
+        <div class="cont container-width">
+
             <!-- Spinner Container -->
             <div id="loading-spinner" class="spinner" style="display: none;">
                 <div class="loader"></div>
@@ -224,7 +213,9 @@
 
 
         </div>
-
+        <div class="profile_info cont">
+            
+        </div>
     </div>
 
     <div id="modalOverlay" class="modal-overlay" onclick="closeEditModal()"></div>

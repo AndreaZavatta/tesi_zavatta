@@ -10,6 +10,11 @@ body {
 	height: 100%;
 }
 
+.main-navbar {
+	height: 75px;
+	background-color: black;
+}
+
 /* Fieldset styling */
 fieldset {
 	outline-style: solid;

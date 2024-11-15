@@ -19,7 +19,11 @@ body {
 	background-color: #f3e8eb; /* Light soft pinkish background to complement the red tones */
 	color: #3d4f5c; /* Dark gray text color for readability */
 }
-
+.profile-container-name,
+.profile-name {
+	display: flex;
+	gap: 10px;
+}
 .profile_section {
 	color: white;
 	padding: 5px;
@@ -121,7 +125,7 @@ label {
 	height: 500px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: center;
 	padding: 20px;
 	background-color: #ffffff; /* White background */
 	border-radius: 10px;
@@ -132,11 +136,9 @@ label {
 
 .profile_info {
 	width: 30%;
-	background-color: black;
 }
 
 h2 {
-	text-align: center;
 	color: #3d4f5c; /* Dark gray for main headings */
 }
 
@@ -243,7 +245,6 @@ form {
 /* Content styles */
 .tab-content {
 	display: none;
-	padding: 20px;
 	background-color: white;
 	border: 1px solid #ddd;
 	border-radius: 8px;

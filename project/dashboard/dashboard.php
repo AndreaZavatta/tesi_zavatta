@@ -2,6 +2,7 @@
     require_once "../db_connection.php";
     require_once "./checkPermissions.php";
     require_once "./getProfiles.php";
+    require_once "./utils.php";
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     $selectedDataset = $_POST['datasetsVisualization'] ?? 'Traffic'; // Default to 'Traffic' if nothing is selected
@@ -47,11 +48,57 @@
 
             </ul>
             <div class="space-nav"></div>
-            <ul class="profile_section menu">
-                    <li class="menu-item">
-                        <a href="#">                            
-                        <?php
+
+        </nav>
+    <div class="inside-body">
+                    <!-- Spinner Container -->
+        <div id="loading-spinner" class="spinner" style="display: none;">
+            <div class="loader"></div>
+            <p id="progress-text">Load data... 0%</p>
+            <button id="stop-import-btn" style="margin-top: 10px;">Interrompi Importazione</button>
+        </div>
+            <div id="modalOverlay" class="modal-overlay" onclick="closeEditModal()"></div>
+            <div id="editUsernameModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close" onclick="closeEditModal()">&times;</span>
+                    <h3 id="modal-title">Edit</h3>
+                    <form onsubmit="event.preventDefault(); saveUsernameChanges();">
+                        <label id="edit-field-label" for="edit-field-input">Username:</label>
+                        <input type="text" id="edit-field-input" required>
+                        <button type="submit">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+                <div id="editPasswordModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h3 id="modal-title">Edit</h3>
+            <form onsubmit="event.preventDefault(); savePasswordChanges();">
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" required>
+
+                <label for="confirm-password">Confirm New Password:</label>
+                <input type="password" id="confirm-password" required>
+
+                <!-- Error message for password validation -->
+                <p id="password-error-message" style="color: red; display: none;">Passwords must match and meet criteria.</p>
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+        <div class="profile_info cont">
+            <h2>Utente</h2>
+            <div class="profile-container">
+                <!-- Display username -->
+                <div class="profile-container-name">
+                    <p>Username: </p>
+                    <p>
+                        <?php if (isset($_SESSION['admin_id'])): ?>
+                            <?php
                                 $adminId = $_SESSION['admin_id'];
+
+                                // Fetch username
                                 $query = "SELECT username FROM users WHERE id = ?";
                                 $stmt = $connection->prepare($query);
                                 $stmt->bind_param('i', $adminId);
@@ -66,27 +113,56 @@
                                 }
 
                                 $stmt->close();
+
+                                // Fetch profile name using the function
+                                $profileName = getProfileNameByUserId($adminId, $connection);
+
+                                // Fetch permissions using the function
+                                $permissions = getUserPermissions($adminId, $connection);
                             ?>
-                        <i class="fas fa-user"></i>
-                            </a>
+                        <?php else: ?>
+                            anonimo
+                            <?php 
+                                $profileName = "N/A";
+                                $permissions = [];
+                            ?>
+                        <?php endif; ?>
+                    </p>
+                </div>
+                <?php if (isset($_SESSION['admin_id'])): ?>
+                    <!-- Display profile name -->
+                    <div class="profile-name">
+                        <p>Profilo: <?php echo htmlspecialchars($profileName); ?></p>
+                    </div>
 
-                    <ul class="submenu sub-right">
-                        <li><a href="logout.php">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    <div class="inside-body">
-        <div class="cont container-width">
+                    <!-- Display permissions as a picklist -->
+                    <div class="profile-permissions-picklist">
+                        <h3>Permessi:</h3>
+                        <select name="permissions" id="permissions-picklist" onchange="fetchPermissionDescription()">
+                            <?php if (!empty($permissions)): ?>
+                                <?php foreach ($permissions as $permission): ?>
+                                    <option value="<?php echo htmlspecialchars($permission); ?>">
+                                        <?php echo htmlspecialchars($permission); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <option value="none">No permissions available</option>
+                            <?php endif; ?>
+                        </select>
+                        <p id="permission-description">Select a permission to see the description</p>
+                    </div>
+                <?php endif; ?>
 
-            <!-- Spinner Container -->
-            <div id="loading-spinner" class="spinner" style="display: none;">
-                <div class="loader"></div>
-                <p id="progress-text">Load data... 0%</p>
-                <button id="stop-import-btn" style="margin-top: 10px;">Interrompi Importazione</button>
+                <?php if (isset($_SESSION['admin_id'])): ?>
+                    <button onclick="window.location.href='logout.php';">Logout</button>
+                <?php else: ?>
+                    <button onclick="window.location.href='../LoginRegistration/login.php';">Login</button>
+                <?php endif; ?>
             </div>
+        </div>
 
-            
+
+        <div class="cont container-width">
                 <!-- Menu Tabs -->
                 <?php if (isset($_SESSION['admin_id']) && hasImportDataPermissions()): ?>
                     <div class="tab-content">
@@ -98,7 +174,7 @@
                         </select>
                         <!-- Section for Application 1 -->
                         <?php if (isset($_SESSION['admin_id'])): ?>
-                            <?php if (haspermission('Import Map Data')): ?>
+                            <?php if (haspermission('Import Dati Nella Mappa ')): ?>
                             <fieldset id="traffic-fieldset" style="display:none;">
                                 <legend>Mappa</legend>
                                 <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
@@ -114,7 +190,7 @@
                             </fieldset>
                             <?php endif; ?>
                         <!-- Section for Application 2 -->
-                        <?php if (haspermission('Import Voting Data')): ?>
+                        <?php if (haspermission('Import Dati Votazioni')): ?>
                             <fieldset id="balloting-fieldset" style="display:none;">
                                 <legend>Votazioni</legend>
                                 <form id="upload-form-app2" method="POST" enctype="multipart/form-data">
@@ -133,7 +209,7 @@
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
-                <?php if (isset($_SESSION['admin_id']) && hasPermission('Register User')): ?>
+                <?php if (isset($_SESSION['admin_id']) && hasPermission('Registrazione Utente')): ?>
                     <div class="tab-content">
                         <h3>Register a User</h3>
                         <form onsubmit="event.preventDefault(); registerUser();">
@@ -157,7 +233,7 @@
 
                             <div id="password-error-registration" style="color: red; display: none; margin-top: 10px;"></div>
                             <div class="center_row">
-                                <button type="submit">Register User</button>
+                                <button type="submit">Registrazione Utente</button>
                             </div>
                         </form>
                     </div>
@@ -213,42 +289,12 @@
 
 
         </div>
-        <div class="profile_info cont">
-            
-        </div>
+
     </div>
 
-    <div id="modalOverlay" class="modal-overlay" onclick="closeEditModal()"></div>
-    <div id="editUsernameModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="closeEditModal()">&times;</span>
-            <h3 id="modal-title">Edit</h3>
-            <form onsubmit="event.preventDefault(); saveUsernameChanges();">
-                <label id="edit-field-label" for="edit-field-input">Username:</label>
-                <input type="text" id="edit-field-input" required>
-                <button type="submit">Save Changes</button>
-            </form>
-        </div>
-    </div>
 
-    <div id="editPasswordModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="closeEditModal()">&times;</span>
-            <h3 id="modal-title">Edit</h3>
-            <form onsubmit="event.preventDefault(); savePasswordChanges();">
-                <label for="new-password">New Password:</label>
-                <input type="password" id="new-password" required>
 
-                <label for="confirm-password">Confirm New Password:</label>
-                <input type="password" id="confirm-password" required>
 
-                <!-- Error message for password validation -->
-                <p id="password-error-message" style="color: red; display: none;">Passwords must match and meet criteria.</p>
-
-                <button type="submit">Save Changes</button>
-            </form>
-        </div>
-    </div>
 
 
     <script>

@@ -27,11 +27,11 @@ $createAdminTable = "
 ";
 $connection->query($createAdminTable);
 
-// Create `permissions` table
 $createPermissionsTable = "
     CREATE TABLE IF NOT EXISTS permissions (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        permission_name VARCHAR(100) NOT NULL UNIQUE
+        permission_name VARCHAR(100) NOT NULL UNIQUE,
+        description TEXT NOT NULL
     ) ENGINE=InnoDB;
 ";
 $connection->query($createPermissionsTable);
@@ -66,23 +66,23 @@ $userProfileId = $userProfileIdResult->fetch_assoc()['id'];
 
 // Define permissions
 $permissions = [
-    'Import Map Data',
-    'Import Voting Data',
-    'Delete Map Data',
-    'Delete Voting Data',
-    'Register User',
-    'Modify User Name',
-    'Modify User Password',
-    'Delete User',
-    'View Map Data',       // New permission
-    'View Voting Data'     // New permission
+    'Import Dati Nella Mappa' => 'Consente di importare dati geografici nella mappa.',
+    'Import Dati Votazioni' => 'Consente di importare i dati relativi alle votazioni.',
+    'Eliminazione Dati Mappa' => 'Consente di eliminare dati geografici dalla mappa.',
+    'Eliminazione Dati Votazioni' => 'Consente di eliminare i dati relativi alle votazioni.',
+    'Registrazione Utente' => 'Consente di registrare un nuovo utente.',
+    'Modifica Nome Utente' => 'Consente di modificare il nome di un utente esistente.',
+    'Modifica Password Utente' => 'Consente di modificare la password di un utente.',
+    'Eliminazione Utente' => 'Consente di eliminare un utente esistente.',
+    'Visualizzazione Dati Mappa' => 'Consente di visualizzare i dati geografici sulla mappa.',
+    'Visualizzazione Dati Votazioni' => 'Consente di visualizzare i dati relativi alle votazioni.'
 ];
 
-// Insert permissions and link them to profiles
-foreach ($permissions as $permission) {
-    // Insert permission
-    $stmt = $connection->prepare("INSERT IGNORE INTO permissions (permission_name) VALUES (?)");
-    $stmt->bind_param("s", $permission);
+// Loop through permissions to insert them along with their descriptions
+foreach ($permissions as $permission => $description) {
+    // Insert permission with description
+    $stmt = $connection->prepare("INSERT IGNORE INTO permissions (permission_name, description) VALUES (?, ?)");
+    $stmt->bind_param("ss", $permission, $description);
     $stmt->execute();
 
     // Get the permission ID
@@ -96,9 +96,9 @@ foreach ($permissions as $permission) {
 
     // Link permissions to the "admin" profile
     if (in_array($permission, [
-        'Import Map Data', 'Import Voting Data', 'Delete Map Data', 'Delete Voting Data',
-        'Register User', 'Modify User Name', 'Modify User Password', 'Delete User',
-        'View Map Data', 'View Voting Data'
+        'Import Dati Nella Mappa', 'Import Dati Votazioni', 'Eliminazione Dati Mappa', 'Eliminazione Dati Votazioni',
+        'Registrazione Utente', 'Modifica Nome Utente', 'Modifica Password Utente', 'Eliminazione Utente',
+        'Visualizzazione Dati Mappa', 'Visualizzazione Dati Votazioni'
     ])) {
         $linkStmt = $connection->prepare("INSERT IGNORE INTO profile_permissions (profile_id, permission_id) VALUES (?, ?)");
         $linkStmt->bind_param("ii", $adminProfileId, $permissionId);
@@ -107,12 +107,13 @@ foreach ($permissions as $permission) {
     }
 
     // Link only view permissions to the "user" profile
-    if (in_array($permission, ['View Map Data', 'View Voting Data'])) {
+    if (in_array($permission, ['Visualizzazione Dati Mappa', 'Visualizzazione Dati Votazioni'])) {
         $linkStmt = $connection->prepare("INSERT IGNORE INTO profile_permissions (profile_id, permission_id) VALUES (?, ?)");
         $linkStmt->bind_param("ii", $userProfileId, $permissionId);
         $linkStmt->execute();
         $linkStmt->close();
     }
 }
+
 
 ?>

@@ -66,27 +66,27 @@ function isAdmin() {
 }
 
 function hasSomeUserPermission(){
-    return hasPermission('Modify User Name') || hasPermission('Modify User Password') || hasPermission('Delete User');
+    return hasPermission('Modifica Nome Utente') || hasPermission('Modifica Password Utente') || hasPermission('Eliminazione Utente');
 }
 
 function hasViewPermissions(){
-    return hasPermission('View Map Data') || hasPermission('View Voting Data'); 
+    return hasPermission('Visualizzazione Dati Mappa') || hasPermission('Visualizzazione Dati Votazioni'); 
 }
 
 function hasImportDataPermissions(){
-    return hasPermission('Import Map Data') || hasPermission('Import Voting Data'); 
+    return hasPermission('Import Dati Nella Mappa ') || hasPermission('Import Dati Votazioni'); 
 }
 
 function hasDeletingPermissions(){
-    return hasPermission('Delete Map Data') || hasPermission('Delete Voting Data') || hasPermission('Delete User'); 
+    return hasPermission('Eliminazione Dati Mappa') || hasPermission('Eliminazione Dati Votazioni') || hasPermission('Eliminazione Utente'); 
 }
 
 function hasRegisterPermissions(){
-    return hasPermission('Register User');
+    return hasPermission('Registrazione Utente');
 }
 
 function hasModifyPermissions(){
-    return hasPermission('Modify User Name') || hasPermission('Modify User Password');
+    return hasPermission('Modifica Nome Utente') || hasPermission('Modifica Password Utente');
 }
 
 function hasOnlyViewPermission(){

@@ -351,7 +351,24 @@ function registerUser() {
     });
 }
 
+    function fetchPermissionDescription() {
+        const permission = document.getElementById('permissions-picklist').value;
 
+        // Make AJAX request to fetch the description
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'fetch_description.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                document.getElementById('permission-description').innerText = xhr.responseText;
+            } else {
+                document.getElementById('permission-description').innerText = 'Error fetching description.';
+            }
+        };
+
+        xhr.send('permission=' + encodeURIComponent(permission));
+    }
 
 // Password update function
 function updateUserPassword() {
@@ -402,7 +419,7 @@ function loadUsers() {
                         <i class="fas fa-edit" onclick="openEditPasswordModal(${user.id})" title="Edit Password" style="cursor: pointer; color: #007bff;"></i>
                     </td>
                     <td>
-                        <i class="fas fa-trash" onclick="deleteUser(${user.id})" title="Delete User" style="cursor: pointer; color: #dc3545;"></i>
+                        <i class="fas fa-trash" onclick="deleteUser(${user.id})" title="Eliminazione Utentee Utente" style="cursor: pointer; color: #dc3545;"></i>
                     </td>
                 `;
             });

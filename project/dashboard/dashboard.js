@@ -1,79 +1,76 @@
 
 // Funzione per mostrare la tab selezionata
-    function showTab(tabIndex) {
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach((tab, index) => {
-                if (index === tabIndex) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-
-            showActiveBasedOnContainer(tabIndex);
-
-            // Salva l'indice della tab attiva nel localStorage
-            localStorage.setItem('activeTab', tabIndex);
-    }
-
-
-
-
-    function toggleLogout() {
-        const logoutButton = document.getElementsByClassName("log_button")[0];
-        // Toggle visibility of the logout button
-        if (logoutButton.style.display === "none") {
-            logoutButton.style.display = "flex";
-        } else {
-            logoutButton.style.display = "none";
-        }
-    }
-
-        function showActiveBasedOnContainer(tabIndex) {
-            // Define pairs of indices to activate together
-            const pairs = {
-                0: [0, 4],
-                1: [1, 5],
-                2: [2, 6],
-                3: [3, 7],
-                4: [1, 5],
-                5: [2, 6],
-                6: [3, 7]
-            };
-
-
-                const tabButtons = Array.from(document.querySelectorAll('.tab'));
-
-                // Get the pair of indices to activate
-                const indicesToActivate = pairs[tabIndex] || [tabIndex];
-
-                // Apply the active class based on the paired indices
-                tabButtons.forEach((tab, index) => {
-                    if (indicesToActivate.includes(index)) {
-                        tab.classList.add('active');
-                    } else {
-                        tab.classList.remove('active');
-                    }
-                });
+function showTab(tabIndex) {
+        const tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach((tab, index) => {
+            if (index === tabIndex) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
             }
+        });
 
-            
-    function showActiveTab(){
-        const activeTab = localStorage.getItem('activeTab');
-        if (activeTab !== null) {
-            showTab(parseInt(activeTab));
-        } else {
-            showTab(0); // Se nessuna tab è salvata, mostra la prima per default
-        }
+        showActiveBasedOnContainer(tabIndex);
 
-        // Rendi i messaggi di errore o successo invisibili dopo 5 secondi
-        const message = document.querySelector('.success-message, .error-message');
-        if (message) {
-            setTimeout(() => {
-                message.style.display = 'none';
-            }, 5000); // 5000 millisecondi = 5 secondi
-        }
+        // Salva l'indice della tab attiva nel localStorage
+        localStorage.setItem('activeTab', tabIndex);
+}
+
+function toggleLogout() {
+    const logoutButton = document.getElementsByClassName("log_button")[0];
+    // Toggle visibility of the logout button
+    if (logoutButton.style.display === "none") {
+        logoutButton.style.display = "flex";
+    } else {
+        logoutButton.style.display = "none";
     }
+}
+
+function showActiveBasedOnContainer(tabIndex) {
+    // Define pairs of indices to activate together
+    const pairs = {
+        0: [0, 4],
+        1: [1, 5],
+        2: [2, 6],
+        3: [3, 7],
+        4: [1, 5],
+        5: [2, 6],
+        6: [3, 7]
+    };
+
+
+        const tabButtons = Array.from(document.querySelectorAll('.tab'));
+
+        // Get the pair of indices to activate
+        const indicesToActivate = pairs[tabIndex] || [tabIndex];
+
+        // Apply the active class based on the paired indices
+        tabButtons.forEach((tab, index) => {
+            if (indicesToActivate.includes(index)) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
+            }
+        });
+}
+
+        
+function showActiveTab(){
+    const activeTab = localStorage.getItem('activeTab');
+    if (activeTab !== null) {
+        showTab(parseInt(activeTab));
+    } else {
+        showTab(0); // Se nessuna tab è salvata, mostra la prima per default
+    }
+
+    // Rendi i messaggi di errore o successo invisibili dopo 5 secondi
+    const message = document.querySelector('.success-message, .error-message');
+    if (message) {
+        setTimeout(() => {
+            message.style.display = 'none';
+        }, 5000); // 5000 millisecondi = 5 secondi
+    }
+}
 
 function simulateClick(buttonId) {
     // Prevenire il comportamento di default del link
@@ -134,8 +131,6 @@ function setupNavbarToggle() {
         });
     });
 }
-
-
 
 document.addEventListener("DOMContentLoaded", function() {
         const targetButton = localStorage.getItem("targetButton");
@@ -407,24 +402,24 @@ function registerUser() {
     });
 }
 
-    function fetchPermissionDescription() {
-        const permission = document.getElementById('permissions-picklist').value;
+function fetchPermissionDescription() {
+    const permission = document.getElementById('permissions-picklist').value;
 
-        // Make AJAX request to fetch the description
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'fetch_description.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    // Make AJAX request to fetch the description
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'fetch_description.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                document.getElementById('permission-description').innerText = xhr.responseText;
-            } else {
-                document.getElementById('permission-description').innerText = 'Error fetching description.';
-            }
-        };
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            document.getElementById('permission-description').innerText = xhr.responseText;
+        } else {
+            document.getElementById('permission-description').innerText = 'Error fetching description.';
+        }
+    };
 
-        xhr.send('permission=' + encodeURIComponent(permission));
-    }
+    xhr.send('permission=' + encodeURIComponent(permission));
+}
 
 // Password update function
 function updateUserPassword() {
@@ -463,6 +458,8 @@ function loadUsers() {
             const usersTable = document.getElementById("users-table").getElementsByTagName('tbody')[0];
             usersTable.innerHTML = ""; // Clear current rows
 
+            const loggedInUserId = parseInt(document.getElementById("logged-in-user-id").value, 10); // Assuming logged-in user ID is stored in a hidden input field
+            console.log('zavazava '+loggedInUserId);
             data.users.forEach(user => {
                 const row = usersTable.insertRow();
                 row.innerHTML = `
@@ -471,11 +468,16 @@ function loadUsers() {
                             <p>${user.username}</p>
                             <i class="fas fa-edit" onclick="openEditUsernameModal(${user.id})" title="Edit Username" style="cursor: pointer; color: #007bff; margin-left: 10px;"></i>
                         </div>
+                    </td>
                     <td>
                         <i class="fas fa-edit" onclick="openEditPasswordModal(${user.id})" title="Edit Password" style="cursor: pointer; color: #007bff;"></i>
                     </td>
                     <td>
-                        <i class="fas fa-trash" onclick="deleteUser(${user.id})" title="Eliminazione Utentee Utente" style="cursor: pointer; color: #dc3545;"></i>
+                        ${
+                            user.id != loggedInUserId
+                                ? `<i class="fas fa-trash" onclick="deleteUser(${user.id})" title="Delete User" style="cursor: pointer; color: #dc3545;"></i>`
+                                : '<span title="You cannot delete your own account" style="color: #ccc; cursor: not-allowed;">&#x1F6AB;</span>'
+                        }
                     </td>
                 `;
             });

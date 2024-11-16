@@ -23,6 +23,7 @@
     <script src="dashboard.js" defer></script> <!-- Collegamento al file JS separato -->
 </head>
 <body>
+        <input type="hidden" id="logged-in-user-id" value="<?php echo $_SESSION['admin_id']; ?>">
         <nav class="nav">
         <div class="hamburger-menu" onclick="toggleHamburgerMenu()">
             <i class="fas fa-bars"></i>

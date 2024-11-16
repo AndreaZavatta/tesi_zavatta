@@ -216,8 +216,8 @@
                         <h3>Permessi:</h3>
                         <select name="permissions" id="permissions-picklist" onchange="fetchPermissionDescription()">
                             <?php if (!empty($permissions)): ?>
-                                    <option value="--none--">
-                                        --none--
+                                    <option value="Seleziona un permesso">
+                                        Seleziona un permesso
                                     </option>
                                 <?php foreach ($permissions as $permission): ?>
                                     <option value="<?php echo htmlspecialchars($permission); ?>">
@@ -228,7 +228,7 @@
                                 <option value="none">No permissions available</option>
                             <?php endif; ?>
                         </select>
-                        <p id="permission-description">Select a permission to see the description</p>
+                        <p id="permission-description">Seleziona un permesso per vedere la descrizione</p>
                     </div>
                 <?php endif; ?>
 
@@ -252,7 +252,7 @@
                                 <fieldset id="traffic-fieldset">
                                     <legend>Mappa</legend>
                                     <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
-                                        <label for="csv_file_app1">Choose the CSV file for visualizing data on the map</label>
+                                        <label for="csv_file_app1">Scegli il file csv da caricare</label>
                                         <input type="file" id="csv_file_app1" name="csv_file" accept=".csv" required>
                                         <div class="load_buttons">
                                             <button type="submit">Carica il file</button>
@@ -277,7 +277,7 @@
                                 <fieldset id="balloting-fieldset">
                                     <legend>Votazioni</legend>
                                     <form id="upload-form-app2" method="POST" enctype="multipart/form-data">
-                                        <label for="json_file">Choose the json file for visualizing balloting data:</label>
+                                        <label for="json_file">Scegli il file json da caricare</label>
                                         <input type="file" id="json_file" name="json_file" accept=".json" required>
                                         <div class="load_buttons">
                                             <button type="submit">Load File</button>

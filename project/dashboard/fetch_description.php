@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['permission'])) {
     if ($stmt->fetch()) {
         echo htmlspecialchars($description);
     } else {
-        echo "Select a permission to see the description.";
+        echo "Seleziona un permesso per vedere la descrizione.";
     }
 
     $stmt->close();

@@ -115,6 +115,29 @@ function showUserInfo(){
             }
         });
 }
+
+function setupNavbarToggle() {
+    const menu = document.querySelector('.menu');
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const menuItems = document.querySelectorAll('.menu-item, .submenu li a');
+
+    // Toggle the menu visibility when the hamburger menu is clicked
+    hamburgerMenu.addEventListener('click', () => {
+        menu.classList.toggle('active');
+    });
+
+    // Close the menu when a menu item is clicked
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        });
+    });
+}
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
         const targetButton = localStorage.getItem("targetButton");
         if (targetButton) {
@@ -128,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
         showActiveTab();
         loadUsers();
         showUserInfo();
+        setupNavbarToggle();
 
         document.getElementById('stop-import-btn').addEventListener('click', function() {
             if (confirm('Sei sicuro di voler interrompere il processo di importazione?')) {

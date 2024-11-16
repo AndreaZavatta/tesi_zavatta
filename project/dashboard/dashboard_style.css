@@ -132,7 +132,6 @@ label {
 /* Main container styles */
 .cont {
 	min-height: 300px;
-	overflow: auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -145,6 +144,7 @@ label {
 }
 
 #traffic-tab {
+	margin-top: 200px;
 	height: 800px;
 }
 
@@ -464,4 +464,32 @@ button:hover {
 }
 
 @media (max-width: 600px) {
+	.submenu {
+		position: relative;
+		left: 100%; /* Posiziona il sottomenu a destra del genitore */
+		transform: translateY(-50px); /* Solleva il sottomenu di 20px */
+		display: none; /* Nascondi di default */
+	}
+
+	.menu-item:hover > .submenu {
+		display: flex; /* Mostra il sottomenu al passaggio del mouse */
+		flex-direction: column; /* Colonne in verticale */
+	}
+
+	.menu-item {
+		position: relative; /* Necessario per il posizionamento assoluto del sottomenu */
+	}
+
+	.submenu li {
+		text-align: left; /* Allinea i link a sinistra */
+	}
+	.menu-item > a i {
+		transform: rotate(0deg); /* Verso destra */
+	}
+}
+
+@media (max-width: 600px) {
+	.menu-item > a i {
+		transform: rotate(270deg); /* Verso il basso */
+	}
 }

@@ -28,6 +28,7 @@ ul {
 
 .menu {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	width: 100%;
 }
@@ -44,6 +45,11 @@ ul {
 	display: block;
 }
 
+.hamburger-menu {
+	color: white;
+	padding: 15px;
+	cursor: pointer;
+}
 /* Submenu Styling */
 .submenu {
 	position: absolute;
@@ -79,4 +85,48 @@ ul {
 .menu-item:hover > .submenu,
 .submenu:hover {
 	display: block;
+}
+
+@media (max-width: 600px) {
+	.menu {
+		display: none; /* Hide the menu */
+		position: absolute;
+		top: 60px;
+		left: 0;
+		width: 100%;
+		background-color: #4d0011; /* White background */
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		padding: 10px 0;
+		z-index: 1000;
+	}
+
+	.menu-item {
+		text-align: center;
+		padding: 10px 0;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.hamburger-menu {
+		display: block; /* Show hamburger icon */
+	}
+
+	.menu.active {
+		display: flex; /* Show the menu when active */
+	}
+}
+
+@media (max-width: 600px) {
+	.menu {
+		flex-direction: column;
+	}
+}
+
+@media (min-width: 600px) {
+	.hamburger-menu {
+		display: none;
+	}
+	.menu {
+		display: flex;
+		flex-direction: row;
+	}
 }

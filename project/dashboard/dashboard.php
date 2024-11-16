@@ -22,71 +22,74 @@
 </head>
 <body>
         <nav class="nav">
-            <ul class="menu">
-                <li class="menu-item">
-                    <a href="#">Traffico</a>
-                    <ul class="submenu">
-                        <li><a href="?tab=traffic-load-data">Carica Dati</a></li>
-                        <li><a href="?tab=traffic">Visualizza Mappa</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="?tab=balloting">Votazioni</a>
-                    <ul class="submenu">
-                        <li><a href="?tab=balloting-load-data">Carica Dati</a></li>
-                        <li><a href="?tab=balloting" onclick="simulateClick('sedute-desktop-button')">Visualizza Sedute</a></li>
-                        <li><a href="?tab=balloting" onclick="simulateClick('consiglieri-desktop-button')">Visualizza Consiglieri</a></li>
-                        <li><a href="?tab=balloting" onclick="simulateClick('gruppi-desktop-button')">Visualizza Gruppi</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="?tab=register-user">Register a User</a>
-                </li>
-                <li class="menu-item">
-                    <a href="?tab=handle-user">Handle Users</a>
-                </li>
-                <li class="space-nav"></li>
-                <li class="menu-item profile-tab">
-                    <div class="profile-info-nav">
-                            <p>
-                                <?php if (isset($_SESSION['admin_id'])): ?>
-                                    <?php
-                                        $adminId = $_SESSION['admin_id'];
+        <div class="hamburger-menu" onclick="toggleHamburgerMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="menu">
+            <li class="menu-item">
+                <a href="?tab=traffic">Traffico <i class="fas fa-caret-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="?tab=traffic-load-data">Carica Dati</a></li>
+                    <li><a href="?tab=traffic">Visualizza Mappa</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="?tab=balloting">Votazioni <i class="fas fa-caret-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="?tab=balloting-load-data">Carica Dati</a></li>
+                    <li><a href="?tab=balloting" onclick="simulateClick('sedute-desktop-button')">Visualizza Sedute</a></li>
+                    <li><a href="?tab=balloting" onclick="simulateClick('consiglieri-desktop-button')">Visualizza Consiglieri</a></li>
+                    <li><a href="?tab=balloting" onclick="simulateClick('gruppi-desktop-button')">Visualizza Gruppi</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="?tab=register-user">Register a User</a>
+            </li>
+            <li class="menu-item">
+                <a href="?tab=handle-user">Handle Users</a>
+            </li>
+            <li class="space-nav"></li>
+            <li class="menu-item profile-tab">
+                <div class="profile-info-nav">
+                        <p>
+                            <?php if (isset($_SESSION['admin_id'])): ?>
+                                <?php
+                                    $adminId = $_SESSION['admin_id'];
 
-                                        // Fetch username
-                                        $query = "SELECT username FROM users WHERE id = ?";
-                                        $stmt = $connection->prepare($query);
-                                        $stmt->bind_param('i', $adminId);
-                                        $stmt->execute();
-                                        $result = $stmt->get_result();
+                                    // Fetch username
+                                    $query = "SELECT username FROM users WHERE id = ?";
+                                    $stmt = $connection->prepare($query);
+                                    $stmt->bind_param('i', $adminId);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
 
-                                        if ($result->num_rows > 0) {
-                                            $row = $result->fetch_assoc();
-                                            echo htmlspecialchars($row['username']);
-                                        } else {
-                                            echo "Errore nel recupero del profilo.";
-                                        }
+                                    if ($result->num_rows > 0) {
+                                        $row = $result->fetch_assoc();
+                                        echo htmlspecialchars($row['username']);
+                                    } else {
+                                        echo "Errore nel recupero del profilo.";
+                                    }
 
-                                        $stmt->close();
+                                    $stmt->close();
 
-                                        // Fetch profile name using the function
-                                        $profileName = getProfileNameByUserId($adminId, $connection);
+                                    // Fetch profile name using the function
+                                    $profileName = getProfileNameByUserId($adminId, $connection);
 
-                                        // Fetch permissions using the function
-                                        $permissions = getUserPermissions($adminId, $connection);
-                                    ?>
-                                <?php else: ?>
-                                    anonimo
-                                    <?php 
-                                        $profileName = "N/A";
-                                        $permissions = [];
-                                    ?>
-                                <?php endif; ?>
-                            </p>
-                            <i class="fas fa-user profile-icon"></i>
-                    </div>
-                </li>
-            </ul>
+                                    // Fetch permissions using the function
+                                    $permissions = getUserPermissions($adminId, $connection);
+                                ?>
+                            <?php else: ?>
+                                anonimo
+                                <?php 
+                                    $profileName = "N/A";
+                                    $permissions = [];
+                                ?>
+                            <?php endif; ?>
+                        </p>
+                        <i class="fas fa-user profile-icon"></i>
+                </div>
+            </li>
+        </ul>
 
 
         </nav>
@@ -314,7 +317,6 @@
 
         <!-- Tab per il contenuto di Balloting -->
         <div class="tab-content" id="balloting-tab" style="display: <?php echo $activeTab === 'balloting' ? 'block' : 'none'; ?>;">
-            <h3>Visualizzazione Dati Votazioni</h3>
             <?php
                 if ($activeTab === 'balloting') {
                     include './votazioni/home.html'; // Carica il contenuto delle votazioni

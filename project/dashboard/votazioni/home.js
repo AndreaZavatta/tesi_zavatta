@@ -221,7 +221,7 @@ const app = Vue.createApp({
                 });
         },
         clickedSed(date) {
-            window.location.href = "./sedute/seduta.html?s=" + date;
+            window.location.href = "./votazioni/sedute/seduta.html?s=" + date;
         },
         updateView(newValue) {
             this.tableToShow = newValue;

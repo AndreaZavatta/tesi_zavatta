@@ -38,13 +38,13 @@ function handleErrorMessages(){
 
     // Display the results based on success or failure of each call
     if (isset($minDate) && isset($maxDate)) {
-      echo "Select a date between $minDate and $maxDate.";
+      echo "Seleziona una data tra $minDate e $maxDate.";
     } elseif (isset($minDateError) || isset($maxDateError)) {
       if (isset($minDateError)) echo htmlspecialchars($minDateError);
       if (isset($minDateError) && isset($maxDateError)) echo " and ";
       if (isset($maxDateError)) echo htmlspecialchars($maxDateError);
     } else {
-      echo "No data found, insert data!";
+      echo "Nessun dato trovato";
     }
 }
 function getMinDate() {

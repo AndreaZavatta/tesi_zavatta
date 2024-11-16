@@ -197,6 +197,7 @@ form {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	margin-top: 15px;
 }
 
 /* Styles for the delete button */

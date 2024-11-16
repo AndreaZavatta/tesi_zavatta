@@ -298,17 +298,13 @@
                     <div class="tab-content" id="register-user-tab" style="display: <?php echo $activeTab === 'register-user' ? 'block' : 'none'; ?>;">
                         <h3>Registra un utente</h3>
                         <form onsubmit="event.preventDefault(); registerUser();">
-                            <label for="username">Username:</label>
-                            <input type="text" id="username" required>
+                            <input type="text" id="username" placeholder="Username" required>
 
-                            <label for="password">Password:</label>
-                            <input type="password" id="password" required>
+                            <input type="password" id="password" placeholder="Password" required>
 
-                            <label for="confirm_password">Conferma Password:</label>
-                            <input type="password" id="confirm_password" required>
+                            <input type="password" id="confirm_password" placeholder="Conferma Password"required>
 
                             <!-- Profile Picklist -->
-                            <label for="profile">Profilo:</label>
                             <select id="profile" required>
                                 <option value="" disabled selected>Seleziona un profilo</option>
                                 <?php foreach ($profiles as $profile): ?>

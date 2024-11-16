@@ -76,24 +76,24 @@
     }
 
 function simulateClick(buttonId) {
-    // Prevenire il comportamento di default del link
-    event.preventDefault();
+    // Hide all .cont elements
+    document.querySelectorAll('.cont').forEach((el) => {
+        el.style.display = 'none';
+    });
 
-    // Controlla se siamo nella tab giusta
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("tab") !== "balloting") {
-        // Cambia la tab e ricarica
-        window.location.href = "?tab=balloting";
-        localStorage.setItem("targetButton", buttonId);
-        return;
+    // Activate the balloting tab
+    const ballotingTab = document.querySelector('#balloting-tab');
+    if (ballotingTab) {
+        ballotingTab.style.display = 'block';
     }
 
-    // Simula il click sul pulsante
+    // Simulate the click on the corresponding button
     const button = document.getElementById(buttonId);
     if (button) {
         button.click();
     }
 }
+
 
 function showUserInfo(){
             document.querySelector('.profile-tab').addEventListener('click', function (event) {

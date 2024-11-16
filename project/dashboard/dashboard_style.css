@@ -363,6 +363,10 @@ button:hover {
 	width: 80%;
 }
 
+#users-table tr {
+	text-align: left;
+}
+
 #icons-container {
 	display: flex;
 	justify-content: center;
@@ -439,10 +443,12 @@ button:hover {
 }
 
 .profile-info-nav {
+	padding: 10px 15px;
 	align-items: center;
 	display: flex;
 	gap: 5px;
 	color: white;
+	justify-content: center;
 }
 
 @media (max-width: 992px) {
@@ -477,6 +483,7 @@ button:hover {
 	}
 
 	.menu-item {
+		min-width: 200px;
 		position: relative; /* Necessario per il posizionamento assoluto del sottomenu */
 	}
 

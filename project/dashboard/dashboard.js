@@ -1,49 +1,158 @@
 
 // Funzione per mostrare la tab selezionata
-function showTab(tabIndex) {
-    const tabs = document.querySelectorAll('.tab-content');
-    tabs.forEach((tab, index) => {
-        if (index === tabIndex) {
-            tab.classList.add('active');
-        } else {
-            tab.classList.remove('active');
-        }
-    });
+    function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach((tab, index) => {
+                if (index === tabIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
 
-    const tabButtons = document.querySelectorAll('.tab');
-    tabButtons.forEach((tab, index) => {
-        if (index === tabIndex) {
-            tab.classList.add('active');
-        } else {
-            tab.classList.remove('active');
-        }
-    });
+            showActiveBasedOnContainer(tabIndex);
 
-    // Salva l'indice della tab attiva nel localStorage
-    localStorage.setItem('activeTab', tabIndex);
-}
-
-function showActiveTab(){
-    const activeTab = localStorage.getItem('activeTab');
-    if (activeTab !== null) {
-        showTab(parseInt(activeTab));
-    } else {
-        showTab(0); // Se nessuna tab è salvata, mostra la prima per default
+            // Salva l'indice della tab attiva nel localStorage
+            localStorage.setItem('activeTab', tabIndex);
     }
 
-    // Rendi i messaggi di errore o successo invisibili dopo 5 secondi
-    const message = document.querySelector('.success-message, .error-message');
-    if (message) {
-        setTimeout(() => {
-            message.style.display = 'none';
-        }, 5000); // 5000 millisecondi = 5 secondi
+
+
+
+    function toggleLogout() {
+        const logoutButton = document.getElementsByClassName("log_button")[0];
+        // Toggle visibility of the logout button
+        if (logoutButton.style.display === "none") {
+            logoutButton.style.display = "flex";
+        } else {
+            logoutButton.style.display = "none";
+        }
+    }
+
+        function showActiveBasedOnContainer(tabIndex) {
+            // Define pairs of indices to activate together
+            const pairs = {
+                0: [0, 4],
+                1: [1, 5],
+                2: [2, 6],
+                3: [3, 7],
+                4: [1, 5],
+                5: [2, 6],
+                6: [3, 7]
+            };
+
+
+                const tabButtons = Array.from(document.querySelectorAll('.tab'));
+
+                // Get the pair of indices to activate
+                const indicesToActivate = pairs[tabIndex] || [tabIndex];
+
+                // Apply the active class based on the paired indices
+                tabButtons.forEach((tab, index) => {
+                    if (indicesToActivate.includes(index)) {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+            }
+
+            
+    function showActiveTab(){
+        const activeTab = localStorage.getItem('activeTab');
+        if (activeTab !== null) {
+            showTab(parseInt(activeTab));
+        } else {
+            showTab(0); // Se nessuna tab è salvata, mostra la prima per default
+        }
+
+        // Rendi i messaggi di errore o successo invisibili dopo 5 secondi
+        const message = document.querySelector('.success-message, .error-message');
+        if (message) {
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 5000); // 5000 millisecondi = 5 secondi
+        }
+    }
+
+function simulateClick(buttonId) {
+    // Hide all .cont elements
+    document.querySelectorAll('.cont').forEach((el) => {
+        el.style.display = 'none';
+    });
+
+    // Activate the balloting tab
+    const ballotingTab = document.querySelector('#balloting-tab');
+    if (ballotingTab) {
+        ballotingTab.style.display = 'block';
+    }
+
+    // Simulate the click on the corresponding button
+    const button = document.getElementById(buttonId);
+    if (button) {
+        button.click();
     }
 }
+
+
+function showUserInfo(){
+    document.querySelector('.profile-tab').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent default navigation behavior
+
+    const contElements = document.querySelectorAll('.cont');
+
+    if (contElements.length > 1) {
+        // Check if the second element is currently hidden
+        if (contElements[1].style.display === 'none') {
+            contElements[1].style.display = 'block';
+            contElements[0].style.display = 'none';
+            // Show both elements
+        } else {
+            // Hide the second element
+            contElements[1].style.display = 'none';
+            contElements[0].style.display = 'block';
+        }
+    }
+});
+}
+
+function setupNavbarToggle() {
+    const menu = document.querySelector('.menu');
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const menuItems = document.querySelectorAll('.menu-item, .submenu li a');
+
+    // Toggle the menu visibility when the hamburger menu is clicked
+    hamburgerMenu.addEventListener('click', () => {
+        menu.classList.toggle('active');
+    });
+
+    // Close the menu when a menu item is clicked
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        });
+    });
+}
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
+        const targetButton = localStorage.getItem("targetButton");
+        if (targetButton) {
+            const button = document.getElementById(targetButton);
+            if (button) {
+                button.click();
+            }
+            localStorage.removeItem("targetButton"); // Rimuovi dopo l'uso
+        }
         progressInterval = '';
         showActiveTab();
         loadUsers();
+        showUserInfo();
+        setupNavbarToggle();
+
         document.getElementById('stop-import-btn').addEventListener('click', function() {
             if (confirm('Sei sicuro di voler interrompere il processo di importazione?')) {
                 fetch('stop_import.php', {
@@ -62,6 +171,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         });
+
+
         function uploadFileVotazioni() {
             // Show spinner
             document.getElementById('loading-spinner').style.display = 'flex';
@@ -100,8 +211,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 alert('Errore durante il caricamento o la lavorazione del file.');
             });
         }
-
-
 
         function uploadFile() {
             // Show spinner
@@ -152,7 +261,6 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error('Error fetching progress:', error));
         }
-
 
 
         window.deleteAllTablesMap = function() {
@@ -227,7 +335,6 @@ document.addEventListener("DOMContentLoaded", function() {
             uploadFileVotazioni();
 
         });
-
     });
 
 
@@ -262,21 +369,35 @@ function registerUser() {
     const username = document.getElementById("username").value;
     const newPassword = document.getElementById("password").value;
     const confirmNewPassword = document.getElementById("confirm_password").value;
+    const profileId = document.getElementById("profile").value;
 
-    if (!validatePassword(newPassword, confirmNewPassword, 'password-error-registration')) return;
+    // Debugging: Log the input values
+    console.log("Username:", username);
+    console.log("New Password:", newPassword);
+    console.log("Confirm Password:", confirmNewPassword);
+    console.log("Profile ID:", profileId);
 
+    if (!validatePassword(newPassword, confirmNewPassword, 'password-error-registration')) {
+        console.log("Password validation failed.");
+        return;
+    }
+
+    // Send registration request with username, password, and profile ID
     fetch('../LoginRegistration/registernew.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, new_password: newPassword })
+        body: JSON.stringify({ username, new_password: newPassword, profile_id: profileId })
     })
     .then(response => response.json())
     .then(data => {
+        console.log("Response from server:", data); // Debugging: Log the server response
         if (data.success) {
             alert("Registrazione completata con successo!");
+            // Clear the form fields
             document.getElementById("username").value = '';
             document.getElementById("password").value = '';
             document.getElementById("confirm_password").value = '';
+            document.getElementById("profile").value = ''; // Clear the profile selection
         } else {
             alert("Errore: " + data.error);
         }
@@ -286,6 +407,25 @@ function registerUser() {
         alert("Errore durante la registrazione.");
     });
 }
+
+    function fetchPermissionDescription() {
+        const permission = document.getElementById('permissions-picklist').value;
+
+        // Make AJAX request to fetch the description
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'fetch_description.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                document.getElementById('permission-description').innerText = xhr.responseText;
+            } else {
+                document.getElementById('permission-description').innerText = 'Error fetching description.';
+            }
+        };
+
+        xhr.send('permission=' + encodeURIComponent(permission));
+    }
 
 // Password update function
 function updateUserPassword() {
@@ -328,14 +468,15 @@ function loadUsers() {
                 const row = usersTable.insertRow();
                 row.innerHTML = `
                     <td>
-                        ${user.username}
-                        <i class="fas fa-edit" onclick="openEditUsernameModal(${user.id})" title="Edit Username" style="cursor: pointer; color: #007bff; margin-left: 10px;"></i>
-                    </td>
+                        <div>
+                            <p>${user.username}</p>
+                            <i class="fas fa-edit" onclick="openEditUsernameModal(${user.id})" title="Edit Username" style="cursor: pointer; color: #007bff; margin-left: 10px;"></i>
+                        </div>
                     <td>
                         <i class="fas fa-edit" onclick="openEditPasswordModal(${user.id})" title="Edit Password" style="cursor: pointer; color: #007bff;"></i>
                     </td>
                     <td>
-                        <i class="fas fa-trash" onclick="deleteUser(${user.id})" title="Delete User" style="cursor: pointer; color: #dc3545;"></i>
+                        <i class="fas fa-trash" onclick="deleteUser(${user.id})" title="Eliminazione Utentee Utente" style="cursor: pointer; color: #dc3545;"></i>
                     </td>
                 `;
             });

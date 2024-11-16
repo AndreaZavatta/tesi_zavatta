@@ -1,10 +1,10 @@
 <?php
 function processJsonFile($filePath) {
     // Load database configuration from PHP file
-    $configFilePath = __DIR__ . '/../db_config.php';
+    $configFilePath = __DIR__ . '/../../db_config.php';
 	error_log("in processjsonfile!");
     if (!file_exists($configFilePath)) {
-        return ['error' => 'Configuration file not found.'];
+        return ['error' => 'Configuration file not found.'.$configFilePath];
     }
 
     // Include the configuration file, which returns an associative array

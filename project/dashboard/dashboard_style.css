@@ -1,13 +1,83 @@
 /* General Styles */
-body {
-	display: flex;
-	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-	background-color: #f3e8eb; /* Light soft pinkish background to complement the red tones */
+
+* {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
+}
+
+p {
+	margin: 0 !important;
+}
+
+/* Ensure the body occupies the entire viewport */
+html,
+body {
+	width: 100%;
+	height: 100%;
+	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+	background-color: #f3e8eb; /* Light soft pinkish background to complement the red tones */
 	color: #3d4f5c; /* Dark gray text color for readability */
 }
 
+.profile-container-name {
+	display: flex;
+	gap: 10px;
+}
+
+.profile-name,
+.profile_info,
+.profile-permissions-picklist,
+.profile-container {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+.profile_section {
+	color: white;
+	padding: 5px;
+	border-radius: 4px;
+	right: 5px; /* Distance from the right */
+	cursor: pointer;
+}
+.profile_data {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.cover_full {
+	width: 100%;
+}
+
+.center_column {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.center_row {
+	display: flex;
+	justify-content: center;
+}
+
+.data_visualization_button {
+	display: none;
+}
+
+.tab-content .data_visualization_button,
+label {
+	margin: auto;
+}
+.data-visualization {
+	overflow: auto;
+}
+
+.load_buttons {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+}
 /* Sidebar styles */
 .sidebar {
 	position: fixed;
@@ -45,50 +115,50 @@ body {
 	background-color: #740019; /* Darker red on hover */
 }
 
+.inside-body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 50px;
+	width: 100%;
+	height: 97%;
+	position: absolute;
+	top: 20px;
+}
+
+.container-width {
+	width: 70%;
+}
 /* Main container styles */
-.container {
-	width: 600px;
-	margin: 20px auto;
+.cont {
+	min-height: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	padding: 20px;
 	background-color: #ffffff; /* White background */
 	border-radius: 10px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	margin-left: 0px !important;
+	margin-right: 0px !important;
 }
 
-@media (max-width: 1200px) {
-	.container {
-		margin-left: 8%;
-	}
+#traffic-tab {
+	margin-top: 360px;
+	height: 800px;
 }
 
-/* Responsive layout for smaller screens */
-@media (max-width: 1024px) {
-	body {
-		flex-direction: column-reverse;
-		align-items: center;
-	}
-
-	.sidebar {
-		position: relative;
-		width: 70%;
-		height: auto;
-		margin-bottom: 20px;
-		box-shadow: none;
-		border-radius: 10px;
-	}
-
-	.container {
-		width: 70%;
-		padding: 15px;
-		margin: 0px;
-	}
+.profile_info {
+	width: 30%;
 }
 
 h2 {
-	text-align: center;
 	color: #3d4f5c; /* Dark gray for main headings */
 }
 
+#title_dashboard {
+	margin-top: 70px !important;
+}
 /* Spinner Styles */
 .spinner {
 	display: flex;
@@ -131,14 +201,7 @@ form {
 
 /* Styles for the delete button */
 #delete-table-btn {
-	background-color: #95132f; /* Rich red */
-	color: white;
-	border: none;
-	padding: 8px 12px;
-	font-size: 14px;
 	cursor: pointer;
-	border-radius: 5px;
-	transition: background-color 0.3s;
 }
 
 #delete-table-btn:hover {
@@ -146,18 +209,28 @@ form {
 }
 
 /* Tab styles */
-.tab-container {
+.tab-container-column {
+	flex-direction: column;
 	display: flex;
 	justify-content: center;
-	margin-bottom: 20px;
-	border-bottom: 2px solid #95132f; /* Rich red border for tabs */
+	position: fixed;
+	height: 100%;
+	z-index: 10;
+}
+
+.tab-container-row {
+	flex-direction: row;
+	display: flex;
+	justify-content: space-around;
+	display: none;
+	height: 35px;
 }
 
 /* Styles for individual tabs */
 .tab {
 	padding: 12px 20px;
 	margin: 0 5px;
-	background-color: #f8e9eb; /* Light pink for inactive tabs */
+	background-color: #f3f3f3; /* Light pink for inactive tabs */
 	color: #95132f; /* Rich red text */
 	font-size: 16px;
 	border: 1px solid #ddd;
@@ -186,16 +259,15 @@ form {
 /* Content styles */
 .tab-content {
 	display: none;
-	padding: 20px;
 	background-color: white;
 	border: 1px solid #ddd;
-	border-radius: 0 8px 8px 8px;
+	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	margin-top: -2px;
+	min-height: 300px;
 }
 
 .tab-content.active {
-	display: block;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
@@ -234,20 +306,13 @@ input[type="email"] {
 	font-size: 16px;
 }
 
-#delete_container {
-	margin-top: 10px;
-	width: 100%;
-	display: flex;
-	align-items: center;
-}
 button {
-	margin: auto;
 	padding: 10px;
 	background-color: #95132f; /* Rich red */
 	color: white;
-	font-size: 16px;
+	font-size: 16px !important;
 	border: none;
-	border-radius: 5px;
+	border-radius: 5px !important;
 	cursor: pointer;
 	transition: background-color 0.3s;
 	max-width: 400px;
@@ -280,17 +345,26 @@ button:hover {
 	width: 160px;
 }
 
-.logout_button {
-	margin-top: 15px;
+.log_button {
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-#users-table td {
-	height: 40px;
-	text-align: center;
+#users-table td:first-child div {
+	width: 130px;
+	display: flex !important;
+	justify-content: space-between;
+	align-items: center;
 }
 
 #users-table td input {
 	width: 80%;
+}
+
+#users-table tr {
+	text-align: left;
 }
 
 #icons-container {
@@ -310,10 +384,15 @@ button:hover {
 	display: none; /* Nascondilo di default */
 }
 
+.profile-tab .submenu {
+	right: 10px;
+}
+
 .modal {
 	position: fixed;
-	top: 50%;
-	left: 50%;
+	height: auto !important;
+	top: 50% !important;
+	left: 50% !important;
 	transform: translate(-50%, -50%);
 	z-index: 1000; /* Posiziona il modale sopra l'overlay */
 	background-color: white;
@@ -334,6 +413,7 @@ button:hover {
 }
 #editUsernameModal {
 	width: 20%;
+	min-width: 300px;
 }
 
 .modal-content input[type="text"],
@@ -360,4 +440,63 @@ button:hover {
 	font-weight: bold;
 	margin-top: 10px;
 	display: block;
+}
+
+.profile-info-nav {
+	padding: 10px 15px;
+	align-items: center;
+	display: flex;
+	gap: 5px;
+	color: white;
+	justify-content: center;
+}
+
+@media (max-width: 992px) {
+	.profile_info {
+		display: none;
+	}
+	.cont {
+		width: 100%;
+	}
+}
+
+@media (min-width: 992px) {
+	.profile-tab {
+		display: none;
+	}
+	.cont {
+		display: flex !important;
+	}
+}
+
+@media (max-width: 630px) {
+	.submenu {
+		position: relative;
+		left: 100%; /* Posiziona il sottomenu a destra del genitore */
+		transform: translateY(-50px); /* Solleva il sottomenu di 20px */
+		display: none; /* Nascondi di default */
+	}
+
+	.menu-item:hover > .submenu {
+		display: flex; /* Mostra il sottomenu al passaggio del mouse */
+		flex-direction: column; /* Colonne in verticale */
+	}
+
+	.menu-item {
+		min-width: 200px;
+		position: relative; /* Necessario per il posizionamento assoluto del sottomenu */
+	}
+
+	.submenu li {
+		text-align: left; /* Allinea i link a sinistra */
+	}
+	.menu-item > a i {
+		transform: rotate(0deg); /* Verso destra */
+	}
+}
+
+@media (max-width: 630px) {
+	.menu-item > a i {
+		transform: rotate(270deg); /* Verso il basso */
+	}
 }

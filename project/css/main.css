@@ -1,13 +1,17 @@
 html,
 body {
 	height: 100%;
-	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 	background-color: #f3e8eb; /* Light pink background to match red theme */
 	color: #3d4f5c; /* Dark gray for text readability */
 }
 
 #app {
 	height: 100%;
+}
+
+.main-navbar {
+	height: 75px;
+	background-color: black;
 }
 
 /* Fieldset styling */
@@ -21,23 +25,17 @@ fieldset {
 	background-color: #ffffff; /* White background inside fieldset */
 }
 
-fieldset > legend,
-div {
-	margin-left: 5px;
-	margin-bottom: 5px;
-	color: #95132f; /* Rich red for legends and div text */
-}
-
 /* Map styling */
 #map {
-	height: 80%;
+	height: 60%;
 	background-color: #ffe4e6; /* Very light pink for a subtle background */
 	border-radius: 5px;
+	z-index: 1;
 }
 
 /* Hidden elements */
 .hide {
-	visibility: hidden;
+	display: none;
 }
 
 #date-range {
@@ -59,10 +57,6 @@ div {
 }
 
 /* Heading styling */
-h2 {
-	text-align: center;
-	color: #95132f; /* Rich red for heading */
-}
 
 /* Button styles */
 button {

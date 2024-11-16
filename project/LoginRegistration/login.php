@@ -15,7 +15,7 @@ function login($username, $password, $connection) {
     global $errorMessage;
 
     // Prepare and execute the query
-    $stmt = $connection->prepare("SELECT * FROM admin WHERE username = ?");
+    $stmt = $connection->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param('s', $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -24,7 +24,7 @@ function login($username, $password, $connection) {
     if ($admin && password_verify($password, $admin['password_hash'])) {
         // Set session for the authenticated admin
         $_SESSION['admin_id'] = $admin['id'];
-        header('Location: ../dashboard/dashboard.php');
+        header('Location: ../dashboard/dashboard.php?tab=traffic');
         exit();
     } else {
         $errorMessage = "Username o password errati!";
@@ -80,6 +80,9 @@ function login($username, $password, $connection) {
         <!-- Link per andare alla registrazione -->
         <div class="login-link">
             <p>Non hai un account? <a href="register.php">Registrati qui</a></p>
+        </div>
+        <div class="login-link">
+            <p>Non vuoi registrarti? <a href="../dashboard/dashboard.php?tab=traffic">Accedi senza login</a></p>
         </div>
     </div>
 </body>

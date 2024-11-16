@@ -1,18 +1,24 @@
 
 // Funzione per mostrare la tab selezionata
-function showTab(tabId) {
-    // Nascondi tutti i tab
-    const tabs = document.querySelectorAll('.tab-content');
-    tabs.forEach(tab => {
-        tab.classList.remove('active'); // Rimuovi la classe "active"
-    });
+    function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach((tab, index) => {
+                if (index === tabIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
 
-    // Mostra solo il tab selezionato
-    const selectedTab = document.getElementById(`${tabId}-tab`);
-    if (selectedTab) {
-        selectedTab.classList.add('active');
+            showActiveBasedOnContainer(tabIndex);
+
+            // Salva l'indice della tab attiva nel localStorage
+            localStorage.setItem('activeTab', tabIndex);
     }
-}
+
+
+
+
     function toggleLogout() {
         const logoutButton = document.getElementsByClassName("log_button")[0];
         // Toggle visibility of the logout button
@@ -69,8 +75,34 @@ function showTab(tabId) {
         }
     }
 
+function simulateClick(buttonId) {
+    // Prevenire il comportamento di default del link
+    event.preventDefault();
 
+    // Controlla se siamo nella tab giusta
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("tab") !== "balloting") {
+        // Cambia la tab e ricarica
+        window.location.href = "?tab=balloting";
+        localStorage.setItem("targetButton", buttonId);
+        return;
+    }
+
+    // Simula il click sul pulsante
+    const button = document.getElementById(buttonId);
+    if (button) {
+        button.click();
+    }
+}
 document.addEventListener("DOMContentLoaded", function() {
+        const targetButton = localStorage.getItem("targetButton");
+        if (targetButton) {
+            const button = document.getElementById(targetButton);
+            if (button) {
+                button.click();
+            }
+            localStorage.removeItem("targetButton"); // Rimuovi dopo l'uso
+        }
         progressInterval = '';
         showActiveTab();
         loadUsers();
@@ -92,6 +124,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         });
+
+
         function uploadFileVotazioni() {
             // Show spinner
             document.getElementById('loading-spinner').style.display = 'flex';
@@ -180,7 +214,6 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error('Error fetching progress:', error));
         }
-
 
 
         window.deleteAllTablesMap = function() {

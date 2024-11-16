@@ -5,7 +5,7 @@
     require_once "./utils.php";
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
-    $selectedDataset = $_GET['dataset'] ?? 'Traffic';
+    $activeTab = $_GET['tab'] ?? 'Traffic';
 
 ?>
 
@@ -24,26 +24,26 @@
         <nav class="nav">
             <ul class="menu">
                 <li class="menu-item">
-                    <a href="?dataset=Traffic">Traffico</a>
+                    <a href="#">Traffico</a>
                     <ul class="submenu">
-                        <li><a href="#">Carica Dati</a></li>
-                        <li><a href="#">Visualizza Mappa</a></li>
+                        <li><a href="?tab=traffic-load-data">Carica Dati</a></li>
+                        <li><a href="?tab=traffic">Visualizza Mappa</a></li>
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="?dataset=Balloting">Votazioni</a>
+                    <a href="?tab=balloting">Votazioni</a>
                     <ul class="submenu">
-                        <li><a href="#">Carica Dati</a></li>
-                        <li><a href="#">Visualizza Sedute</a></li>
-                        <li><a href="#">Visualizza Consiglieri</a></li>
-                        <li><a href="#">Visualizza Gruppi</a></li>
+                        <li><a href="?tab=balloting-load-data">Carica Dati</a></li>
+                        <li><a href="?tab=balloting" onclick="simulateClick('sedute-desktop-button')">Visualizza Sedute</a></li>
+                        <li><a href="?tab=balloting" onclick="simulateClick('consiglieri-desktop-button')">Visualizza Consiglieri</a></li>
+                        <li><a href="?tab=balloting" onclick="simulateClick('gruppi-desktop-button')">Visualizza Gruppi</a></li>
                     </ul>
                 </li>
-                <li class="menu-item" onclick="showTab(3)">
-                    <a href="#">Register a User</a>
+                <li class="menu-item">
+                    <a href="?tab=register-user">Register a User</a>
                 </li>
-                <li class="menu-item" onclick="showTab(2)">
-                    <a href="#">Handle Users</a>
+                <li class="menu-item">
+                    <a href="?tab=handle-user">Handle Users</a>
                 </li>
 
             </ul>
@@ -165,52 +165,57 @@
         <div class="cont container-width">
                 <!-- Menu Tabs -->
                 <?php if (isset($_SESSION['admin_id']) && hasImportDataPermissions()): ?>
-                    <div class="tab-content">
+                    <div class="tab-content" style="display: <?php echo $activeTab === 'traffic-load-data' ? 'block' : 'none'; ?>;">
                         <h3>Load file</h3>
-                        <p>select the data you would like to work with</p>
-                        <select id="datasets" name="datasets" onchange="toggleFieldsets();">
-                            <option value="Traffic">Traffic</option>
-                            <option value="Balloting">Balloting</option>
-                        </select>
                         <!-- Section for Application 1 -->
                         <?php if (isset($_SESSION['admin_id'])): ?>
                             <?php if (haspermission('Import Dati Nella Mappa ')): ?>
-                            <fieldset id="traffic-fieldset" style="display:none;">
-                                <legend>Mappa</legend>
-                                <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
-                                    <label for="csv_file_app1">Choose the CSV file for visualizing data on the map</label>
-                                    <input type="file" id="csv_file_app1" name="csv_file" accept=".csv" required>
-                                    <div class="load_buttons">
-                                        <button type="submit">Load File</button>
-                                        <div id="delete_container">
-                                            <button id="delete-table-btn" onclick="deleteAllTablesMap();">Delete tables</button>
+                                <fieldset id="traffic-fieldset">
+                                    <legend>Mappa</legend>
+                                    <form id="upload-form" onsubmit="event.preventDefault(); uploadFile();">
+                                        <label for="csv_file_app1">Choose the CSV file for visualizing data on the map</label>
+                                        <input type="file" id="csv_file_app1" name="csv_file" accept=".csv" required>
+                                        <div class="load_buttons">
+                                            <button type="submit">Load File</button>
+                                            <div id="delete_container">
+                                                <button id="delete-table-btn" onclick="deleteAllTablesMap();">Delete tables</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </fieldset>
-                            <?php endif; ?>
-                        <!-- Section for Application 2 -->
-                        <?php if (haspermission('Import Dati Votazioni')): ?>
-                            <fieldset id="balloting-fieldset" style="display:none;">
-                                <legend>Votazioni</legend>
-                                <form id="upload-form-app2" method="POST" enctype="multipart/form-data">
-                                    <label for="json_file">Choose the json file for visualizing balloting data:</label>
-                                    <input type="file" id="json_file" name="json_file" accept=".json" required>
-                                    <div class="load_buttons">
-                                        <button type="submit">Load File</button>
-                                        <div id="delete_container">
-                                            <button id="delete-table-btn-app2" onclick="deleteAllTablesVotazioni();">Delete tables</button>
-                                        </div>
-                                    </div>
-                                </form>
-
-                            </fieldset>
+                                    </form>
+                                </fieldset>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
+                                
+                <?php if (isset($_SESSION['admin_id']) && hasImportDataPermissions()): ?>
+                    <div class="tab-content" style="display: <?php echo $activeTab === 'balloting-load-data' ? 'block' : 'none'; ?>;">
+                        <h3>Load file</h3>
+                        <!-- Section for Application 1 -->
+                        <?php if (isset($_SESSION['admin_id'])): ?>
+                        <!-- Section for Application 2 -->
+                            <?php if (haspermission('Import Dati Votazioni')): ?>
+                                <fieldset id="balloting-fieldset">
+                                    <legend>Votazioni</legend>
+                                    <form id="upload-form-app2" method="POST" enctype="multipart/form-data">
+                                        <label for="json_file">Choose the json file for visualizing balloting data:</label>
+                                        <input type="file" id="json_file" name="json_file" accept=".json" required>
+                                        <div class="load_buttons">
+                                            <button type="submit">Load File</button>
+                                            <div id="delete_container">
+                                                <button id="delete-table-btn-app2" onclick="deleteAllTablesVotazioni();">Delete tables</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </fieldset>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+                
                 <?php if (isset($_SESSION['admin_id']) && hasPermission('Registrazione Utente')): ?>
-                    <div class="tab-content">
+                    <div class="tab-content" id="register-user-tab" style="display: <?php echo $activeTab === 'register-user' ? 'block' : 'none'; ?>;">
                         <h3>Register a User</h3>
                         <form onsubmit="event.preventDefault(); registerUser();">
                             <label for="username">Username:</label>
@@ -240,7 +245,7 @@
                 <?php endif; ?>
 
             <?php if (isset($_SESSION['admin_id']) && hasSomeUserPermission()): ?>
-                <div class="tab-content">
+                <div class="tab-content" style="display: <?php echo $activeTab === 'handle-user' ? 'flex' : 'none'; ?>;">
                     <h3>Handle Users</h3>
                     <table id="users-table">
                         <thead>
@@ -258,20 +263,20 @@
                 </div>
             <?php endif; ?>
         <!-- Tab per il contenuto di Traffic -->
-        <div class="tab-content" id="traffic-content" style="display: <?php echo $selectedDataset === 'Traffic' ? 'block' : 'none'; ?>;">
+        <div class="tab-content" id="traffic-tab" style="display: <?php echo $activeTab === 'traffic' ? 'block' : 'none'; ?>;">
             <h3>Visualizzazione Dati Traffico</h3>
             <?php
-                if ($selectedDataset === 'Traffic') {
+                if ($activeTab === 'traffic') {
                     include './mapVisualization.php'; // Carica il contenuto del traffico
                 }
             ?>
         </div>
 
         <!-- Tab per il contenuto di Balloting -->
-        <div class="tab-content" id="balloting-content" style="display: <?php echo $selectedDataset === 'Balloting' ? 'block' : 'none'; ?>;">
+        <div class="tab-content" id="balloting-tab" style="display: <?php echo $activeTab === 'balloting' ? 'block' : 'none'; ?>;">
             <h3>Visualizzazione Dati Votazioni</h3>
             <?php
-                if ($selectedDataset === 'Balloting') {
+                if ($activeTab === 'balloting') {
                     include './votazioni/home.html'; // Carica il contenuto delle votazioni
                 }
             ?>

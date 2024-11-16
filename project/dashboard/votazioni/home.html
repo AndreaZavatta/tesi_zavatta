@@ -18,14 +18,9 @@
 			crossorigin="anonymous"
 		></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-		<title>Presenze e votazioni del consiglio comunale di Bologna</title>
 	</head>
 	<body class="m-0 p-0">
 		<div id="app" v-cloak>
-			<header>
-				<h1>Presenze e votazioni del consiglio comunale di Bologna</h1>
-				<mobile-nav :tts="tableToShow" @uv="updateView"></mobile-nav>
-			</header>
 			<main class="row p-0 m-0 mt-5">
 				<desktop-nav :tts="tableToShow" @uv="updateView" class="col-md-2 m-0 p-0"></desktop-nav>
 

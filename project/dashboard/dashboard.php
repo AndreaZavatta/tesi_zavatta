@@ -45,9 +45,49 @@
                 <li class="menu-item">
                     <a href="?tab=handle-user">Handle Users</a>
                 </li>
+                <li class="space-nav"></li>
+                <li class="menu-item profile-tab">
+                    <div class="profile-info-nav">
+                            <p>
+                                <?php if (isset($_SESSION['admin_id'])): ?>
+                                    <?php
+                                        $adminId = $_SESSION['admin_id'];
 
+                                        // Fetch username
+                                        $query = "SELECT username FROM users WHERE id = ?";
+                                        $stmt = $connection->prepare($query);
+                                        $stmt->bind_param('i', $adminId);
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
+
+                                        if ($result->num_rows > 0) {
+                                            $row = $result->fetch_assoc();
+                                            echo htmlspecialchars($row['username']);
+                                        } else {
+                                            echo "Errore nel recupero del profilo.";
+                                        }
+
+                                        $stmt->close();
+
+                                        // Fetch profile name using the function
+                                        $profileName = getProfileNameByUserId($adminId, $connection);
+
+                                        // Fetch permissions using the function
+                                        $permissions = getUserPermissions($adminId, $connection);
+                                    ?>
+                                <?php else: ?>
+                                    anonimo
+                                    <?php 
+                                        $profileName = "N/A";
+                                        $permissions = [];
+                                    ?>
+                                <?php endif; ?>
+                            </p>
+                            <i class="fas fa-user profile-icon"></i>
+                    </div>
+                </li>
             </ul>
-            <div class="space-nav"></div>
+
 
         </nav>
     <div class="inside-body">
@@ -302,11 +342,6 @@
         </div>
 
     </div>
-
-
-
-
-
 
     <script>
         function closeSummary() {

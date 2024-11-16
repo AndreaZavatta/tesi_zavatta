@@ -19,10 +19,19 @@ body {
 	background-color: #f3e8eb; /* Light soft pinkish background to complement the red tones */
 	color: #3d4f5c; /* Dark gray text color for readability */
 }
-.profile-container-name,
-.profile-name {
+
+.profile-container-name {
 	display: flex;
 	gap: 10px;
+}
+
+.profile-name,
+.profile_info,
+.profile-permissions-picklist,
+.profile-container {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 }
 .profile_section {
 	color: white;
@@ -112,7 +121,7 @@ label {
 	justify-content: center;
 	gap: 50px;
 	width: 100%;
-	height: 100%;
+	height: 97%;
 	position: absolute;
 	top: 20px;
 }
@@ -255,6 +264,7 @@ form {
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	margin-top: -2px;
+	min-height: 300px;
 }
 
 .tab-content.active {
@@ -370,6 +380,10 @@ button:hover {
 	display: none; /* Nascondilo di default */
 }
 
+.profile-tab .submenu {
+	right: 10px;
+}
+
 .modal {
 	position: fixed;
 	height: auto !important;
@@ -422,4 +436,32 @@ button:hover {
 	font-weight: bold;
 	margin-top: 10px;
 	display: block;
+}
+
+.profile-info-nav {
+	align-items: center;
+	display: flex;
+	gap: 5px;
+	color: white;
+}
+
+@media (max-width: 992px) {
+	.profile_info {
+		display: none;
+	}
+	.cont {
+		width: 100%;
+	}
+}
+
+@media (min-width: 992px) {
+	.profile-tab {
+		display: none;
+	}
+	.cont {
+		display: flex !important;
+	}
+}
+
+@media (max-width: 600px) {
 }

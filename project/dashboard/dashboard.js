@@ -94,6 +94,27 @@ function simulateClick(buttonId) {
         button.click();
     }
 }
+
+function showUserInfo(){
+            document.querySelector('.profile-tab').addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default navigation behavior
+
+            const contElements = document.querySelectorAll('.cont');
+
+            if (contElements.length > 1) {
+                // Check if the second element is currently hidden
+                if (contElements[1].style.display === 'none') {
+                    contElements[1].style.display = 'block';
+                    contElements[0].style.display = 'none';
+                    // Show both elements
+                } else {
+                    // Hide the second element
+                    contElements[1].style.display = 'none';
+                    contElements[0].style.display = 'block';
+                }
+            }
+        });
+}
 document.addEventListener("DOMContentLoaded", function() {
         const targetButton = localStorage.getItem("targetButton");
         if (targetButton) {
@@ -106,6 +127,8 @@ document.addEventListener("DOMContentLoaded", function() {
         progressInterval = '';
         showActiveTab();
         loadUsers();
+        showUserInfo();
+
         document.getElementById('stop-import-btn').addEventListener('click', function() {
             if (confirm('Sei sicuro di voler interrompere il processo di importazione?')) {
                 fetch('stop_import.php', {

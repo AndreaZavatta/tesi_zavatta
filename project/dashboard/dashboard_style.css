@@ -122,7 +122,8 @@ label {
 }
 /* Main container styles */
 .cont {
-	height: 500px;
+	height: 600px;
+	overflow: auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -254,7 +255,6 @@ form {
 }
 
 .tab-content.active {
-	display: block;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;

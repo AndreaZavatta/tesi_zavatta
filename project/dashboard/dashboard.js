@@ -1,20 +1,18 @@
 
 // Funzione per mostrare la tab selezionata
-    function showTab(tabIndex) {
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach((tab, index) => {
-                if (index === tabIndex) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
+function showTab(tabId) {
+    // Nascondi tutti i tab
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.classList.remove('active'); // Rimuovi la classe "active"
+    });
 
-            showActiveBasedOnContainer(tabIndex);
-
-            // Salva l'indice della tab attiva nel localStorage
-            localStorage.setItem('activeTab', tabIndex);
+    // Mostra solo il tab selezionato
+    const selectedTab = document.getElementById(`${tabId}-tab`);
+    if (selectedTab) {
+        selectedTab.classList.add('active');
     }
+}
     function toggleLogout() {
         const logoutButton = document.getElementsByClassName("log_button")[0];
         // Toggle visibility of the logout button
@@ -76,8 +74,6 @@ document.addEventListener("DOMContentLoaded", function() {
         progressInterval = '';
         showActiveTab();
         loadUsers();
-        toggleFieldsets();
-        document.getElementById("datasets").addEventListener("change", toggleFieldsets);
         document.getElementById('stop-import-btn').addEventListener('click', function() {
             if (confirm('Sei sicuro di voler interrompere il processo di importazione?')) {
                 fetch('stop_import.php', {
@@ -185,25 +181,6 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error('Error fetching progress:', error));
         }
 
-        function toggleFieldsets() {
-            const datasetSelect = document.getElementById("datasets").value;
-            const trafficFieldset = document.getElementById("traffic-fieldset");
-            const ballotingFieldset = document.getElementById("balloting-fieldset");
-            const visualizationButtonVotazioni = document.getElementById("visualization_button_votazioni");
-            const visualizationButtonTraffic = document.getElementById("visualization_button_traffic");
-            // Toggle visibility based on selection
-            if (datasetSelect === "Traffic") {
-                if(visualizationButtonTraffic) visualizationButtonTraffic.style.display = "block";
-                if(trafficFieldset) trafficFieldset.style.display = "block";
-                if(visualizationButtonVotazioni) visualizationButtonVotazioni.style.display = "none";
-                if(ballotingFieldset) ballotingFieldset.style.display = "none";
-            } else if (datasetSelect === "Balloting") {
-                if(trafficFieldset) trafficFieldset.style.display = "none";
-                if(visualizationButtonTraffic) visualizationButtonTraffic.style.display = "none";
-                if(ballotingFieldset) ballotingFieldset.style.display = "block";
-                if(visualizationButtonVotazioni) visualizationButtonVotazioni.style.display = "block";
-            }
-        }
 
 
         window.deleteAllTablesMap = function() {

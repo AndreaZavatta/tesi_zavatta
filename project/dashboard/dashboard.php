@@ -5,7 +5,7 @@
     require_once "./utils.php";
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
-    $selectedDataset = $_POST['datasetsVisualization'] ?? 'Traffic'; // Default to 'Traffic' if nothing is selected
+    $selectedDataset = $_GET['dataset'] ?? 'Traffic';
 
 ?>
 
@@ -24,14 +24,14 @@
         <nav class="nav">
             <ul class="menu">
                 <li class="menu-item">
-                    <a href="#">Traffico</a>
+                    <a href="?dataset=Traffic">Traffico</a>
                     <ul class="submenu">
                         <li><a href="#">Carica Dati</a></li>
                         <li><a href="#">Visualizza Mappa</a></li>
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="#">Votazioni</a>
+                    <a href="?dataset=Balloting">Votazioni</a>
                     <ul class="submenu">
                         <li><a href="#">Carica Dati</a></li>
                         <li><a href="#">Visualizza Sedute</a></li>
@@ -39,7 +39,7 @@
                         <li><a href="#">Visualizza Gruppi</a></li>
                     </ul>
                 </li>
-                <li class="menu-item" onclick="showTab(1)">
+                <li class="menu-item" onclick="showTab(3)">
                     <a href="#">Register a User</a>
                 </li>
                 <li class="menu-item" onclick="showTab(2)">
@@ -257,24 +257,30 @@
 
                 </div>
             <?php endif; ?>
-            <div class="tab-content data-visualization" 
-                style="<?php if (!isset($_SESSION['admin_id']) || hasOnlyViewPermission()) echo 'display: block;'; ?>">
-                <h3>Data Visualization</h3>
-                <p>Select the data you would like to work with</p>
-                <form method="POST" action="">
-                    <select id="datasetsVisualization" name="datasetsVisualization" onchange="this.form.submit()">
-                        <option value="Traffic" <?php if ($selectedDataset == 'Traffic') echo 'selected'; ?>>Traffic</option>
-                        <option value="Balloting" <?php if ($selectedDataset == 'Balloting') echo 'selected'; ?>>Balloting</option>
-                    </select>
-                </form>
-                <?php
-                    if ($selectedDataset == 'Traffic') {
-                        include './mapVisualization.php';
-                    } elseif ($selectedDataset == 'Balloting') {
-                        include './votazioni/home.html';
-                    }
-                ?>
-            </div>
+        <!-- Tab per il contenuto di Traffic -->
+        <div class="tab-content" id="traffic-content" style="display: <?php echo $selectedDataset === 'Traffic' ? 'block' : 'none'; ?>;">
+            <h3>Visualizzazione Dati Traffico</h3>
+            <?php
+                if ($selectedDataset === 'Traffic') {
+                    include './mapVisualization.php'; // Carica il contenuto del traffico
+                }
+            ?>
+        </div>
+
+        <!-- Tab per il contenuto di Balloting -->
+        <div class="tab-content" id="balloting-content" style="display: <?php echo $selectedDataset === 'Balloting' ? 'block' : 'none'; ?>;">
+            <h3>Visualizzazione Dati Votazioni</h3>
+            <?php
+                if ($selectedDataset === 'Balloting') {
+                    include './votazioni/home.html'; // Carica il contenuto delle votazioni
+                }
+            ?>
+        </div>
+
+
+
+
+
 
 
             <!-- Elementmodal per visualizzare il riepilogo -->

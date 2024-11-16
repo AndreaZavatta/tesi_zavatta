@@ -6,6 +6,8 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     $activeTab = $_GET['tab'] ?? 'Traffic';
+    $userPermissions = isset($_SESSION['admin_id']) ? getUserPermissions($_SESSION['admin_id'], $connection) : ['Visualizzazione Dati Mappa', 'Visualizzazione Dati Votazioni'];
+
 
 ?>
 
@@ -25,31 +27,60 @@
         <div class="hamburger-menu" onclick="toggleHamburgerMenu()">
             <i class="fas fa-bars"></i>
         </div>
-        <ul class="menu">
-            <li class="menu-item">
-                <a href="?tab=traffic">Traffico <i class="fas fa-caret-down"></i></a>
-                <ul class="submenu">
+<ul class="menu">
+    <!-- Traffic Section -->
+    <?php 
+    if (in_array('Visualizzazione Dati Mappa', $userPermissions) || in_array('Import Dati Nella Mappa', $userPermissions)): ?>
+        <li class="menu-item">
+            <a href="?tab=traffic">Traffico <i class="fas fa-caret-down"></i></a>
+            <ul class="submenu">
+                <?php if (in_array('Import Dati Nella Mappa', $userPermissions)): ?>
                     <li><a href="?tab=traffic-load-data">Carica Dati</a></li>
+                <?php endif; ?>
+                <?php if (in_array('Visualizzazione Dati Mappa', $userPermissions)): ?>
                     <li><a href="?tab=traffic">Visualizza Mappa</a></li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <a href="?tab=balloting">Votazioni <i class="fas fa-caret-down"></i></a>
-                <ul class="submenu">
+                <?php endif; ?>
+            </ul>
+        </li>
+    <?php endif; ?>
+
+    <!-- Balloting Section -->
+    <?php if (in_array('Visualizzazione Dati Votazioni', $userPermissions) || in_array('Import Dati Votazioni', $userPermissions)): ?>
+        <li class="menu-item">
+            <a href="?tab=balloting">Votazioni <i class="fas fa-caret-down"></i></a>
+            <ul class="submenu">
+                <?php if (in_array('Import Dati Votazioni', $userPermissions)): ?>
                     <li><a href="?tab=balloting-load-data">Carica Dati</a></li>
+                <?php endif; ?>
+                <?php if (in_array('Visualizzazione Dati Votazioni', $userPermissions)): ?>
                     <li><a href="?tab=balloting" onclick="simulateClick('sedute-desktop-button')">Visualizza Sedute</a></li>
                     <li><a href="?tab=balloting" onclick="simulateClick('consiglieri-desktop-button')">Visualizza Consiglieri</a></li>
                     <li><a href="?tab=balloting" onclick="simulateClick('gruppi-desktop-button')">Visualizza Gruppi</a></li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <a href="?tab=register-user">Register a User</a>
-            </li>
-            <li class="menu-item">
-                <a href="?tab=handle-user">Handle Users</a>
-            </li>
-            <li class="space-nav"></li>
-            <li class="menu-item profile-tab">
+                <?php endif; ?>
+            </ul>
+        </li>
+    <?php endif; ?>
+
+    <!-- User Management Section -->
+    <?php if (in_array('Registrazione Utente', $userPermissions) ): ?>
+        <li class="menu-item">
+            <?php if (in_array('Registrazione Utente', $userPermissions)): ?>
+                <a href="?tab=register-user">Registra un utente</a>
+            <?php endif; ?>
+        </li>
+    <?php endif; ?>
+
+        <?php if (in_array('Eliminazione Utente', $userPermissions)): ?>
+        <li class="menu-item">
+            <?php if (in_array('Eliminazione Utente', $userPermissions)): ?>
+                <a href="?tab=handle-user">Gestisci utenti</a>
+            <?php endif; ?>
+        </li>
+    <?php endif; ?>
+
+    <li class="space-nav"></li>
+
+    <li class="menu-item profile-tab">
                 <div class="profile-info-nav">
                         <p>
                             <?php if (isset($_SESSION['admin_id'])): ?>
@@ -69,9 +100,8 @@
                                     } else {
                                         echo "Errore nel recupero del profilo.";
                                     }
-
                                     $stmt->close();
-
+                                    
                                     // Fetch profile name using the function
                                     $profileName = getProfileNameByUserId($adminId, $connection);
 
@@ -87,9 +117,12 @@
                             <?php endif; ?>
                         </p>
                         <i class="fas fa-user profile-icon"></i>
-                </div>
-            </li>
-        </ul>
+            </div>
+    </li>
+
+
+</ul>
+
 
 
         </nav>
@@ -183,6 +216,9 @@
                         <h3>Permessi:</h3>
                         <select name="permissions" id="permissions-picklist" onchange="fetchPermissionDescription()">
                             <?php if (!empty($permissions)): ?>
+                                    <option value="--none--">
+                                        --none--
+                                    </option>
                                 <?php foreach ($permissions as $permission): ?>
                                     <option value="<?php echo htmlspecialchars($permission); ?>">
                                         <?php echo htmlspecialchars($permission); ?>
@@ -209,7 +245,7 @@
                 <!-- Menu Tabs -->
                 <?php if (isset($_SESSION['admin_id']) && hasImportDataPermissions()): ?>
                     <div class="tab-content" style="display: <?php echo $activeTab === 'traffic-load-data' ? 'block' : 'none'; ?>;">
-                        <h3>Load file</h3>
+                        <h3>Carica il file</h3>
                         <!-- Section for Application 1 -->
                         <?php if (isset($_SESSION['admin_id'])): ?>
                             <?php if (haspermission('Import Dati Nella Mappa ')): ?>
@@ -219,7 +255,7 @@
                                         <label for="csv_file_app1">Choose the CSV file for visualizing data on the map</label>
                                         <input type="file" id="csv_file_app1" name="csv_file" accept=".csv" required>
                                         <div class="load_buttons">
-                                            <button type="submit">Load File</button>
+                                            <button type="submit">Carica il file</button>
                                             <div id="delete_container">
                                                 <button id="delete-table-btn" onclick="deleteAllTablesMap();">Delete tables</button>
                                             </div>
@@ -233,7 +269,7 @@
                                 
                 <?php if (isset($_SESSION['admin_id']) && hasImportDataPermissions()): ?>
                     <div class="tab-content" style="display: <?php echo $activeTab === 'balloting-load-data' ? 'block' : 'none'; ?>;">
-                        <h3>Load file</h3>
+                        <h3>Carica il file</h3>
                         <!-- Section for Application 1 -->
                         <?php if (isset($_SESSION['admin_id'])): ?>
                         <!-- Section for Application 2 -->
@@ -259,7 +295,7 @@
                 
                 <?php if (isset($_SESSION['admin_id']) && hasPermission('Registrazione Utente')): ?>
                     <div class="tab-content" id="register-user-tab" style="display: <?php echo $activeTab === 'register-user' ? 'block' : 'none'; ?>;">
-                        <h3>Register a User</h3>
+                        <h3>Registra un utente</h3>
                         <form onsubmit="event.preventDefault(); registerUser();">
                             <label for="username">Username:</label>
                             <input type="text" id="username" required>
@@ -267,13 +303,13 @@
                             <label for="password">Password:</label>
                             <input type="password" id="password" required>
 
-                            <label for="confirm_password">Confirm Password:</label>
+                            <label for="confirm_password">Conferma Password:</label>
                             <input type="password" id="confirm_password" required>
 
                             <!-- Profile Picklist -->
-                            <label for="profile">Profile:</label>
+                            <label for="profile">Profilo:</label>
                             <select id="profile" required>
-                                <option value="" disabled selected>Select a Profile</option>
+                                <option value="" disabled selected>Seleziona un profilo</option>
                                 <?php foreach ($profiles as $profile): ?>
                                     <option value="<?= $profile['id']; ?>"><?= htmlspecialchars($profile['role_name']); ?></option>
                                 <?php endforeach; ?>
@@ -289,13 +325,13 @@
 
             <?php if (isset($_SESSION['admin_id']) && hasSomeUserPermission()): ?>
                 <div class="tab-content" style="display: <?php echo $activeTab === 'handle-user' ? 'flex' : 'none'; ?>;">
-                    <h3>Handle Users</h3>
+                    <h3>Gestisci gli utenti</h3>
                     <table id="users-table">
                         <thead>
                             <tr>
                                 <th>Username</th>
                                 <th>Password</th>
-                                <th>Azioni</th>
+                                <th>Elimina</th>
                             </tr>
                         </thead>
                         <tbody>

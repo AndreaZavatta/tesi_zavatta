@@ -30,6 +30,7 @@ fieldset {
 	height: 60%;
 	background-color: #ffe4e6; /* Very light pink for a subtle background */
 	border-radius: 5px;
+	z-index: 1;
 }
 
 /* Hidden elements */

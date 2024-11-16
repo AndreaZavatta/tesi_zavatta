@@ -96,24 +96,24 @@ function simulateClick(buttonId) {
 
 
 function showUserInfo(){
-            document.querySelector('.profile-tab').addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent default navigation behavior
+    document.querySelector('.profile-tab').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent default navigation behavior
 
-            const contElements = document.querySelectorAll('.cont');
+    const contElements = document.querySelectorAll('.cont');
 
-            if (contElements.length > 1) {
-                // Check if the second element is currently hidden
-                if (contElements[1].style.display === 'none') {
-                    contElements[1].style.display = 'block';
-                    contElements[0].style.display = 'none';
-                    // Show both elements
-                } else {
-                    // Hide the second element
-                    contElements[1].style.display = 'none';
-                    contElements[0].style.display = 'block';
-                }
-            }
-        });
+    if (contElements.length > 1) {
+        // Check if the second element is currently hidden
+        if (contElements[1].style.display === 'none') {
+            contElements[1].style.display = 'block';
+            contElements[0].style.display = 'none';
+            // Show both elements
+        } else {
+            // Hide the second element
+            contElements[1].style.display = 'none';
+            contElements[0].style.display = 'block';
+        }
+    }
+});
 }
 
 function setupNavbarToggle() {

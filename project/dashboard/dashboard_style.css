@@ -144,7 +144,7 @@ label {
 }
 
 #traffic-tab {
-	margin-top: 200px;
+	margin-top: 360px;
 	height: 800px;
 }
 
@@ -469,7 +469,7 @@ button:hover {
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 630px) {
 	.submenu {
 		position: relative;
 		left: 100%; /* Posiziona il sottomenu a destra del genitore */
@@ -495,7 +495,7 @@ button:hover {
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 630px) {
 	.menu-item > a i {
 		transform: rotate(270deg); /* Verso il basso */
 	}

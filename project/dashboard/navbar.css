@@ -87,7 +87,7 @@ ul {
 	display: block;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 630px) {
 	.menu {
 		display: none; /* Hide the menu */
 		position: absolute;
@@ -115,13 +115,13 @@ ul {
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 630px) {
 	.menu {
 		flex-direction: column;
 	}
 }
 
-@media (min-width: 600px) {
+@media (min-width: 631px) {
 	.hamburger-menu {
 		display: none;
 	}

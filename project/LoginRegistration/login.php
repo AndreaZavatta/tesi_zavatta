@@ -24,7 +24,7 @@ function login($username, $password, $connection) {
     if ($admin && password_verify($password, $admin['password_hash'])) {
         // Set session for the authenticated admin
         $_SESSION['admin_id'] = $admin['id'];
-        header('Location: ../dashboard/dashboard.php');
+        header('Location: ../dashboard/dashboard.php?tab=traffic');
         exit();
     } else {
         $errorMessage = "Username o password errati!";
@@ -82,7 +82,7 @@ function login($username, $password, $connection) {
             <p>Non hai un account? <a href="register.php">Registrati qui</a></p>
         </div>
         <div class="login-link">
-            <p>Non vuoi registrarti? <a href="../dashboard/dashboard.php">Accedi senza login</a></p>
+            <p>Non vuoi registrarti? <a href="../dashboard/dashboard.php?tab=traffic">Accedi senza login</a></p>
         </div>
     </div>
 </body>
